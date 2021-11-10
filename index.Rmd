@@ -1,6 +1,6 @@
 --- 
-title: "YOUR TITLE HERE"
-author: "YOUR NAMES HERE"
+title: "U.S. Clean Energy Industry Analysis"
+author: "Raihan Bashir, Gabrielle Nyirjesy, Abhimanyu Swaroop"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 ---
