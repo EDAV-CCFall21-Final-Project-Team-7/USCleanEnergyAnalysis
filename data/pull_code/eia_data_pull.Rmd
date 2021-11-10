@@ -29,7 +29,7 @@ pull_eia_data <- function(id){
   df <- df %>% rename('thousand_megawatthours'='value')
 }
 
-eia_set_key("b7369a57166eee9b3612e8774f172306", store = c("env", "options", "sysenv"))
+eia_set_key("<enter API key here>", store = c("env", "options", "sysenv"))
 #fuel type abbreviations
 fuels <- c('COW', 'PEL', 'PC', 'NG', 'OOG','NUC', 'HYC', 'AOR', 'WND', 'SUN', 'SPV', 'STH', 'GEO', 'WWW', 'WAS','HPS','OTH', 'TSN','DPV')
 #Coal, petroleum liquids, petroleum coke, natural gas, other gas, nuclear, conventional hydroelectic, other renewables, wind, all utility scale solar, utility scale photovoltaic, utility scale thermal, geothermal, wood and wood derived fuels, other biomass, hydroelectic pumped storage, other, all solar, small scale solar photovoltaic
@@ -56,7 +56,7 @@ for(i in 71:length(id)){
 output_df$fuel <- trimws(output_df$fuel)
 
 
-write.csv(output_df, '/Users/gabbynyirjesy/Documents/EDAV/Final Project/monthly_fuel_generation_by_state.csv')
+write.csv(output_df, 'data/raw/monthly_fuel_generation_by_state.csv')
 
 ```
 
