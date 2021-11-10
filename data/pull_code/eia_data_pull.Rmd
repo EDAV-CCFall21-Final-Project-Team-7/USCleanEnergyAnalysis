@@ -1,0 +1,62 @@
+---
+title: "EDAV Final Project"
+author: "Gabrielle Nyirjesy"
+date: "11/6/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r cars}
+# install.packages(c("httr", "jsonlite"))
+library(httr)
+library(jsonlite)
+library(RCurl)
+library(eia)
+library(dplyr)
+```
+
+```{r}
+pull_eia_data <- function(id){
+  x1 <- eia_series(id)
+  df <- x1$data[[1]]
+  df$state <- x1$geography
+  df$fuel <- strsplit(x1$name, ":") 
+  df$fuel <- df$fuel[[1]][2]
+  df <- df %>% rename('thousand_megawatthours'='value')
+}
+
+eia_set_key("b7369a57166eee9b3612e8774f172306", store = c("env", "options", "sysenv"))
+#fuel type abbreviations
+fuels <- c('COW', 'PEL', 'PC', 'NG', 'OOG','NUC', 'HYC', 'AOR', 'WND', 'SUN', 'SPV', 'STH', 'GEO', 'WWW', 'WAS','HPS','OTH', 'TSN','DPV')
+#Coal, petroleum liquids, petroleum coke, natural gas, other gas, nuclear, conventional hydroelectic, other renewables, wind, all utility scale solar, utility scale photovoltaic, utility scale thermal, geothermal, wood and wood derived fuels, other biomass, hydroelectic pumped storage, other, all solar, small scale solar photovoltaic
+id <- list()
+for(i in 1:length(fuels)){
+  id <- c(id, paste0("ELEC.GEN.", fuels[i], "-", state.abb, "-99.M"))
+}
+
+output_df <- data.frame(matrix(ncol=4, nrow=0))
+colnames(output_df) <- c('state','fuel', 'thousand_megawatthours', 'date')
+
+#finished through 200
+for(i in 71:length(id)){
+  print(id[[i]])
+  result <- NULL
+  try(result <- pull_eia_data(id[[i]][1]), silent = TRUE)
+  if(length(result) > 0){
+  output_df <- rbind(output_df, result %>% select(-c('year', 'month')))
+  }
+  else{
+    print(paste0(id[[i]], ' failed'))
+  }
+}
+output_df$fuel <- trimws(output_df$fuel)
+
+
+write.csv(output_df, '/Users/gabbynyirjesy/Documents/EDAV/Final Project/monthly_fuel_generation_by_state.csv')
+
+```
+
