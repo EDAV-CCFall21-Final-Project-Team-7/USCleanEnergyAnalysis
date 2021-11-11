@@ -18,6 +18,7 @@ library(GGally)
 ```
 
 ```{r}
+#https://www.eia.gov/electricity/data/browser/#/topic/0?freq=M&start=200101&end=202108&ctype=linechart&ltype=pin&pin=&maptype=0
 df <- read.csv('data/raw/monthly_fuel_generation_by_state_full.csv')
 df$fuel <- trimws(df$fuel) 
 df$date <- as.Date(df$date)
@@ -113,4 +114,14 @@ comp_df <-df %>% select(c(state, fuel, date, thousand_megawatthours)) %>%
   ggparcoord(comp_df, columns=c(array(3:21)), scale= "uniminmax", alphaLines = .3, splineFactor = 9, groupColumn = "state") +
   theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))
 ```
+
+Checking correlation between financial data and amount of energy produced
+```{r}
+
+#Why is hydro negative?
+
+unique(df$fuel)
+```
+
+Strip off USA- from state col and plot them on a map
 
