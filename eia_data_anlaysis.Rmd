@@ -1,0 +1,116 @@
+---
+title: "eia_data_analysis"
+author: "Gabrielle Nyirjesy"
+date: "11/7/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tidyverse)
+library(data.table)
+library(d3r)
+library(parcoords)
+library(GGally)
+```
+
+```{r}
+df <- read.csv('data/raw/monthly_fuel_generation_by_state_full.csv')
+df$fuel <- trimws(df$fuel) 
+df$date <- as.Date(df$date)
+df[is.na(df$thousand_megawatthours),]$thousand_megawatthours <- 0
+df$fuel <- gsub(" ", "_", df$fuel)
+df$fuel <- gsub("-", "_", df$fuel)
+```
+
+way to view the n/a columns for dates
+```{r}
+test <- df %>% pivot_wider(id_cols = c(state, fuel), names_from= date, values_from = thousand_megawatthours)
+test
+missing_patterns <- data.frame(is.na(test)) %>%
+  group_by_all() %>%
+  count(name = "count", sort = TRUE) %>%
+  ungroup()
+```
+View which fuel types are missing for each state
+```{r}
+test2 <- df %>% group_by(state, fuel) %>% summarize(total_thousand_mwh = sum(thousand_megawatthours)) %>% pivot_wider(id_cols = c(state), names_from= fuel, values_from = total_thousand_mwh)
+test2
+```
+
+
+```{r}
+df %>% filter(state == 'USA-AL') %>% 
+  ggplot(aes(x = date, y = thousand_megawatthours, color = fuel)) + 
+  geom_line() #+ 
+  #facet_wrap(~fuel)#, ncol = 1, scales="free")
+
+#could do a boxplot for each state, or even a cleveland dot plot
+```
+```{r}
+df %>% filter(state == 'USA-CA') %>% 
+  group_by(fuel) %>% mutate(thousand_megawatthours_norm = scale(thousand_megawatthours)) %>%
+  ggplot(aes(x = date, y = thousand_megawatthours_norm)) +
+  facet_wrap(~fuel) +
+  geom_line()
+```
+```{r}
+df  %>% 
+  group_by(fuel, date) %>% summarise(thousand_megawatthours = sum(thousand_megawatthours)) %>% filter(fuel %in% c('all_solar', 'all_utility_scale_solar', 'coal','natural_gas', 'wind')) %>%
+  ggplot(aes(x = date, y = thousand_megawatthours, color = fuel)) +
+
+  geom_line()
+```
+Missing values: "all solar" values don't begin until 2015; however, "all utility scale solar" has values beginning in 2001. The aggregation is off here for the all_utility_scale_solar section
+```{r}
+
+df %>% group_by(fuel, date) %>% 
+  summarise(thousand_megawatthours = sum(thousand_megawatthours)) %>% 
+  filter(fuel %like% 'solar') %>%
+  ggplot(aes(x = date, y = thousand_megawatthours, color = fuel)) +
+  geom_line()
+```
+for the plots to make sense, need to set the all solar value to be all_utility_scale_solar for the time period before small_scale_solar_photovoltaic had values
+```{r}
+#df$thousand_megawatthours[df$]
+```
+
+
+look at which fuel sources are correlated
+```{r}
+df %>% select(c(fuel, date, thousand_megawatthours)) %>% 
+  group_by(fuel, date) %>% 
+  summarise(thousand_megawatthours = sum(thousand_megawatthours)) %>% ungroup() %>%
+  pivot_wider(names_from=fuel, id_cols = date, values_from = thousand_megawatthours) %>% 
+  ggplot(aes(x=all_utility_scale_solar, y = natural_gas)) + 
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  ggtitle("Natural Gas vs. Solar") +
+  theme(plot.title = element_text(hjust = .5),
+          panel.grid.major = element_blank(),
+        panel.background = element_blank(),
+        axis.line = element_line(colour = "black"))
+```
+plot of percent growth for each fuel type over the entire time period - could do this as a cleveland dot plot - should probably make the values annualized before doing the growth values becuase the numbers are seasonal
+```{r}
+df %>% select(c(fuel, date, thousand_megawatthours)) %>% 
+  group_by(fuel, date) %>% 
+  summarise(thousand_megawatthours = sum(thousand_megawatthours)) %>% ungroup() %>%
+  pivot_wider(names_from=fuel, id_cols = date, values_from = thousand_megawatthours) %>%
+  ggparcoord(columns=c(array(2:20)), scale= "uniminmax", alphaLines = .3, splineFactor = 9) +
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))
+
+```
+```{r}
+comp_df <-df %>% select(c(state, fuel, date, thousand_megawatthours)) %>% 
+  group_by(state, fuel, date) %>% 
+  summarise(thousand_megawatthours = sum(thousand_megawatthours)) %>% ungroup() %>%
+  pivot_wider(names_from=fuel, id_cols = c(date, state), values_from = thousand_megawatthours)
+
+  ggparcoord(comp_df, columns=c(array(3:21)), scale= "uniminmax", alphaLines = .3, splineFactor = 9, groupColumn = "state") +
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))
+```
+
