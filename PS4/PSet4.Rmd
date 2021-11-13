@@ -45,9 +45,15 @@ missing_patterns <- data.frame(is.na(mycars)) %>%
 ```{r}
 #missing_patterns_sums <- missing_patterns %>% mutate_all(as.integer)
 #missing_patterns_sums <- tibble::rownames_to_column(missing_patterns_sums, "pattern") %>% adorn_totals("row")
-missing_patterns_sums <- missing_patterns %>% select(-c(count)) %>% summarise_all(sum) %>% pivot_longer(cols=everything()) %>% arrange(desc(value))
+missing_patterns_sums <- missing_patterns %>%
+  select(-c(count)) %>%
+  summarise_all(sum) %>%
+  pivot_longer(cols=everything()) %>%
+  arrange(desc(value))
+
 column_reorder <- missing_patterns_sums$name
-g1 <- ggplot(missing_patterns_sums, aes(x=fct_reorder(name, -value), y=value)) + 
+
+g1 <- ggplot(missing_patterns_sums, aes(x=fct_reorder(name, -value), y=value))+
   geom_bar(stat='identity', fill='#9eb7ee') +
   scale_y_continuous(limits=c(0, max(missing_patterns_sums$value)), expand=c(0,0)) +
   xlab('') +
@@ -63,9 +69,13 @@ g1 <- ggplot(missing_patterns_sums, aes(x=fct_reorder(name, -value), y=value)) +
 g1
 ```
 ```{r}
-g3 <- missing_patterns %>% rowid_to_column(var="pattern") %>% mutate(pattern = factor(pattern)) %>%
+missing_patterns$col <- as.factor(ifelse(missing_patterns$count == 5, 1, 0.5))
+
+g3 <- missing_patterns %>%
+  rowid_to_column(var="pattern") %>%
+  mutate(pattern = factor(pattern)) %>%
   ggplot(aes(y=fct_reorder(pattern, -desc(count)), x=count)) + 
-  geom_bar(stat='identity', fill='#9eb7ee') +
+  geom_bar(stat='identity', fill='#9eb7ee',aes(alpha = factor(missing_patterns$col))) +
   scale_x_continuous(limits=c(0, max(missing_patterns$count)), expand=c(0,0)) + #, breaks = seq(0,max(missing_patterns$count), 5) if want to have the y axis break on 5s
   xlab('') +
   ylab('row count') +
@@ -75,13 +85,16 @@ g3 <- missing_patterns %>% rowid_to_column(var="pattern") %>% mutate(pattern = f
         panel.grid.minor.y = element_blank(),
         panel.grid.major.y = element_blank(),
         panel.grid.major.x = element_line(color='darkgray', size=.1)) +
+  scale_alpha_manual(values=c("0.5"=0.5,"1"=1),guide="none") +
   coord_fixed(3)
 g3
 ```
 
 
 ```{r}
-main_plot_df <- missing_patterns %>% select(-c(count)) %>% as_tibble() %>%
+main_plot_df <- missing_patterns %>%
+  select(-c(count)) %>%
+  as_tibble() %>%
   rowid_to_column(var="Y") %>%
   gather(key="X", value="Z", -1) 
 
@@ -101,39 +114,25 @@ g2 <- ggplot(main_plot_df, aes(X, Y, fill= Z)) +
 g2
 ```
 ```{r}
-g1  /
-g2 | g3 
 
-layout <- c(
-  area(t = 1, b = 1, l=1, r= 3),
-  area(t=2, l=1, b=4, r=3),
-  area(t=2,b=4,l=3, r=3)
-)
+library("ggpubr")
+library("egg")
+blank <- ggplot() + 
+              geom_point(aes(1,1), colour="white") +
+              theme(                              
+                plot.background = element_blank(), 
+                panel.grid.major = element_blank(), 
+                panel.grid.minor = element_blank(), 
+                panel.border = element_blank(), 
+                panel.background = element_blank(),
+                axis.title.x = element_blank(),
+                axis.title.y = element_blank(),
+                axis.text.x = element_blank(),
+                axis.text.y = element_blank(),
+                axis.ticks = element_blank()
+              )
 
-# Show the layout to make sure it looks as it should
-g1 + g2 + g3 +
-  plot_layout(design = layout)
-# 
-# (((g1 + plot_spacer())/g2) | g3)
-# 
-# g1 + plot_spacer() + g2 + g3  + plot_layout(widths = c(5, 1), heights = c(1,5))
-# 
-# layout <- "
-# AA#
-# BBC
-# BBC
-# BBC
-# BBC
-# "
-# g1 + g2 + g3 +
-#   plot_layout(design = layout)
-# 
-# layout <- '
-# AA#
-# BBC
-# BBC
-# '
-# wrap_plots(A = g1, B = g2, C = g3, design = layout)
+ggarrange(g1,blank,g2,g3,ncol=2,nrow=2,widths = c(16,4),heights=c(1,4))
 ```
 
 
