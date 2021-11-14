@@ -93,7 +93,7 @@ g3
 
 ```{r}
 main_plot_df <- missing_patterns %>%
-  select(-c(count)) %>%
+  select(-c(count, col)) %>%
   as_tibble() %>%
   rowid_to_column(var="Y") %>%
   gather(key="X", value="Z", -1) 
