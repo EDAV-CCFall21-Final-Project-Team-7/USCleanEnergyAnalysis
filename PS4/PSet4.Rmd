@@ -45,10 +45,9 @@ missing_patterns <- data.frame(is.na(mycars)) %>%
 ```{r}
 #missing_patterns_sums <- missing_patterns %>% mutate_all(as.integer)
 #missing_patterns_sums <- tibble::rownames_to_column(missing_patterns_sums, "pattern") %>% adorn_totals("row")
-missing_patterns_sums <- missing_patterns %>%
-  select(-c(count)) %>%
-  summarise_all(sum) %>%
-  pivot_longer(cols=everything()) %>%
+missing_patterns_sums <- mycars %>%
+  summarise(across(everything(), ~ sum(is.na(.)))) %>% 
+  pivot_longer(cols = names(mycars), names_to='name',values_to='value') %>%
   arrange(desc(value))
 
 column_reorder <- missing_patterns_sums$name
@@ -150,7 +149,117 @@ ggarrange(g1,blank,g2,g3,ncol=2,nrow=2,widths = c(16,4),heights=c(1,4))
 
 a) Create a function for creating missing plots based on your code from question 1. It should provide an option to show either missing counts or missing percent. The percent option for `mycars` is shown below.
 ```{r}
+find_missing_patterns <- function(df, aggregation = 'count'){
+  
+  #find missing patterns
+  missing_patterns <- data.frame(is.na(df)) %>%
+  group_by_all() %>%
+  count(name = "count", sort = TRUE) %>%
+  ungroup()
+    #create g1
+  missing_patterns_sums <- mycars %>%
+  summarise(across(everything(), ~ sum(is.na(.)))) %>% 
+  pivot_longer(cols = names(mycars), names_to='name',values_to='value') %>%
+  arrange(desc(value))
+  
+   if (aggregation=='percent'){
+    total_sum<-length(row.names(df))
+    missing_patterns_sums$value<- missing_patterns_sums$value*100/total_sum
+    print(total_sum)
+  }
+  column_reorder <- missing_patterns_sums$name
+  
+  g1 <- ggplot(missing_patterns_sums, aes(x=fct_reorder(name, -value), y=value))+
+    geom_bar(stat='identity', fill='#9eb7ee') +
+    scale_y_continuous(limits=c(0, max(missing_patterns_sums$value)), expand=c(0,0)) +
+    xlab('') +
+    ylab('num rows missing') +
+    ggtitle('Missing value patterns') +
+    theme(panel.border = element_rect(colour = "black", fill=NA, size=.5), 
+          panel.background = element_rect(fill = "white"),
+          panel.grid.minor.x = element_blank(),
+          panel.grid.minor.y = element_blank(),
+          panel.grid.major.x = element_blank(),
+          panel.grid.major.y = element_line(color='darkgray', size=.1)) +
+    coord_fixed(.3)
+  
+  #Create g3
+  missing_patterns_count <- missing_patterns %>% mutate_all((as.integer)) %>% adorn_totals("col")
+  missing_patterns_count$col <- as.factor(ifelse(missing_patterns_count$Total - missing_patterns_count$count == 0 , 1, 0.5))
+  missing_patterns_count$id <- row.names(missing_patterns_count)
+  
+  if(aggregation=='percent'){
+    missing_patterns_count$count<-missing_patterns_count$count*100/sum(missing_patterns_count$count)
+  }
+  
+  pattern_id <- missing_patterns_count  %>% filter(col == 1) %>% select(id) %>% as.character()
+  
+  g3 <- missing_patterns_count %>%
+    rowid_to_column(var="pattern") %>%
+    mutate(pattern = factor(pattern)) %>%
+    ggplot(aes(y=fct_reorder(pattern, -desc(count)), x=count)) + 
+    geom_bar(stat='identity', fill='#9eb7ee',aes(alpha = factor(missing_patterns_count$col))) +
+    scale_x_continuous(limits=c(0, max(missing_patterns_count$count)), expand=c(0,0)) + #, breaks = seq(0,max(missing_patterns$count), 5) if want to have the y axis break on 5s
+    xlab('') +
+    ylab('row count') +
+    theme(panel.border = element_rect(colour = "black", fill=NA, size=.5), 
+          panel.background = element_rect(fill = "white"),
+          panel.grid.minor.x = element_blank(),
+          panel.grid.minor.y = element_blank(),
+          panel.grid.major.y = element_blank(),
+          panel.grid.major.x = element_line(color='darkgray', size=.1)) +
+    scale_alpha_manual(values=c("0.5"=0.5,"1"=1),guide="none") +
+    coord_fixed(3)
+  
+  #create g2
+  main_plot_df <- missing_patterns %>%
+  select(-c(count)) %>%
+  as_tibble() %>%
+  rowid_to_column(var="Y") %>%
+  gather(key="X", value="Z", -1) 
 
+  main_plot_df$X <- as.factor(main_plot_df$X)
+  main_plot_df$Y <- as.factor(main_plot_df$Y)
+  main_plot_df$X <- fct_relevel(main_plot_df$X, column_reorder)
+  main_plot_df$Y <- fct_relevel(main_plot_df$Y, rev(levels(main_plot_df$Y)))
+  
+  
+  main_plot_df$Z <- as.factor(ifelse(main_plot_df$Y == pattern_id, .5, main_plot_df$Z))
+  
+  
+  g2 <- ggplot(main_plot_df, aes(X, Y, fill= Z)) + 
+      geom_tile(color='white') +
+      theme(legend.position="none") +
+    scale_fill_manual(values=c('#cacaca', 'darkgray', '#b2a0e1')) +
+    xlab('Variable') +
+    ylab('Missing Pattern') +
+    theme_classic() +
+    theme(legend.position = "none") +
+    coord_equal() + coord_fixed(ratio = 1)
+  
+  #Arrange graphs
+  blank <- ggplot() + 
+              geom_point(aes(1,1), colour="white") +
+              theme(                              
+                plot.background = element_blank(), 
+                panel.grid.major = element_blank(), 
+                panel.grid.minor = element_blank(), 
+                panel.border = element_blank(), 
+                panel.background = element_blank(),
+                axis.title.x = element_blank(),
+                axis.title.y = element_blank(),
+                axis.text.x = element_blank(),
+                axis.text.y = element_blank(),
+                axis.ticks = element_blank()
+              )
+
+  ggarrange(g1,blank,g2,g3,ncol=2,nrow=2,widths = c(8,4),heights=c(1,4))
+  return(missing_patterns_count)
+}
+```
+
+```{r,fig.width=12,fig.height=12}
+test <- find_missing_patterns(mycars, 'percent')
 ```
 
 
