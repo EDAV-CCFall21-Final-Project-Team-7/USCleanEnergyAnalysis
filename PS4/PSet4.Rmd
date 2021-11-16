@@ -72,7 +72,10 @@ missing_patterns_count <- missing_patterns %>% mutate_all((as.integer)) %>% ador
 missing_patterns_count$col <- as.factor(ifelse(missing_patterns_count$Total - missing_patterns_count$count == 0 , 1, 0.5))
 missing_patterns_count$id <- row.names(missing_patterns_count)
 
-pattern_id <- missing_patterns_count  %>% filter(col == 1) %>% select(id) %>% as.character()
+pattern_id <- missing_patterns_count  %>% 
+  filter(col == 1) %>% 
+  select(id) %>% 
+  as.character()
 
 g3 <- missing_patterns_count %>%
   rowid_to_column(var="pattern") %>%
@@ -109,16 +112,19 @@ main_plot_df$Y <- fct_relevel(main_plot_df$Y, rev(levels(main_plot_df$Y)))
 
 main_plot_df$Z <- as.factor(ifelse(main_plot_df$Y == pattern_id, .5, main_plot_df$Z))
 
+annotation <- data.frame(x = 3, y = , label = 'complete cases')
 
 g2 <- ggplot(main_plot_df, aes(X, Y, fill= Z)) + 
     geom_tile(color='white') +
     theme(legend.position="none") +
   scale_fill_manual(values=c('#cacaca', 'darkgray', '#b2a0e1')) +
+  annotate("text",x=length(unique(main_plot_df$X))/2,y=length(unique(main_plot_df$Y))-as.integer(pattern_id)+1,label='complete cases') + 
   xlab('Variable') +
   ylab('Missing Pattern') +
   theme_classic() +
   theme(legend.position = "none") +
-  coord_equal() + coord_fixed(ratio = 1)
+  coord_equal() + 
+  coord_fixed(ratio = 1)
 g2
 ```
 ```{r}
@@ -231,6 +237,7 @@ find_missing_patterns <- function(df, aggregation = 'count'){
       geom_tile(color='white') +
       theme(legend.position="none") +
     scale_fill_manual(values=c('#cacaca', 'darkgray', '#b2a0e1')) +
+    annotate("text",x=length(unique(main_plot_df$X))/2,y=length(unique(main_plot_df$Y))-as.integer(pattern_id)+1,label='complete cases') + 
     xlab('Variable') +
     ylab('Missing Pattern') +
     theme_classic() +
@@ -259,7 +266,7 @@ find_missing_patterns <- function(df, aggregation = 'count'){
 ```
 
 ```{r,fig.width=12,fig.height=12}
-test <- find_missing_patterns(mycars, 'percent')
+test <- find_missing_patterns(mycars, 'count')
 ```
 
 
