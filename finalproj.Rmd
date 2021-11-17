@@ -1,0 +1,127 @@
+--- 
+title: "U.S. Clean Energy Industry Analysis"
+author: "Raihan Bashir, Gabrielle Nyirjesy, Abhimanyu Swaroop"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+---
+--- 
+title: "U.S. Clean Energy Industry Analysis"
+author: "Raihan Bashir, Gabrielle Nyirjesy, Abhimanyu Swaroop"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+---
+```{r include=FALSE, cache=FALSE}
+knitr::opts_chunk$set(
+  echo = FALSE,
+  message = FALSE,
+  warning = FALSE
+)
+```
+
+# Introduction
+
+
+<!--chapter:end:index.Rmd-->
+
+```{r include=FALSE, cache=FALSE}
+knitr::opts_chunk$set(
+  echo = FALSE,
+  message = FALSE,
+  warning = FALSE
+)
+```
+# Data sources
+
+
+<!--chapter:end:02-data.Rmd-->
+
+```{r include=FALSE, cache=FALSE}
+knitr::opts_chunk$set(
+  echo = FALSE,
+  message = FALSE,
+  warning = FALSE
+)
+```
+# Data transformation
+
+Correcting Date format in Financial Data
+```{r}
+library(tidyr)
+
+Crushing_crude_oil <-read_csv('data/raw/Cushing_OK_WTI_Spot_Price_FOB.csv')
+nchar(str_split(Crushing_crude_oil$Day[1],"/",simplify=TRUE)[3])
+
+i<-0
+for(val in Crushing_crude_oil$Day){
+  i<-i+1
+  if(nchar(str_split(Crushing_crude_oil$Day[i],"/",simplify=TRUE)[3]) == 2){
+    temp = paste(str_split(Crushing_crude_oil$Day[i],"/",simplify=TRUE)[1],
+                 str_split(Crushing_crude_oil$Day[i],"/",simplify=TRUE)[2],
+                 sep = "/")
+    temp2 = paste("20",
+                  str_split(Crushing_crude_oil$Day[i],"/",simplify=TRUE)[3],
+                  sep="")
+    Crushing_crude_oil$Day[i]<-paste(temp,temp2,sep="/")
+  }
+}
+write.csv(Crushing_crude_oil,'data/raw/clean_crushing_crude_oil.csv',
+          row.names=FALSE)
+Crushing_crude_oil
+```
+
+
+
+<!--chapter:end:03-cleaning.Rmd-->
+
+```{r include=FALSE, cache=FALSE}
+knitr::opts_chunk$set(
+  echo = FALSE,
+  message = FALSE,
+  warning = FALSE
+)
+```
+# Missing values
+
+<!--chapter:end:04-missing.Rmd-->
+
+```{r include=FALSE, cache=FALSE}
+knitr::opts_chunk$set(
+  echo = FALSE,
+  message = FALSE,
+  warning = FALSE
+)
+```
+# Results
+
+<!--chapter:end:05-results.Rmd-->
+
+```{r include=FALSE, cache=FALSE}
+knitr::opts_chunk$set(
+  echo = FALSE,
+  message = FALSE,
+  warning = FALSE
+)
+```
+# Interactive component
+
+
+
+<!--chapter:end:06-interactive.Rmd-->
+
+```{r include=FALSE, cache=FALSE}
+knitr::opts_chunk$set(
+  echo = FALSE,
+  message = FALSE,
+  warning = FALSE
+)
+```
+# Conclusion
+
+
+<!--chapter:end:07-conclusion.Rmd-->
+
+
+
+
+<!--chapter:end:eia_data_anlaysis.Rmd-->
+

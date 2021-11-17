@@ -281,13 +281,23 @@ c) Show the output for both options (counts / percent) for the `HollywoodMovies2
 
 a) Set up your final project repository following the [EDAVproject template](https://github.com/jtr13/EDAVtemplate). You can either choose one team member's GitHub account, or create an organization to house the final project. *Be sure to follow all of the steps in the README so your bookdown book renders with your information, not the placeholders in the template.* Edit the link below to point to your rendered book:
 
-https://[ACCOUNT NAME].github.io/[REPO NAME]
+https://edav-ccfall21-final-project-team-7.github.io/USCleanEnergyAnalysis/
 
 b) Make sure that all team members have write access to the repository and have practiced making contributions. Edit the link below to point to your contributors page, showing that all team members have made contributions to the repo (Note that we do not have the ability to see who has write access, only who has contributed):
 
-https://github.com/[ACCOUNT NAME]/[REPO NAME]/graphs/contributors
+https://github.com/EDAV-CCFall21-Final-Project-Team-7/USCleanEnergyAnalysis/graphs/contributors
 
 c) Discuss a plan for dividing up the work for the final project and briefly summarize what each person will do.
+
+1. Create GitHub - Raihan created an organization and set up the final project repository following the EDAVproject template and added team members to the repo (gnyirjesy, Abhimanyu210100, raihan-bashir)
+
+2. Acquire data/setup API connections
+      a. Gabby set up API key for EIA.gov
+      b. Abhimanyu downloaded Yahoo Finance data files
+      c. Raihan downloaded World Bank data file
+
+3. Data analysis for the respective datasources and collaborate on missing data analysis
+
 
 ### 4. Missing values chapter
 
