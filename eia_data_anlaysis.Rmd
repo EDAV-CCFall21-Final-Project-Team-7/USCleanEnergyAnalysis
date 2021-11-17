@@ -15,6 +15,9 @@ library(data.table)
 library(d3r)
 library(parcoords)
 library(GGally)
+library(janitor)
+library(egg)
+library(ggpubr)
 ```
 
 ```{r}
@@ -39,6 +42,7 @@ test2
 test3 <- test2
 test3$state <- NULL
 find_missing_patterns(test3, 'percent')
+ggsave('state-fuel type-missing patterns.png', height = 10, width = 10, units = "in")
 ```
 
 
