@@ -68,6 +68,7 @@ g1 <- ggplot(missing_patterns_sums, aes(x=fct_reorder(name, -value), y=value))+
   theme(aspect.ratio = .25)
 g1
 ```
+
 ```{r}
 missing_patterns_count <- missing_patterns %>% mutate_all((as.integer)) %>% adorn_totals("col")
 missing_patterns_count$col <- as.factor(ifelse(missing_patterns_count$Total - missing_patterns_count$count == 0 , 1, 0.5))
@@ -78,10 +79,12 @@ pattern_id <- missing_patterns_count  %>%
   select(id) %>% 
   as.character()
 
+missing_patterns_count$id <- factor(missing_patterns_count$id)
+missing_patterns_count$id <- fct_relevel(missing_patterns_count$id, paste(sort(as.integer(levels(missing_patterns_count$id)), decreasing = TRUE)))
 g3 <- missing_patterns_count %>%
-  rowid_to_column(var="pattern") %>%
-  mutate(pattern = factor(pattern)) %>%
-  ggplot(aes(y=fct_reorder(pattern, -desc(count)), x=count)) + 
+  #rowid_to_column(var="pattern") %>%
+  #mutate(pattern = factor(pattern)) %>%
+  ggplot(aes(y=fct_reorder(id, -desc(count)), x=count)) + 
   geom_bar(stat='identity', fill='#9eb7ee',aes(alpha = factor(missing_patterns_count$col))) +
   scale_x_continuous(limits=c(0, max(missing_patterns_count$count)), expand=c(0,0)) + #, breaks = seq(0,max(missing_patterns$count), 5) if want to have the y axis break on 5s
   xlab('') +
@@ -212,11 +215,12 @@ find_missing_patterns <- function(df, aggregation = 'count'){
     x_label = 'row count'
   }
   pattern_id <- missing_patterns_count  %>% filter(col == 1) %>% select(id) %>% as.character()
-  
+  missing_patterns_count$id <- factor(missing_patterns_count$id)
+  missing_patterns_count$id <- fct_relevel(missing_patterns_count$id, paste(sort(as.integer(levels(missing_patterns_count$id)), decreasing = TRUE)))
   g3 <- missing_patterns_count %>%
-    rowid_to_column(var="pattern") %>%
-    mutate(pattern = factor(pattern)) %>%
-    ggplot(aes(y=fct_reorder(pattern, -desc(count)), x=count)) + 
+    #rowid_to_column(var="pattern") %>%
+    #mutate(pattern = factor(pattern)) %>%
+    ggplot(aes(y=fct_reorder(id, -desc(count)), x=count)) + 
     geom_bar(stat='identity', fill='#9eb7ee',aes(alpha = factor(missing_patterns_count$col))) +
     scale_x_continuous(limits=c(0, max(missing_patterns_count$count)), expand=c(0,0)) + #, breaks = seq(0,max(missing_patterns$count), 5) if want to have the y axis break on 5s
     ylab('') +
@@ -279,9 +283,6 @@ find_missing_patterns <- function(df, aggregation = 'count'){
 }
 ```
 
-```{r}
-
-```
 
 
 ```{r}
