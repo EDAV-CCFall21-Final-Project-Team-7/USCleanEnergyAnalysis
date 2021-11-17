@@ -112,7 +112,7 @@ main_plot_df$Y <- fct_relevel(main_plot_df$Y, rev(levels(main_plot_df$Y)))
 
 main_plot_df$Z <- as.factor(ifelse(main_plot_df$Y == pattern_id, .5, main_plot_df$Z))
 
-annotation <- data.frame(x = 3, y = , label = 'complete cases')
+annotation <- data.frame(x = 3, y =0 , label = 'complete cases')
 
 g2 <- ggplot(main_plot_df, aes(X, Y, fill= Z)) + 
     geom_tile(color='white') +
@@ -163,23 +163,28 @@ find_missing_patterns <- function(df, aggregation = 'count'){
   count(name = "count", sort = TRUE) %>%
   ungroup()
     #create g1
-  missing_patterns_sums <- mycars %>%
+  missing_patterns_sums <- df %>%
   summarise(across(everything(), ~ sum(is.na(.)))) %>% 
-  pivot_longer(cols = names(mycars), names_to='name',values_to='value') %>%
+  pivot_longer(cols = names(df), names_to='name',values_to='value') %>%
   arrange(desc(value))
   
    if (aggregation=='percent'){
     total_sum<-length(row.names(df))
     missing_patterns_sums$value<- missing_patterns_sums$value*100/total_sum
     print(total_sum)
+    y_label = 'percent row missing'
+   }
+  else{
+    y_label = 'num rows missing'
   }
   column_reorder <- missing_patterns_sums$name
+  
   
   g1 <- ggplot(missing_patterns_sums, aes(x=fct_reorder(name, -value), y=value))+
     geom_bar(stat='identity', fill='#9eb7ee') +
     scale_y_continuous(limits=c(0, max(missing_patterns_sums$value)), expand=c(0,0)) +
     xlab('') +
-    ylab('num rows missing') +
+    ylab(y_label ) +
     ggtitle('Missing value patterns') +
     theme(panel.border = element_rect(colour = "black", fill=NA, size=.5), 
           panel.background = element_rect(fill = "white"),
@@ -196,8 +201,11 @@ find_missing_patterns <- function(df, aggregation = 'count'){
   
   if(aggregation=='percent'){
     missing_patterns_count$count<-missing_patterns_count$count*100/sum(missing_patterns_count$count)
+    y_label = 'percent rows'
   }
-  
+  else{
+    y_label = 'row count'
+  }
   pattern_id <- missing_patterns_count  %>% filter(col == 1) %>% select(id) %>% as.character()
   
   g3 <- missing_patterns_count %>%
@@ -207,7 +215,7 @@ find_missing_patterns <- function(df, aggregation = 'count'){
     geom_bar(stat='identity', fill='#9eb7ee',aes(alpha = factor(missing_patterns_count$col))) +
     scale_x_continuous(limits=c(0, max(missing_patterns_count$count)), expand=c(0,0)) + #, breaks = seq(0,max(missing_patterns$count), 5) if want to have the y axis break on 5s
     xlab('') +
-    ylab('row count') +
+    ylab(y_label) +
     theme(panel.border = element_rect(colour = "black", fill=NA, size=.5), 
           panel.background = element_rect(fill = "white"),
           panel.grid.minor.x = element_blank(),
@@ -265,16 +273,26 @@ find_missing_patterns <- function(df, aggregation = 'count'){
 }
 ```
 
-```{r,fig.width=12,fig.height=12}
-test <- find_missing_patterns(mycars, 'count')
+```{r}
+test <- find_missing_patterns(mycars, 'percent')
 ```
 
 
 You either put the function code in a separate `.R` file or include it in the `.Rmd` file.
 
 b) Show the output for both options (counts / percent) for the `economics` dataset in the **ggplot2** package. (This is a test to see if your function works if there are no missing values.)
+```{r}
+find_missing_patterns(economics, 'count')
+find_missing_patterns(economics, 'percent')
+```
 
 c) Show the output for both options (counts / percent) for the `HollywoodMovies2011` dataset in the **Lock5withR** package. You can shorten the column names so they don't overlap in the plot.
+```{r}
+library(Lock5withR)
+find_missing_patterns(HollywoodMovies2011, 'count')
+find_missing_patterns(HollywoodMovies2011, 'percent')
+
+```
 
 
 ### 3. Setup your GitHub final project repo
