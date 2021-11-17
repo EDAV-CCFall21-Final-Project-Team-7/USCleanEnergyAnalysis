@@ -2,7 +2,7 @@
 
 Correcting Date format in Financial Data
 ```{r}
-library(tidyr)
+library(tidyverse)
 
 Crushing_crude_oil <-read_csv('data/raw/Cushing_OK_WTI_Spot_Price_FOB.csv')
 nchar(str_split(Crushing_crude_oil$Day[1],"/",simplify=TRUE)[3])
