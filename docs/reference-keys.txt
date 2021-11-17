@@ -4,7 +4,6 @@ data-transformation
 missing-values
 u.s.-energy-information-administration-data
 missing-statefuel-type-power-generation
-missing-aggregation-values
 results
 interactive-component
 conclusion
