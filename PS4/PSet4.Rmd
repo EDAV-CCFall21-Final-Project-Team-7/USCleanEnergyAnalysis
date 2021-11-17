@@ -64,7 +64,8 @@ g1 <- ggplot(missing_patterns_sums, aes(x=fct_reorder(name, -value), y=value))+
         panel.grid.minor.y = element_blank(),
         panel.grid.major.x = element_blank(),
         panel.grid.major.y = element_line(color='darkgray', size=.1)) +
-  coord_fixed(.3)
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1)) +
+  theme(aspect.ratio = .25)
 g1
 ```
 ```{r}
@@ -92,7 +93,7 @@ g3 <- missing_patterns_count %>%
         panel.grid.major.y = element_blank(),
         panel.grid.major.x = element_line(color='darkgray', size=.1)) +
   scale_alpha_manual(values=c("0.5"=0.5,"1"=1),guide="none") +
-  coord_fixed(3)
+  theme(aspect.ratio = 4)
 g3
 ```
 
@@ -124,7 +125,10 @@ g2 <- ggplot(main_plot_df, aes(X, Y, fill= Z)) +
   theme_classic() +
   theme(legend.position = "none") +
   coord_equal() + 
-  coord_fixed(ratio = 1)
+  theme(aspect.ratio = length(row.names(missing_patterns))/(length(names(missing_patterns))-1))
+
+
+
 g2
 ```
 ```{r}
@@ -172,10 +176,10 @@ find_missing_patterns <- function(df, aggregation = 'count'){
     total_sum<-length(row.names(df))
     missing_patterns_sums$value<- missing_patterns_sums$value*100/total_sum
     print(total_sum)
-    y_label = 'percent row missing'
+    y_label = 'percent rows \n missing'
    }
   else{
-    y_label = 'num rows missing'
+    y_label = 'num rows \n missing'
   }
   column_reorder <- missing_patterns_sums$name
   
@@ -184,7 +188,7 @@ find_missing_patterns <- function(df, aggregation = 'count'){
     geom_bar(stat='identity', fill='#9eb7ee') +
     scale_y_continuous(limits=c(0, max(missing_patterns_sums$value)), expand=c(0,0)) +
     xlab('') +
-    ylab(y_label ) +
+    ylab(y_label) +
     ggtitle('Missing value patterns') +
     theme(panel.border = element_rect(colour = "black", fill=NA, size=.5), 
           panel.background = element_rect(fill = "white"),
@@ -192,7 +196,8 @@ find_missing_patterns <- function(df, aggregation = 'count'){
           panel.grid.minor.y = element_blank(),
           panel.grid.major.x = element_blank(),
           panel.grid.major.y = element_line(color='darkgray', size=.1)) +
-    coord_fixed(.3)
+    theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1)) +
+    theme(aspect.ratio = .25)
   
   #Create g3
   missing_patterns_count <- missing_patterns %>% mutate_all((as.integer)) %>% adorn_totals("col")
@@ -201,10 +206,10 @@ find_missing_patterns <- function(df, aggregation = 'count'){
   
   if(aggregation=='percent'){
     missing_patterns_count$count<-missing_patterns_count$count*100/sum(missing_patterns_count$count)
-    y_label = 'percent rows'
+    x_label = 'percent rows'
   }
   else{
-    y_label = 'row count'
+    x_label = 'row count'
   }
   pattern_id <- missing_patterns_count  %>% filter(col == 1) %>% select(id) %>% as.character()
   
@@ -214,16 +219,16 @@ find_missing_patterns <- function(df, aggregation = 'count'){
     ggplot(aes(y=fct_reorder(pattern, -desc(count)), x=count)) + 
     geom_bar(stat='identity', fill='#9eb7ee',aes(alpha = factor(missing_patterns_count$col))) +
     scale_x_continuous(limits=c(0, max(missing_patterns_count$count)), expand=c(0,0)) + #, breaks = seq(0,max(missing_patterns$count), 5) if want to have the y axis break on 5s
-    xlab('') +
-    ylab(y_label) +
+    ylab('') +
+    xlab(y_label) +
     theme(panel.border = element_rect(colour = "black", fill=NA, size=.5), 
           panel.background = element_rect(fill = "white"),
           panel.grid.minor.x = element_blank(),
           panel.grid.minor.y = element_blank(),
           panel.grid.major.y = element_blank(),
-          panel.grid.major.x = element_line(color='darkgray', size=.1)) +
+          panel.grid.major.x = element_line(color='darkgray', size=.1),) +
     scale_alpha_manual(values=c("0.5"=0.5,"1"=1),guide="none") +
-    coord_fixed(3)
+    theme(aspect.ratio = 4)
   
   #create g2
   main_plot_df <- missing_patterns %>%
@@ -250,7 +255,8 @@ find_missing_patterns <- function(df, aggregation = 'count'){
     ylab('Missing Pattern') +
     theme_classic() +
     theme(legend.position = "none") +
-    coord_equal() + coord_fixed(ratio = 1)
+    theme(axis.text.x = element_text(angle = 45, vjust =1, hjust=1)) +
+    coord_equal() + theme(aspect.ratio = length(row.names(missing_patterns))/(length(names(missing_patterns))-1))
   
   #Arrange graphs
   blank <- ggplot() + 
@@ -268,13 +274,18 @@ find_missing_patterns <- function(df, aggregation = 'count'){
                 axis.ticks = element_blank()
               )
 
-  ggarrange(g1,blank,g2,g3,ncol=2,nrow=2,widths = c(8,4),heights=c(1,4))
-  return(missing_patterns_count)
+  ggarrange(g1,blank,g2,g3,ncol=2,nrow=2,widths = c(16,4),heights=c(1,4))
+  #return(missing_patterns_count)
 }
 ```
 
 ```{r}
-test <- find_missing_patterns(mycars, 'percent')
+
+```
+
+
+```{r}
+find_missing_patterns(mycars, 'percent')
 ```
 
 
@@ -287,7 +298,7 @@ find_missing_patterns(economics, 'percent')
 ```
 
 c) Show the output for both options (counts / percent) for the `HollywoodMovies2011` dataset in the **Lock5withR** package. You can shorten the column names so they don't overlap in the plot.
-```{r}
+```{r, fig.height = 10, fig.width = 10}
 library(Lock5withR)
 find_missing_patterns(HollywoodMovies2011, 'count')
 find_missing_patterns(HollywoodMovies2011, 'percent')
