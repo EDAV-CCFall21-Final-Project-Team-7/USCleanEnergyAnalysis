@@ -28,18 +28,17 @@ df$fuel <- gsub("-", "_", df$fuel)
 ```
 
 way to view the n/a columns for dates
-```{r}
+```{r, fig.height = 10, fig.width = 10}
 test <- df %>% pivot_wider(id_cols = c(state, fuel), names_from= date, values_from = thousand_megawatthours)
 test
-missing_patterns <- data.frame(is.na(test)) %>%
-  group_by_all() %>%
-  count(name = "count", sort = TRUE) %>%
-  ungroup()
 ```
 View which fuel types are missing for each state
-```{r}
+```{r, fig.height = 10, fig.width = 10}
 test2 <- df %>% group_by(state, fuel) %>% summarize(total_thousand_mwh = sum(thousand_megawatthours)) %>% pivot_wider(id_cols = c(state), names_from= fuel, values_from = total_thousand_mwh)
 test2
+test3 <- test2
+test3$state <- NULL
+find_missing_patterns(test3, 'percent')
 ```
 
 
