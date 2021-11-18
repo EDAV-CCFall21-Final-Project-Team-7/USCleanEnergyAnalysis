@@ -50,8 +50,9 @@ for (name in names(worldbank)){
   }
 }
 
+row.names(worldbank) <- worldbank[,"Series"]
 
-drop <- c("Series Code","Country")
+drop <- c("Series","Series Code","Country")
 
 worldbank<-worldbank[,!(names(worldbank) %in% drop)]
 worldbank
