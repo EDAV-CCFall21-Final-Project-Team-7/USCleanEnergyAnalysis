@@ -57,8 +57,7 @@ drop <- c("Series","Series Code","Country")
 worldbank<-worldbank[,!(names(worldbank) %in% drop)]
 worldbank
 
-write.csv(worldbank,'data/raw/clean_worldbank.csv',
-          row.names=FALSE)
+write.csv(worldbank,'data/raw/clean_worldbank.csv')
 ```
 
 
