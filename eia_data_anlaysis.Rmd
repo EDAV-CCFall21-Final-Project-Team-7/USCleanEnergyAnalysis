@@ -250,3 +250,14 @@ unique(df$fuel)
 
 Strip off USA- from state col and plot them on a map
 
+
+Missing data plots
+```{r}
+
+WorldBank <-read_csv('data/raw/US_Country_Data_WorldBank.csv')
+
+png(file='test1.jpeg')
+find_missing_patterns(WorldBank,'percent')
+dev.off()
+```
+

@@ -5,7 +5,7 @@ Correcting Date format in Financial Data
 library(tidyverse)
 
 Crushing_crude_oil <-read_csv('data/raw/Cushing_OK_WTI_Spot_Price_FOB.csv')
-nchar(str_split(Crushing_crude_oil$Day[1],"/",simplify=TRUE)[3])
+
 
 i<-0
 for(val in Crushing_crude_oil$Day){
@@ -24,5 +24,37 @@ write.csv(Crushing_crude_oil,'data/raw/clean_crushing_crude_oil.csv',
           row.names=FALSE)
 Crushing_crude_oil
 ```
+```{r}
+worldbank <-read_csv('data/raw/US_Country_Data_WorldBank.csv') 
+str_split(names(worldbank)," ")
+
+i<-0
+for (val in names(worldbank)){
+  i<-i+1
+  names(worldbank)[i] <- str_split(names(worldbank)[i]," ",simplify=TRUE)[1]
+}
+worldbank <- worldbank[,2:length(names(worldbank))]
+names(worldbank)[3] <- 'Series Code'
+
+worldbank <- worldbank %>% filter(Country == 'USA')
+
+worldbank<-as.data.frame(worldbank)
+
+worldbank
+
+for (name in names(worldbank)){
+  for (row in row.names(worldbank)){
+    if (worldbank[as.integer(row),name] == ".."){
+      worldbank[as.integer(row),name] <- NA
+    }
+  }
+}
+
+worldbank
+
+write.csv(worldbank,'data/raw/clean_worldbank.csv',
+          row.names=FALSE)
+```
+
 
 
