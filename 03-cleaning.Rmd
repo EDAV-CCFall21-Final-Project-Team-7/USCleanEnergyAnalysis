@@ -50,14 +50,12 @@ for (name in names(worldbank)){
   }
 }
 
-row.names(worldbank) <- worldbank[,"Series"]
-
-drop <- c("Series","Series Code","Country")
+drop <- c("Series Code","Country")
 
 worldbank<-worldbank[,!(names(worldbank) %in% drop)]
 worldbank
 
-write.csv(worldbank,'data/raw/clean_worldbank.csv')
+write.csv(worldbank,'data/raw/clean_worldbank.csv',row.names = FALSE)
 ```
 
 
