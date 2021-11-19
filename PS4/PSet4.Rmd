@@ -319,14 +319,30 @@ https://github.com/EDAV-CCFall21-Final-Project-Team-7/USCleanEnergyAnalysis/grap
 
 c) Discuss a plan for dividing up the work for the final project and briefly summarize what each person will do.
 
-1. Create GitHub - Raihan created an organization and set up the final project repository following the EDAVproject template and added team members to the repo (gnyirjesy, Abhimanyu210100, raihan-bashir)
+Following is our plan for dividing up the work for the final project and bookdown book report: 
 
-2. Acquire data/setup API connections
-      a. Gabby set up API key for EIA.gov
-      b. Abhimanyu downloaded Yahoo Finance data files
-      c. Raihan downloaded World Bank data file
+  1)	Introduction: summarize topic, context, and questions – (Raihan)
+  
+  2)	Data sources: data dictionary, collection process, and basic information:
+          a) U.S. Energy Information Administration (EIA) data – (Gabrielle)
+          b) Energy ETFs and Crude Oil historical data – (Abhimanyu)
+          c) The World Bank (WB) U.S. country data – (Raihan)
+  
+  3)	Data transformation for all datasets – (Abhimanyu)
+  
+  4)	Missing values analysis - Graphs and commentary on patterns
+          a)	EIA data – (Gabrielle)
+          b)	WB data – (Raihan)
+  
+  5)	Results – answer the questions with graphs and analysis: 
+          a)	U.S. Clean Energy industry trends – supply-side analysis - What are the macro trends in power sources within the U.S.? (Gabrielle)
+          b) 	Policy considerations - Which states hit climate goals already/on track? (Gabrielle)
+          c)	Economic factors – demand-side and financial markets analysis - How do trends change with economic boom/recession? (Raihan) - How do                trends correspond with oil prices and energy ETFs? (Abhimanyu)
+  
+  6)	Interactive Visualization – U.S. clean and fossil fuel energy production by state and trend over time (Abhimanyu, Gabrielle, Raihan)
+  
+  7)	Conclusion: lessons learned, limitations and future directions (Abhimanyu, Gabrielle, Raihan)
 
-3. Data analysis for the respective datasources and collaborate on missing data analysis
 
 
 ### 4. Missing values chapter
