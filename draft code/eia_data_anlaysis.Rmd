@@ -113,7 +113,7 @@ find_missing_patterns <- function(df, aggregation = 'count'){
       theme(legend.position="none") +
     scale_fill_manual(values=c('#cacaca', 'darkgray', '#b2a0e1')) +
     annotate("text",x=length(unique(main_plot_df$X))/2,y=length(unique(main_plot_df$Y))-as.integer(pattern_id)+1,label='complete cases') + 
-    xlab('Variable') +
+    #xlab('Variable') +
     ylab('Missing Pattern') +
     theme_classic() +
     theme(legend.position = "none") +

@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 4 Missing values | eia_data_analysis</title>
-  <meta name="description" content="Chapter 4 Missing values | eia_data_analysis" />
+  <title>Chapter 4 Missing values | U.S. Clean Energy Industry Analysis</title>
+  <meta name="description" content="Chapter 4 Missing values | U.S. Clean Energy Industry Analysis" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 4 Missing values | eia_data_analysis" />
+  <meta property="og:title" content="Chapter 4 Missing values | U.S. Clean Energy Industry Analysis" />
   <meta property="og:type" content="book" />
   
   
@@ -16,14 +16,15 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 4 Missing values | eia_data_analysis" />
+  <meta name="twitter:title" content="Chapter 4 Missing values | U.S. Clean Energy Industry Analysis" />
   
   
   
 
-<meta name="author" content="Gabrielle Nyirjesy" />
+<meta name="author" content="Raihan Bashir, Gabrielle Nyirjesy, Abhimanyu Swaroop" />
 
 
+<meta name="date" content="2021-11-19" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -52,72 +53,10 @@
 
 <link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 
-<style type="text/css">
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-</style>
 
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -144,6 +83,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.1" data-path="missing-values.html"><a href="missing-values.html#u.s.-energy-information-administration-data"><i class="fa fa-check"></i><b>4.1</b> U.S. Energy Information Administration Data</a>
 <ul>
 <li class="chapter" data-level="4.1.1" data-path="missing-values.html"><a href="missing-values.html#missing-statefuel-type-power-generation"><i class="fa fa-check"></i><b>4.1.1</b> Missing State/Fuel Type Power Generation</a></li>
+<li class="chapter" data-level="4.1.2" data-path="missing-values.html"><a href="missing-values.html#missing-aggregation-values"><i class="fa fa-check"></i><b>4.1.2</b> Missing aggregation values</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a></li>
@@ -160,7 +100,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">eia_data_analysis</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">U.S. Clean Energy Industry Analysis</a>
           </h1>
         </div>
 
@@ -174,10 +114,3182 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">4.1</span> U.S. Energy Information Administration Data</h2>
 <div id="missing-statefuel-type-power-generation" class="section level3" number="4.1.1">
 <h3><span class="header-section-number">4.1.1</span> Missing State/Fuel Type Power Generation</h3>
-<p>The EIA.gov dataset was the only dataset with missing values that we used in our analysis. Most of the missing values were absent because most states did not generate electricity for all fuel types. This missing data can show which fuel types are most widely adopted by all U.S. states and which fuel types are less common.
-#<img src="&#39;/state-fuel%20type%20missing%20patterns.png&#39;" alt="state-fuel type missing patterns" />
-<img src="state-fuel%20type%20missing%20patterns.png" width="2323" />
-### Missing aggregation values</p>
+<p>The EIA.gov data set was the only data set with missing values that we used in our analysis. Most of the missing values were absent because most states did not generate electricity for all fuel types. This missing data can show which fuel types are most widely adopted by all U.S. states and which fuel types are less common.
+<img src="state-fuel%20type%20missing%20patterns.png" width="2323" /></p>
+From the table above, it is seen that all states use solar energy at some point. An interesting observation is that there are some states that did not use coal at any point during this time period. Taking a closer look, using the table below, it is seen that Vermont and Rhode Island are the two states that did not use coal as an energy generation source.
+<div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:300px; overflow-x: scroll; width:800px; ">
+<table class="table table-striped" style="font-size: 9px; width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+state
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+all_solar
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+coal
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+conventional_hydroelectric
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+natural_gas
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+other
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+other_biomass
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+other_gases
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+other_renewables_(total)
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+petroleum_liquids
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+small_scale_solar_photovoltaic
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+wind
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+wood_and_wood_derived_fuels
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+all_utility_scale_solar
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+nuclear
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+utility_scale_photovoltaic
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+hydro_electric_pumped_storage
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+petroleum_coke
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+utility_scale_thermal
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+geothermal
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+USA-RI
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">1545.78451</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">90.54041</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">140623.69762</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">587.38</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">3002.36653</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">4520.65219</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">829.22405</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">960.12196</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">916.06594</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">587.66915</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">587.66915</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+USA-VT
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">1684.51429</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">25420.24971</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">59.94506</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">-1.41701</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">388.45171</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">12711.54855</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">159.16609</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">874.49978</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">3069.33903</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">8410.28802</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">830.96858</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">65159.442</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">830.96858</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+USA-ID
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">2896.76559</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">1377.5923</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">200738.45136</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">47981.8643</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">1427.72107</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">1312.4956</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">41311.7864</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">5.39752</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">296.66977</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">26780.39738</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">9573.82691</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">2600.09582</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">2600.09582</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">1016.55094</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+USA-ME
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">565.58343</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">4108.98727</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">73834.47994</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">126702.42834</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">7814.63875</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">4931.44991</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.17447</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">89613.91163</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">12731.37149</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">416.76863</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">19141.63292</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">65365.23826</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">168.74774</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">168.74774</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+USA-AK
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">26.38682</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">13030.92762</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">30793.78971</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">70595.78698</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">-22.16802</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">473.0772</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">5.39677</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">1845.77939</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">17954.04243</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">26.38682</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">1338.21114</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">3.10034</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+USA-CA
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">267831.66499</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">29127.68279</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">618822.28708</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">2129739.69811</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">13146.6396</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">52140.16</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">32925.9688</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">751218.99583</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">3516.27601</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">89082.10476</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">180860.38923</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">72449.91284</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">190711.00956</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">540330.483</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">166033.04439</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">-1122.36599</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">19548.66688</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">23581.32219</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">255057.52497</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+USA-HI
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">8869.15441</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">30439.81552</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">1839.57599</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">5932.25169</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">6328.47489</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">782.0006</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">19104.16844</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">160786.68716</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">7160.67493</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">6818.8049</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.00916</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">1739.32444</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">1739.32444</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">3873.90104</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+USA-CT
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">4280.65312</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">41146.99533</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">8662.60686</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">279472.58019</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">14040.91211</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">13931.95732</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">29.67647</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">16498.26611</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">20459.41144</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">3520.95153</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">70.70303</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">1545.98283</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">759.70159</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">337873.449</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">759.70159</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">25.684</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+USA-NH
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">582.00275</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">45999.11115</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">28921.52503</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">95930.5315</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">1173.79507</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">2938.11728</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">28240.62979</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">8805.41674</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">710.9275</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">4183.32978</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">20845.12707</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">202125.158</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+USA-DE
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">1180.3357</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">49191.98863</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">78563.26664</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">16.81783</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">1282.66562</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">5906.66587</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">1821.39827</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">8202.78606</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">771.84785</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">54.67906</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">484.05366</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">484.05366</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">143.539</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+USA-SD
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">10.56905</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">57746.82459</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">102941.98802</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">10129.70107</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">61.96046</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">7.43935</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">39031.63483</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">292.94667</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">7.61476</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">39014.95476</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">5.92104</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">5.92104</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+USA-OR
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">5131.43772</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">62240.43928</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">702882.8772</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">295338.95395</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">854.11813</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">4478.44034</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">113327.9236</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">409.73103</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">1414.03884</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">89786.94429</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">13787.47825</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">3744.39389</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">3743.80891</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.58499</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">1493.30099</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+USA-NJ
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">22304.47549</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">111013.88373</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">464.68909</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">542276.92395</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">11675.23234</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">18292.77718</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">3584.17472</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">27281.9166</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">9083.56476</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">14453.32033</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">286.94427</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">8696.22749</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">646616.702</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">8696.22749</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">-3956.668</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">539.56673</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+USA-MA
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">19868.91052</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">125349.72803</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">20620.13733</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">420664.39289</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">17100.10678</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">22269.9357</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">34057.41236</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">49863.77042</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">12698.37239</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">2128.51567</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">2215.31674</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">7312.4242</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">98555.949</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">7308.85315</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">-10675.135</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">3.57101</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+USA-WA
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">1269.29777</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">146701.0413</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">1571941.74236</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">202915.97348</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">1643.5455</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">4289.67765</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">6517.56803</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">128935.0278</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">1050.94228</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">1134.34764</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">95400.71839</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">29107.28595</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">137.34613</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">176113.702</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">137.34613</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">429.564</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+USA-NV
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">33179.13055</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">161215.91874</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">43470.51335</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">466394.93881</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">227.58015</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">412.78079</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">141.43264</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">82187.23607</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">1278.05502</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">3852.31663</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">2884.71215</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.89038</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">31428.04287</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">29344.94287</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">2083.1</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">47460.81011</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+USA-NY
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">14030.75486</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">231014.57831</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">552589.54463</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">956076.05277</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">18610.66959</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">31340.63778</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">116.21746</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">95527.19309</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">123370.90597</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">10618.21748</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">49709.77689</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">10938.07296</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">3538.71055</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">864706.032</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">3538.71055</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">-11978.199</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">3462.73945</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+USA-MS
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">1545.31959</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">235184.6115</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">641218.64863</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">88.609</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">185.05253</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">283.49253</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">30893.68741</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">12179.86891</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">72.013</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">29226.63742</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">1473.30659</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">196913.867</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">1473.30659</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+USA-MT
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">291.33129</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">318809.89867</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">207100.42207</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">5616.14615</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">3742.01502</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">197.65333</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">26129.76753</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">308.54095</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">155.34924</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">24994.379</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">999.40649</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">135.98205</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">135.98205</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">9047.59509</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+USA-LA
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">1561.1192</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">386082.30632</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">21055.78992</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">1110469.40107</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">12549.27508</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">1613.86026</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">37060.1244</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">55276.54305</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">8294.21747</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">1559.73691</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">53458.99311</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">201.26799</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">341972.739</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">201.26799</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">64033.03348</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+USA-MD
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">8138.47137</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">410153.73008</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">39634.41419</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">99844.88968</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">6161.16777</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">8062.93168</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">3822.56858</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">18481.22638</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">20577.2108</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">5455.18233</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">4714.13353</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">2932.12813</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">2772.03423</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">296154.316</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">2772.03423</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+USA-NE
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">260.01279</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">456174.09375</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">22654.60661</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">14023.3529</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.058</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">1328.34659</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.455</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">49375.74286</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">464.57267</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">75.06445</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">47862.45104</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">184.94834</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">175542.64</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">174.9754</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.465</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+USA-VA
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">6531.45188</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">475985.00487</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">27403.27484</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">497461.57572</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">9425.9349</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">18017.80697</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">2.959</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">66258.93608</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">37309.13266</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">803.17482</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">32.771</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">42480.07906</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">5728.27706</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">581830.162</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">5728.27706</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">-28559.521</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+USA-NM
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">10571.88264</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">485144.08273</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">3599.22513</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">163650.52088</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">2.20802</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">337.27488</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">64975.07069</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">1241.74519</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">1855.19671</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">54854.69599</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">9575.25613</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">9575.25613</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">204.32802</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+USA-AR
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">1332.28719</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">527849.63495</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">67317.52244</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">248337.9462</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">585.02454</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">1411.34091</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">32714.04228</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">2996.82878</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">258.6885</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">30229.10587</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">1073.59869</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">295601.959</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">1073.59869</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">746.002</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">6.08246</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+USA-MN
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">6669.7018</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">562456.61504</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">17215.49909</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">108368.78689</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">7006.48047</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">12319.14932</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">76.4754</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">165858.5385</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">1504.3265</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">586.14578</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">129864.79835</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">17588.32904</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">6086.26202</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">270134.863</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">6086.26202</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">3832.24137</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+USA-OK
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">394.53682</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">569918.64239</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">51546.60373</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">664389.12545</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">237.11556</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">1393.47504</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">251.58508</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">222201.85569</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">974.41619</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">107.76632</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">215740.00131</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">4781.60909</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">286.7705</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">286.7705</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">-2782.475</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">4.52707</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+USA-ND
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">3.95326</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">577009.03413</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">43125.16295</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">7857.04458</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">594.08987</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">114.70323</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">918.4035</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">102519.74213</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">782.09783</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">3.95326</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">102403.01865</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+USA-KS
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">309.43823</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">593642.92435</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">365.03397</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">43421.42441</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">23.02298</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">697.35703</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">165309.82524</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">4743.16426</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">190.64058</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">164479.77627</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">128.68774</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">186783.672</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">128.68774</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">409.8712</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+USA-SC
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">6341.83099</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">620145.55522</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">47334.60961</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">240440.59162</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">1253.84686</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">2613.56125</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">6.26658</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">45539.39845</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">4137.51122</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">1436.59252</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">38020.48375</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">4905.35347</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">1093161.238</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">4905.35347</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">-20409.311</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">1297.08295</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+USA-CO
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">11311.73993</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">664849.60521</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">34528.85534</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">258380.84231</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">785.75524</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">1200.98123</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">15.49846</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">117353.18201</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">464.99774</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">4341.80185</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">108010.12943</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">564.95157</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">7577.12001</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">7577.12001</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">-4368.985</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+USA-UT
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">15104.34631</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">665184.02267</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">15435.81324</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">121708.212</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">2281.83223</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">985.41086</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">252.15668</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">28415.56531</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">824.30038</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">2398.50377</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">8366.04847</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">12709.56153</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">12709.56153</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">6325.33915</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+USA-IA
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">1080.03489</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">668398.13277</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">18377.48586</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">56457.33542</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">83.95136</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">3539.72075</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">255398.05122</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">1866.79639</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">890.04137</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">251602.43475</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">29.62454</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">221.82216</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">93138.763</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">221.82216</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">1073.62205</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+USA-AZ
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">52434.27495</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">750190.25638</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">141540.10285</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">656739.71056</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">2838.10947</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">834.06966</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">48859.93524</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">1343.82378</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">16052.24419</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">6265.63319</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">1981.29382</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">39617.85648</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">624097.736</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">33970.87471</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">1963.21503</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">5646.03374</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+USA-WI
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">1044.37124</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">767108.12568</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">44079.46405</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">193605.79998</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">1668.51052</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">9831.40252</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.01843</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">48188.96527</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">1576.46753</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">586.37286</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">20220.38471</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">17679.18007</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">457.99838</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">234869.527</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">457.99838</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">8057.2525</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+USA-WY
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">530.11849</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">856119.2437</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">18291.76518</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">13245.24721</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">1424.39821</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">5334.82066</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">59308.38827</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">955.45887</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">49.38749</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">58827.65727</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">480.731</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">480.731</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+USA-TN
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">1991.62408</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">856218.3585</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">184952.05394</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">116874.61301</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">154.43055</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">1336.98459</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">261.50256</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">20419.45431</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">3985.92341</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">641.80763</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">682.87929</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">16943.63475</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">1370.21045</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">599837.351</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">1370.21045</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">-12698.521</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+USA-FL
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">24774.7416</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">1037854.05087</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">4132.72798</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">2584653.2338</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">64320.72198</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">48264.90776</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">152.95182</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">113078.39593</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">216455.11963</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">4131.35384</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">1.422</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">43550.94652</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">21262.54175</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">591171.39556</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">20584.41377</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">64587.82146</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">678.12799</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+USA-AL
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">45.20489</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">1125526.51801</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">196067.79013</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">774497.87114</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">1594.98921</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">550.30187</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">2681.65652</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">70815.93177</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">3338.19003</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">13.94389</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">68665.40914</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">1600.22085</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">781903.679</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">1600.22085</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+USA-NC
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">42184.77426</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">1164205.99636</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">99712.96707</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">395234.11512</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">8648.0477</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">6919.34227</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">1.871</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">88934.00133</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">8100.73511</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">1669.15498</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">2417.11</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">38562.69455</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">41034.85761</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">843140.745</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">41034.85761</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">637.658</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+USA-MI
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">1516.2678</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">1172135.16912</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">30834.45985</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">378045.0067</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">6541.86592</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">17586.62515</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">14766.05777</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">98339.87453</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">7001.91906</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">679.84548</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">46555.77013</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">33360.17106</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">837.31255</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">623127.761</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">837.31255</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">-18247.318</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">8759.58824</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+USA-GA
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">7448.43252</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">1185176.03652</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">65448.32175</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">631581.86733</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">1324.50687</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">4199.39263</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">98043.73035</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">5423.42635</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">865.55397</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">79202.67584</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">14639.32809</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">682021.878</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">14639.32809</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">-11219.83</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">7002.13368</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+USA-MO
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">2308.71695</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">1436631.64653</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">27123.00771</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">101326.56243</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">744.62634</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">1091.97273</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">31.03444</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">25571.74032</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">1852.99079</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">1816.48294</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">23644.70808</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">342.82578</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">492.23401</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">184653.11</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">492.23401</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">3431.65499</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">1229.66152</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+USA-WV
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">74.13589</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">1581867.50519</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">30169.56341</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">16124.85338</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">7.22683</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">49.55801</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">1256.98443</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">19017.67701</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">3720.98422</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">74.13589</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">18956.95031</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">1.57405</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+USA-KY
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">434.90704</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">1610321.13974</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">70178.56006</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">98964.1018</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">572.80741</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">1665.28802</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">26.08363</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">8268.89356</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">2239.89494</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">239.60219</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">6408.30087</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">195.30485</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">195.30485</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">33348.21879</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+USA-IL
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">2221.071</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">1615090.33</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">2722.20677</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">205219.06859</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">3794.80356</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">12341.67282</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">4697.46191</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">146594.1206</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">4975.72028</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">1540.28256</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">133458.91101</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">1.74842</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">791.78849</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">1982880.396</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">776.2115</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">235.41958</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">15.577</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+USA-PA
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">3963.358</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">1810885.66868</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">57540.48067</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">926761.91579</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">16782.68328</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">32949.98662</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">10877.39419</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">85177.40242</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">25816.98211</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">3157.96605</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">39505.98486</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">11785.99744</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">935.43471</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">1613850.278</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">935.26012</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">-12646.336</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">3889.5396</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.17459</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+USA-IN
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">2890.21313</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">2020734.57321</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">8090.71721</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">242636.17366</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">7491.38208</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">6377.64439</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">49316.59525</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">64302.2994</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">3449.27652</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">624.46551</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">55628.19657</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">2296.28952</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">2296.28952</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">7365.66929</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+USA-OH
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">2393.47135</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">2052208.92151</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">9470.57018</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">378511.15255</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">319.45896</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">5545.837</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">10644.70962</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">29028.76502</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">5726.45544</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">1206.05839</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">15237.73873</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">6946.48792</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">1298.70171</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">327734.202</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">1289.35271</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">17611.94245</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">148.1</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+USA-TX
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">34090.65723</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">2765273.52803</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">22496.22729</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">4319682.39565</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">13559.97617</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">9934.25974</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">63920.24054</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">774165.1792</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">6042.87739</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">6082.99391</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">716669.86844</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">19235.273</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">28325.78326</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">818976.511</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">28322.73926</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">15285.04875</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">3.049</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">NA</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="missing-aggregation-values" class="section level3" number="4.1.2">
+<h3><span class="header-section-number">4.1.2</span> Missing aggregation values</h3>
 
 </div>
 </div>

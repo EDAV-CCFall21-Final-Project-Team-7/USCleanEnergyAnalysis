@@ -5,8 +5,165 @@
 
 ## U.S. Energy Information Administration Data
 ### Missing State/Fuel Type Power Generation
-The EIA.gov dataset was the only dataset with missing values that we used in our analysis. Most of the missing values were absent because most states did not generate electricity for all fuel types. This missing data can show which fuel types are most widely adopted by all U.S. states and which fuel types are less common. 
-```{r}
+The EIA.gov data set was the only data set with missing values that we used in our analysis. Most of the missing values were absent because most states did not generate electricity for all fuel types. This missing data can show which fuel types are most widely adopted by all U.S. states and which fuel types are less common. 
+```{r, echo = F}
 knitr::include_graphics('state-fuel type missing patterns.png')
 ```
-### Missing aggregation values
+
+```{r, message= FALSE, warning=FALSE}
+library(tidyverse)
+library(data.table)
+library(d3r)
+library(parcoords)
+library(GGally)
+library(janitor)
+library(egg)
+library(ggpubr)
+library(kableExtra)
+```
+
+```{r, message= FALSE, warning=FALSE}
+find_missing_patterns <- function(df, aggregation = 'count'){
+  
+  #find missing patterns
+  missing_patterns <- data.frame(is.na(df)) %>%
+  group_by_all() %>%
+  count(name = "count", sort = TRUE) %>%
+  ungroup()
+    #create g1
+  missing_patterns_sums <- df %>%
+  summarise(across(everything(), ~ sum(is.na(.)))) %>% 
+  pivot_longer(cols = names(df), names_to='name',values_to='value') %>%
+  arrange(desc(value))
+  
+   if (aggregation=='percent'){
+    total_sum<-length(row.names(df))
+    missing_patterns_sums$value<- missing_patterns_sums$value*100/total_sum
+    print(total_sum)
+    y_label = 'percent rows \n missing'
+   }
+  else{
+    y_label = 'num rows \n missing'
+  }
+  column_reorder <- missing_patterns_sums$name
+  
+  
+  g1 <- ggplot(missing_patterns_sums, aes(x=fct_reorder(name, -value), y=value))+
+    geom_bar(stat='identity', fill='#9eb7ee') +
+    scale_y_continuous(limits=c(0, max(missing_patterns_sums$value)), expand=c(0,0)) +
+    xlab('') +
+    ylab(y_label) +
+    ggtitle('Missing value patterns') +
+    theme(panel.border = element_rect(colour = "black", fill=NA, size=.5), 
+          panel.background = element_rect(fill = "white"),
+          panel.grid.minor.x = element_blank(),
+          panel.grid.minor.y = element_blank(),
+          panel.grid.major.x = element_blank(),
+          panel.grid.major.y = element_line(color='darkgray', size=.1)) +
+    theme(axis.text.x = element_blank()) + #element_text(angle = 45, vjust = 1, hjust=1)) +
+    theme(aspect.ratio = .25)
+  
+  #Create g3
+  missing_patterns_count <- missing_patterns %>% mutate_all((as.integer)) %>% adorn_totals("col")
+  missing_patterns_count$col <- as.factor(ifelse(missing_patterns_count$Total - missing_patterns_count$count == 0 , 1, 0.5))
+  missing_patterns_count$id <- row.names(missing_patterns_count)
+  
+  if(aggregation=='percent'){
+    missing_patterns_count$count<-missing_patterns_count$count*100/sum(missing_patterns_count$count)
+    x_label = 'percent rows'
+  }
+  else{
+    x_label = 'row count'
+  }
+  pattern_id <- missing_patterns_count  %>% filter(col == 1) %>% select(id) %>% as.character()
+  missing_patterns_count$id <- factor(missing_patterns_count$id)
+  missing_patterns_count$id <- fct_relevel(missing_patterns_count$id, paste(sort(as.integer(levels(missing_patterns_count$id)), decreasing = TRUE)))
+  g3 <- missing_patterns_count %>%
+    #rowid_to_column(var="pattern") %>%
+    #mutate(pattern = factor(pattern)) %>%
+    ggplot(aes(y=fct_reorder(id, -desc(count)), x=count)) + 
+    geom_bar(stat='identity', fill='#9eb7ee',aes(alpha = factor(missing_patterns_count$col))) +
+    scale_x_continuous(limits=c(0, max(missing_patterns_count$count)), expand=c(0,0)) + #, breaks = seq(0,max(missing_patterns$count), 5) if want to have the y axis break on 5s
+    ylab('') +
+    xlab(y_label) +
+    theme(panel.border = element_rect(colour = "black", fill=NA, size=.5), 
+          panel.background = element_rect(fill = "white"),
+          panel.grid.minor.x = element_blank(),
+          panel.grid.minor.y = element_blank(),
+          panel.grid.major.y = element_blank(),
+          panel.grid.major.x = element_line(color='darkgray', size=.1),) +
+    scale_alpha_manual(values=c("0.5"=0.5,"1"=1),guide="none") +
+    theme(aspect.ratio = 4)
+  
+  #create g2
+  main_plot_df <- missing_patterns %>%
+  select(-c(count)) %>%
+  as_tibble() %>%
+  rowid_to_column(var="Y") %>%
+  gather(key="X", value="Z", -1) 
+
+  main_plot_df$X <- as.factor(main_plot_df$X)
+  main_plot_df$Y <- as.factor(main_plot_df$Y)
+  main_plot_df$X <- fct_relevel(main_plot_df$X, column_reorder)
+  main_plot_df$Y <- fct_relevel(main_plot_df$Y, rev(levels(main_plot_df$Y)))
+  
+  
+  main_plot_df$Z <- as.factor(ifelse(main_plot_df$Y == pattern_id, .5, main_plot_df$Z))
+  
+  
+  g2 <- ggplot(main_plot_df, aes(X, Y, fill= Z)) + 
+      geom_tile(color='white') +
+      theme(legend.position="none") +
+    scale_fill_manual(values=c('#cacaca', 'darkgray', '#b2a0e1')) +
+    annotate("text",x=length(unique(main_plot_df$X))/2,y=length(unique(main_plot_df$Y))-as.integer(pattern_id)+1,label='complete cases') + 
+    xlab('Variable') +
+    ylab('Missing Pattern') +
+    theme_classic() +
+    theme(legend.position = "none") +
+    theme(axis.text.x = element_text(angle = 45, vjust =1, hjust=1)) +
+    coord_equal() + theme(aspect.ratio = length(row.names(missing_patterns))/(length(names(missing_patterns))-1))
+  
+  #Arrange graphs
+  blank <- ggplot() + 
+              geom_point(aes(1,1), colour="white") +
+              theme(                              
+                plot.background = element_blank(), 
+                panel.grid.major = element_blank(), 
+                panel.grid.minor = element_blank(), 
+                panel.border = element_blank(), 
+                panel.background = element_blank(),
+                axis.title.x = element_blank(),
+                axis.title.y = element_blank(),
+                axis.text.x = element_blank(),
+                axis.text.y = element_blank(),
+                axis.ticks = element_blank()
+              )
+
+  p = ggarrange(g1,blank,g2,g3,ncol=2,nrow=2,widths = c(16,4),heights=c(1,4))
+  return(p)
+}
+```
+
+```{r, message = FALSE, include = FALSE}
+#https://www.eia.gov/electricity/data/browser/#/topic/0?freq=M&start=200101&end=202108&ctype=linechart&ltype=pin&pin=&maptype=0
+df <- read.csv('data/raw/monthly_fuel_generation_by_state_full.csv')
+df$fuel <- trimws(df$fuel) 
+df$date <- as.Date(df$date)
+df[is.na(df$thousand_megawatthours),]$thousand_megawatthours <- 0
+df$fuel <- gsub(" ", "_", df$fuel)
+df$fuel <- gsub("-", "_", df$fuel)
+```
+
+```{r, message = FALSE, warning = FALSE}
+state_fuel <- df %>% group_by(state, fuel) %>% summarize(total_thousand_mwh = sum(thousand_megawatthours)) %>% pivot_wider(id_cols = c(state), names_from= fuel, values_from = total_thousand_mwh)
+#test2
+state_fuel_graph <- state_fuel
+state_fuel_graph$state <- NULL
+p = find_missing_patterns(state_fuel_graph, 'count')
+#ggsave('state-fuel type-missing patterns.png', height = 10, width = 10, units = "in")
+```
+From the table above, it is seen that all states use solar energy at some point. An interesting observation is that there are some states that did not use coal at any point during this time period. Taking a closer look, using the table below, it is seen that Vermont and Rhode Island are the two states that did not use coal as an energy generation source. This table also shows that California was the only state to use all fuel types.
+```{r}
+state_fuel %>% arrange(!is.na(coal), coal) %>% mutate_all(~cell_spec(.x, color = ifelse(is.na(.x), "red"," black"))) %>% kable(escape = F) %>% kable_styling("striped", font_size = 9, full_width = F) %>% 
+ scroll_box(width = "800px", height = "300px")
+```

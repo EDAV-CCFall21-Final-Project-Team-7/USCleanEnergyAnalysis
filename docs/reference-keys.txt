@@ -7,3 +7,5 @@ missing-statefuel-type-power-generation
 results
 interactive-component
 conclusion
+missing-aggregation-values
+tab:unnamed-chunk-10
