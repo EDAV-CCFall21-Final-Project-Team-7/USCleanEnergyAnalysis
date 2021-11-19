@@ -333,4 +333,4 @@ c) Discuss a plan for dividing up the work for the final project and briefly sum
 
 Write a first draft of the missing values chapter of your final project. You do not have to include all of the data you use in the final project. Choose one file and analyze it using techniques discussed in class for missing values. Include a plot using your function from Q2 as well as verbal interpretation of the plot. Edit this link to point to your chapter:
 
-https://[ACCOUNT NAME].github.io/[REPO NAME]/missing-values.html
+https://edav-ccfall21-final-project-team-7.github.io/USCleanEnergyAnalysis/missing-values.html
