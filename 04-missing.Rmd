@@ -6,7 +6,7 @@
 ## U.S. Energy Information Administration Data
 ### Missing State/Fuel Type Power Generation
 The EIA.gov data set was the only data set with missing values that we used in our analysis. Most of the missing values were absent because most states did not generate electricity for all fuel types. This missing data can show which fuel types are most widely adopted by all U.S. states and which fuel types are less common. 
-```{r, echo = F}
+```{r, echo = F,fig.width=12,fig.height=12}
 knitr::include_graphics('state-fuel type missing patterns.png')
 ```
 
@@ -20,6 +20,7 @@ library(janitor)
 library(egg)
 library(ggpubr)
 library(kableExtra)
+library(patchwork)
 ```
 
 ```{r, message= FALSE, warning=FALSE}
@@ -111,6 +112,9 @@ find_missing_patterns <- function(df, aggregation = 'count'){
   main_plot_df$Z <- as.factor(ifelse(main_plot_df$Y == pattern_id, .5, main_plot_df$Z))
   
   
+  temp1 <- names(df)[2:length(names(df))]
+  temp1 <- append(temp1,"Series")
+  
   g2 <- ggplot(main_plot_df, aes(X, Y, fill= Z)) + 
       geom_tile(color='white') +
       theme(legend.position="none") +
@@ -118,6 +122,7 @@ find_missing_patterns <- function(df, aggregation = 'count'){
     annotate("text",x=length(unique(main_plot_df$X))/2,y=length(unique(main_plot_df$Y))-as.integer(pattern_id)+1,label='complete cases') + 
     xlab('Variable') +
     ylab('Missing Pattern') +
+    #scale_x_discrete(limits=temp1) +
     theme_classic() +
     theme(legend.position = "none") +
     theme(axis.text.x = element_text(angle = 45, vjust =1, hjust=1)) +
@@ -139,7 +144,8 @@ find_missing_patterns <- function(df, aggregation = 'count'){
                 axis.ticks = element_blank()
               )
 
-  p = ggarrange(g1,blank,g2,g3,ncol=2,nrow=2,widths = c(16,4),heights=c(1,4))
+  #p = ggarrange(g1,blank,g2,g3,ncol=2,nrow=2,widths = c(16,4),heights=c(4,16))
+  p = g1+plot_spacer()+g2+g3+plot_layout(ncol=2,nrow=2,widths=c(8,1),heights=c(1,1))
   return(p)
 }
 ```
@@ -167,3 +173,22 @@ From the table above, it is seen that all states use solar energy at some point.
 state_fuel %>% arrange(!is.na(coal), coal) %>% mutate_all(~cell_spec(.x, color = ifelse(is.na(.x), "red"," black"))) %>% kable(escape = F) %>% kable_styling("striped", font_size = 9, full_width = F) %>% 
  scroll_box(width = "800px", height = "300px")
 ```
+
+
+The plot below shows the time series of different types of energy production. From the plot it can be noticed that not all energy generated starts from the same dates. We can notice that the solar data starts only around 2014. Therefore, we can say that the solar energy data is missing for all dates before that. 
+
+```{r, echo = F,fig.width=10,fig.height=10}
+df <- read.csv('data/raw/monthly_fuel_generation_by_state_full.csv')
+df$fuel <- trimws(df$fuel) 
+df$date <- as.Date(df$date)
+df[is.na(df$thousand_megawatthours),]$thousand_megawatthours <- 0
+df$fuel <- gsub(" ", "_", df$fuel)
+df$fuel <- gsub("-", "_", df$fuel)
+
+df  %>% 
+  group_by(fuel, date) %>% summarise(thousand_megawatthours = sum(thousand_megawatthours)) %>% filter(fuel %in% c('all_solar', 'all_utility_scale_solar', 'coal','natural_gas', 'wind')) %>%
+  ggplot(aes(x = date, y = thousand_megawatthours, color = fuel)) +
+  geom_line()
+```
+
+
