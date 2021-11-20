@@ -5,7 +5,7 @@
 
 ## U.S. Energy Information Administration Data
 ### Missing State/Fuel Type Power Generation
-The EIA.gov data set was the only data set with missing values that we used in our analysis. Most of the missing values were absent because most states did not generate electricity for all fuel types. This missing data can show which fuel types are most widely adopted by all U.S. states and which fuel types are less common. 
+The EIA.gov data set was one of the data set with missing values that we used in our analysis. Most of the missing values were absent because most states did not generate electricity for all fuel types. This missing data can show which fuel types are most widely adopted by all U.S. states and which fuel types are less common. 
 ```{r, echo = F,fig.width=12,fig.height=12}
 knitr::include_graphics('state-fuel type missing patterns.png')
 ```
