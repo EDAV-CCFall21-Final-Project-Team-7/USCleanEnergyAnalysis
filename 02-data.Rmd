@@ -1,2 +1,19 @@
 # Data sources
 
+## U.S. Energy Information Administration (EIA)
+This dataset was pulled from EIA.gov through an API. There is a package in R called "eia" that helps automate data pulls from the EIA.gov API calls. We used this package to pull monthly power generation data by fuel type for all of the states in the USA from the time period of 2001 - 2021.
+```{r, include = F, message = F, warning = F}
+library(tidyverse)
+library(kableExtra)
+eia_dat <- read.csv('data/raw/monthly_fuel_generation_by_state_full.csv')
+```
+The columns in the EIA dataset are shown below:
+```{r}
+summary(eia_dat)
+```
+The "thousand_megawatthours" column is the net power generation in thousand MW hours. The date column is contains the month in which the power was generated. This column ranges from "2001-01-01" to "2021-08-01". The state column contains the 50 USA states. Lastly, the fuel column contains the fuel type, with unique values listed below:
+```{r, include = F}
+unique(eia_dat$fuel)
+```
+*GN notes: need to talk about the hierarchy of the fuel types - and aggregation levels. 
+discuss number of rows, discuss issues with the data
