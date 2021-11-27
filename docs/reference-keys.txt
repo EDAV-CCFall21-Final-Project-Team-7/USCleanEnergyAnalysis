@@ -7,3 +7,5 @@ missing-statefuel-type-power-generation
 results
 interactive-component
 conclusion
+u.s.-energy-information-administration-eia
+column-descriptions

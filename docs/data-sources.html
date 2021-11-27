@@ -24,7 +24,7 @@
 <meta name="author" content="Raihan Bashir, Gabrielle Nyirjesy, Abhimanyu Swaroop" />
 
 
-<meta name="date" content="2021-11-19" />
+<meta name="date" content="2021-11-27" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -53,8 +53,6 @@
 
 <link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
-<script src="libs/kePrint-0.0.1/kePrint.js"></script>
-<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 
 
@@ -76,7 +74,13 @@
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
-<li class="chapter" data-level="2" data-path="data-sources.html"><a href="data-sources.html"><i class="fa fa-check"></i><b>2</b> Data sources</a></li>
+<li class="chapter" data-level="2" data-path="data-sources.html"><a href="data-sources.html"><i class="fa fa-check"></i><b>2</b> Data sources</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="data-sources.html"><a href="data-sources.html#u.s.-energy-information-administration-eia"><i class="fa fa-check"></i><b>2.1</b> U.S. Energy Information Administration (EIA)</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="data-sources.html"><a href="data-sources.html#column-descriptions"><i class="fa fa-check"></i><b>2.1.1</b> Column Descriptions</a></li>
+</ul></li>
+</ul></li>
 <li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a></li>
 <li class="chapter" data-level="4" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing values</a>
 <ul>
@@ -109,7 +113,59 @@
             <section class="normal" id="section-">
 <div id="data-sources" class="section level1" number="2">
 <h1><span class="header-section-number">Chapter 2</span> Data sources</h1>
+<div id="u.s.-energy-information-administration-eia" class="section level2" number="2.1">
+<h2><span class="header-section-number">2.1</span> U.S. Energy Information Administration (EIA)</h2>
+<p>This dataset was pulled from EIA.gov through an API. There is a package in R called “eia” that helps automate data pulls from the EIA.gov API calls. We used this package to pull monthly power generation data by fuel type for all of the states in the USA from the time period of 2001 - 2021.</p>
+<div id="column-descriptions" class="section level3" number="2.1.1">
+<h3><span class="header-section-number">2.1.1</span> Column Descriptions</h3>
+<p>The columns in this dataset are listed below:</p>
+<ul>
+<li><strong>thousand_megawatthours:</strong> net power generation in thousand megawatt hours</li>
+<li><strong>date:</strong> contains the month in which the power was generated. This column ranges from “2001-01-01” to “2021-08-01”.</li>
+<li><strong>state:</strong> contains the state in which the power was generated. Unique values include all 50 USA states</li>
+<li><strong>fuel:</strong> contains the fuel type, with unique values listed below:</li>
+</ul>
+<pre><code>##  [1] &quot; coal &quot;                           &quot; petroleum liquids &quot;             
+##  [3] &quot; petroleum coke &quot;                 &quot; natural gas &quot;                   
+##  [5] &quot; other gases &quot;                    &quot; nuclear &quot;                       
+##  [7] &quot; conventional hydroelectric &quot;     &quot; other renewables (total) &quot;      
+##  [9] &quot; wind &quot;                           &quot; all utility-scale solar &quot;       
+## [11] &quot; utility-scale photovoltaic &quot;     &quot; utility-scale thermal &quot;         
+## [13] &quot; geothermal &quot;                     &quot; wood and wood-derived fuels &quot;   
+## [15] &quot; other biomass &quot;                  &quot; hydro-electric pumped storage &quot; 
+## [17] &quot; other &quot;                          &quot; all solar &quot;                     
+## [19] &quot; small-scale solar photovoltaic &quot;</code></pre>
+<p>The fuels are aggregated hierarchically as outlined below:</p>
+<ul>
+<li><strong>All Fuels:</strong> includes the aggregation of power generation for coal, petroleum liquids, petroleum coke, natural gas, other gases, nuclear, conventional hydroelectric, hydro-electric pumped storage, other, and other renewables (total).</li>
+<li><strong>Other renewables (total):</strong> includes the aggregation of power generation for wind, all utility-scale solar, geothermal, and biomass (total).</li>
+<li><strong>Biomass (total):</strong> includes the aggregation of power generation for wood and wodd-derive fuels and other biomass.</li>
+<li><strong>All solar:</strong> includes the aggregation of power generation for small-scale solar photovoltaic and all utility-scale solar.</li>
+</ul>
+<p>The column summaries of data types and statistics (for numeric columns) are shown below:</p>
+<pre><code>##  thousand_megawatthours     date              state          
+##  Min.   : -316.725      Length:145239      Length:145239     
+##  1st Qu.:    5.075      Class :character   Class :character  
+##  Median :   47.678      Mode  :character   Mode  :character  
+##  Mean   :  621.139                                           
+##  3rd Qu.:  313.681                                           
+##  Max.   :30948.398                                           
+##  NA&#39;s   :1065                                                
+##      fuel          
+##  Length:145239     
+##  Class :character  
+##  Mode  :character  
+##                    
+##                    
+##                    
+## </code></pre>
+<p>The dataset has dimensions of:</p>
+<pre><code>## [1] 145239      4</code></pre>
+<p>or 145239 rows and 4 columns.</p>
+<p>This dataset only included power generation data for fuel types that were actually produced in a state. Therefore, some fuel type generation values are missing from certain states. Additionally, some states only adopted certain fuel types at a specific time interval during the period of interest, so again the power generation data is missing for some of the time period. This will be discussed more in the <a href="https://edav-ccfall21-final-project-team-7.github.io/USCleanEnergyAnalysis/missing-values.html">missing values chapter</a></p>
 
+</div>
+</div>
 </div>
             </section>
 

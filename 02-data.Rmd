@@ -7,13 +7,34 @@ library(tidyverse)
 library(kableExtra)
 eia_dat <- read.csv('data/raw/monthly_fuel_generation_by_state_full.csv')
 ```
-The columns in the EIA dataset are shown below:
+
+### Column Descriptions
+The columns in this dataset are listed below: 
+
+* **thousand_megawatthours:** net power generation in thousand megawatt hours
+* **date:** contains the month in which the power was generated. This column ranges from "2001-01-01" to "2021-08-01".
+* **state:** contains the state in which the power was generated. Unique values include all 50 USA states
+* **fuel:** contains the fuel type, with unique values listed below:
+
+```{r}
+unique(eia_dat$fuel)
+```
+The fuels are aggregated hierarchically as outlined below:
+
+* **All Fuels:** includes the aggregation of power generation for coal, petroleum liquids, petroleum coke, natural gas, other gases, nuclear, conventional hydroelectric, hydro-electric pumped storage, other, and other renewables (total).
+* **Other renewables (total):** includes the aggregation of power generation for wind, all utility-scale solar, geothermal, and biomass (total).
+* **Biomass (total):** includes the aggregation of power generation for wood and wodd-derive fuels and other biomass.
+* **All solar:** includes the aggregation of power generation for small-scale solar photovoltaic and all utility-scale solar. 
+
+The column summaries of data types and statistics (for numeric columns) are shown below:
 ```{r}
 summary(eia_dat)
 ```
-The "thousand_megawatthours" column is the net power generation in thousand MW hours. The date column is contains the month in which the power was generated. This column ranges from "2001-01-01" to "2021-08-01". The state column contains the 50 USA states. Lastly, the fuel column contains the fuel type, with unique values listed below:
-```{r, include = F}
-unique(eia_dat$fuel)
+The dataset has dimensions of:
+```{r}
+dim(eia_dat)
 ```
-*GN notes: need to talk about the hierarchy of the fuel types - and aggregation levels. 
-discuss number of rows, discuss issues with the data
+or 145239 rows and 4 columns. 
+
+This dataset only included power generation data for fuel types that were actually produced in a state. Therefore, some fuel type generation values are missing from certain states. Additionally, some states only adopted certain fuel types at a specific time interval during the period of interest, so again the power generation data is missing for some of the time period. This will be discussed more in the [missing values chapter](https://edav-ccfall21-final-project-team-7.github.io/USCleanEnergyAnalysis/missing-values.html)
+
