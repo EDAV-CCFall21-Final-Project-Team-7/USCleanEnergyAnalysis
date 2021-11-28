@@ -58,5 +58,17 @@ worldbank
 write.csv(worldbank,'data/raw/clean_worldbank.csv',row.names = FALSE)
 ```
 
+```{r}
+df <- read.csv('data/raw/monthly_fuel_generation_by_state_full.csv')
+row.names(df)
+
+i<-0
+for (vals in row.names(df)) {
+  i<-i+1
+  df$state[i] <- str_split(df$state[i],"-",simplify=TRUE)[2]
+}
+
+write.csv(df,'data/raw/clean_monthly_fuel_generation.csv',row.names = FALSE)
+```
 
 
