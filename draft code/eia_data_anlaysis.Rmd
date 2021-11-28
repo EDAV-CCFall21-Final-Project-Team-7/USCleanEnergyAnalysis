@@ -144,7 +144,7 @@ find_missing_patterns <- function(df, aggregation = 'count'){
 
 ```{r}
 #https://www.eia.gov/electricity/data/browser/#/topic/0?freq=M&start=200101&end=202108&ctype=linechart&ltype=pin&pin=&maptype=0
-df <- read.csv('data/raw/monthly_fuel_generation_by_state_full.csv')
+df <- read.csv('../data/raw/monthly_fuel_generation_by_state_full.csv')
 df$fuel <- trimws(df$fuel) 
 df$date <- as.Date(df$date)
 df[is.na(df$thousand_megawatthours),]$thousand_megawatthours <- 0
@@ -260,4 +260,68 @@ png(file='test1.jpeg')
 find_missing_patterns(WorldBank,'percent')
 dev.off()
 ```
+
+
+```{r}
+df <- read.csv('../data/raw/clean_monthly_fuel_generation.csv')
+df$fuel <- trimws(df$fuel) 
+df$date <- as.Date(df$date)
+df[is.na(df$thousand_megawatthours),]$thousand_megawatthours <- 0
+df$fuel <- gsub(" ", "_", df$fuel)
+df$fuel <- gsub("-", "_", df$fuel)
+df
+
+df1 <- df %>% 
+  group_by(fuel,date,state) %>% 
+  summarize(thousand_megawatthours = sum(thousand_megawatthours)) %>% 
+  ungroup()
+  
+df  %>% 
+  group_by(fuel, date) %>% summarise(thousand_megawatthours = sum(thousand_megawatthours)) %>% filter(fuel %in% c('all_solar', 'all_utility_scale_solar', 'coal','natural_gas', 'wind')) %>%
+  ggplot(aes(x = date, y = thousand_megawatthours, color = fuel)) +
+  geom_line()
+
+df_all_solar <- df  %>% 
+  group_by(fuel, date, state) %>% summarise(thousand_megawatthours = sum(thousand_megawatthours)) %>% filter(fuel %in% c('all_solar'))
+
+df_coal <- df  %>% 
+  group_by(fuel, date, state) %>% summarise(thousand_megawatthours = sum(thousand_megawatthours)) %>% filter(fuel %in% c('coal'))
+
+df_natural_gas <- df  %>% 
+  group_by(fuel, date, state) %>% summarise(thousand_megawatthours = sum(thousand_megawatthours)) %>% filter(fuel %in% c('natural_gas'))
+
+df_wind <- df  %>% 
+  group_by(fuel, date, state) %>% summarise(thousand_megawatthours = sum(thousand_megawatthours)) %>% filter(fuel %in% c('wind'))
+
+df_all_solar1 <- df_all_solar %>% group_by(state) %>% summarize(thousand_megawatthours = mean(thousand_megawatthours)) 
+
+df_coal1 <- df_coal %>% group_by(state) %>% summarize(thousand_megawatthours = mean(thousand_megawatthours)) 
+
+df_natural_gas1 <- df_natural_gas %>% group_by(state) %>% summarize(thousand_megawatthours = mean(thousand_megawatthours)) 
+
+df_wind1 <- df_wind %>% group_by(state) %>% summarize(thousand_megawatthours = mean(thousand_megawatthours)) 
+
+library(usmap)
+
+plot_usmap(data = df_all_solar1, values = 'thousand_megawatthours',regions = 'states', labels = TRUE, color = 'pink')+
+  scale_fill_continuous(low = "pink", high = "red", name = "Average thousand megawatthours", label = scales::comma) + 
+  labs(title = "Average thousand megawatthours by State (Solar Energy)") +
+  theme(legend.position = "right",plot.title = element_text(hjust = 0.5,size=10))
+
+plot_usmap(data = df_coal1, values = 'thousand_megawatthours',regions = 'states', labels = TRUE, color = 'pink')+
+  scale_fill_continuous(low = "pink", high = "red", name = "Average thousand megawatthours", label = scales::comma) + 
+  labs(title = "Average thousand megawatthours by State (Coal)") +
+  theme(legend.position = "right",plot.title = element_text(hjust = 0.5,size=10))
+
+plot_usmap(data = df_natural_gas1, values = 'thousand_megawatthours',regions = 'states', labels = TRUE, color = 'pink')+
+  scale_fill_continuous(low = "pink", high = "red", name = "Average thousand megawatthours", label = scales::comma) + 
+  labs(title = "Average thousand megawatthours by State (Natual Gas)") +
+  theme(legend.position = "right",plot.title = element_text(hjust = 0.5,size=10))
+
+plot_usmap(data = df_wind1, values = 'thousand_megawatthours',regions = 'states', labels = TRUE, color = 'pink')+
+  scale_fill_continuous(low = "pink", high = "red", name = "Average thousand megawatthours", label = scales::comma) + 
+  labs(title = "Average thousand megawatthours by State (Wind Energy)") +
+  theme(legend.position = "right",plot.title = element_text(hjust = 0.5,size=10))
+```
+
 
