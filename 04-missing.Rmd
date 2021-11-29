@@ -152,7 +152,7 @@ find_missing_patterns <- function(df, aggregation = 'count'){
 
 ```{r, message = FALSE, include = FALSE}
 #https://www.eia.gov/electricity/data/browser/#/topic/0?freq=M&start=200101&end=202108&ctype=linechart&ltype=pin&pin=&maptype=0
-df <- read.csv('data/raw/monthly_fuel_generation_by_state_full.csv')
+df <- read.csv('data/raw/clean_monthly_fuel_generation.csv')
 df$fuel <- trimws(df$fuel) 
 df$date <- as.Date(df$date)
 df[is.na(df$thousand_megawatthours),]$thousand_megawatthours <- 0
@@ -174,21 +174,26 @@ state_fuel %>% arrange(!is.na(coal), coal) %>% mutate_all(~cell_spec(.x, color =
  scroll_box(width = "800px", height = "300px")
 ```
 
+The plot below shows the time series of different types of solar energy production. From the plot it can be noticed that the "all_solar" fuel type, which is the aggregation of the "all_utility_scale_solar" and "small_scale_solar_photovoltaic" fuels, is missing data for dates before 2014. It seems that the aggregation did not include the all_utility_scale_solar values before that time; perhaps the aggregation had an error because there were n/a's in the data for small_scale_solar_photovoltaic during this time period.
 
-The plot below shows the time series of different types of energy production. From the plot it can be noticed that not all energy generated starts from the same dates. We can notice that the solar data starts only around 2014. Therefore, we can say that the solar energy data is missing for all dates before that. 
-
-```{r, echo = F,fig.width=10,fig.height=10}
-df <- read.csv('data/raw/monthly_fuel_generation_by_state_full.csv')
-df$fuel <- trimws(df$fuel) 
-df$date <- as.Date(df$date)
-df[is.na(df$thousand_megawatthours),]$thousand_megawatthours <- 0
-df$fuel <- gsub(" ", "_", df$fuel)
-df$fuel <- gsub("-", "_", df$fuel)
+```{r, echo = F}
+# df <- read.csv('data/raw/clean_monthly_fuel_generation_.csv')
+# df$fuel <- trimws(df$fuel) 
+# df$date <- as.Date(df$date)
+# df[is.na(df$thousand_megawatthours),]$thousand_megawatthours <- 0
+# df$fuel <- gsub(" ", "_", df$fuel)
+# df$fuel <- gsub("-", "_", df$fuel)
 
 df  %>% 
-  group_by(fuel, date) %>% summarise(thousand_megawatthours = sum(thousand_megawatthours)) %>% filter(fuel %in% c('all_solar', 'all_utility_scale_solar', 'coal','natural_gas', 'wind')) %>%
+  group_by(fuel, date) %>% summarise(thousand_megawatthours = sum(thousand_megawatthours)) %>% filter(fuel %in% c('all_solar', 'all_utility_scale_solar', 'small_scale_solar_photovoltaic')) %>%
   ggplot(aes(x = date, y = thousand_megawatthours, color = fuel)) +
-  geom_line()
+  geom_line() +
+  ggtitle("Solar Energy Generation") +
+  xlab("Date") +
+  ylab("MW Hours (thousand)") +
+  theme_classic() +
+  theme(plot.title = element_text(hjust = .5)) #+
+#  annotate("text", x = as.Date('2013-01-01'), y = 2500, label = "all_solar aggregated incorrectly before this #point.")
 ```
 
 
