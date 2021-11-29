@@ -24,7 +24,7 @@
 <meta name="author" content="Raihan Bashir, Gabrielle Nyirjesy, Abhimanyu Swaroop" />
 
 
-<meta name="date" content="2021-11-19" />
+<meta name="date" content="2021-11-29" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -76,7 +76,13 @@
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
-<li class="chapter" data-level="2" data-path="data-sources.html"><a href="data-sources.html"><i class="fa fa-check"></i><b>2</b> Data sources</a></li>
+<li class="chapter" data-level="2" data-path="data-sources.html"><a href="data-sources.html"><i class="fa fa-check"></i><b>2</b> Data sources</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="data-sources.html"><a href="data-sources.html#u.s.-energy-information-administration-eia"><i class="fa fa-check"></i><b>2.1</b> U.S. Energy Information Administration (EIA)</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="data-sources.html"><a href="data-sources.html#column-descriptions"><i class="fa fa-check"></i><b>2.1.1</b> Column Descriptions</a></li>
+</ul></li>
+</ul></li>
 <li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a></li>
 <li class="chapter" data-level="4" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing values</a>
 <ul>
@@ -114,7 +120,7 @@
 <div id="missing-statefuel-type-power-generation" class="section level3" number="4.1.1">
 <h3><span class="header-section-number">4.1.1</span> Missing State/Fuel Type Power Generation</h3>
 <p>The EIA.gov data set was one of the data set with missing values that we used in our analysis. Most of the missing values were absent because most states did not generate electricity for all fuel types. This missing data can show which fuel types are most widely adopted by all U.S. states and which fuel types are less common.
-<img src="state-fuel%20type%20missing%20patterns.png" /><!-- --></p>
+<img src="state-fuel%20type%20missing%20patterns.png" width="2323" /></p>
 From the table above, it is seen that all states use solar energy at some point. An interesting observation is that there are some states that did not use coal at any point during this time period. Taking a closer look, using the table below, it is seen that Vermont and Rhode Island are the two states that did not use coal as an energy generation source. This table also shows that California was the only state to use all fuel types.
 <div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:300px; overflow-x: scroll; width:800px; ">
 <table class="table table-striped" style="font-size: 9px; width: auto !important; margin-left: auto; margin-right: auto;">
@@ -185,7 +191,7 @@ geothermal
 <tbody>
 <tr>
 <td style="text-align:left;">
-USA-RI
+RI
 </td>
 <td style="text-align:left;">
 <span style="     color: black !important;">1545.78451</span>
@@ -247,7 +253,7 @@ USA-RI
 </tr>
 <tr>
 <td style="text-align:left;">
-USA-VT
+VT
 </td>
 <td style="text-align:left;">
 <span style="     color: black !important;">1684.51429</span>
@@ -309,7 +315,7 @@ USA-VT
 </tr>
 <tr>
 <td style="text-align:left;">
-USA-ID
+ID
 </td>
 <td style="text-align:left;">
 <span style="     color: black !important;">2896.76559</span>
@@ -371,7 +377,7 @@ USA-ID
 </tr>
 <tr>
 <td style="text-align:left;">
-USA-ME
+ME
 </td>
 <td style="text-align:left;">
 <span style="     color: black !important;">565.58343</span>
@@ -433,7 +439,7 @@ USA-ME
 </tr>
 <tr>
 <td style="text-align:left;">
-USA-AK
+AK
 </td>
 <td style="text-align:left;">
 <span style="     color: black !important;">26.38682</span>
@@ -495,7 +501,7 @@ USA-AK
 </tr>
 <tr>
 <td style="text-align:left;">
-USA-CA
+CA
 </td>
 <td style="text-align:left;">
 <span style="     color: black !important;">267831.66499</span>
@@ -557,7 +563,7 @@ USA-CA
 </tr>
 <tr>
 <td style="text-align:left;">
-USA-HI
+HI
 </td>
 <td style="text-align:left;">
 <span style="     color: black !important;">8869.15441</span>
@@ -619,7 +625,7 @@ USA-HI
 </tr>
 <tr>
 <td style="text-align:left;">
-USA-CT
+CT
 </td>
 <td style="text-align:left;">
 <span style="     color: black !important;">4280.65312</span>
@@ -681,7 +687,7 @@ USA-CT
 </tr>
 <tr>
 <td style="text-align:left;">
-USA-NH
+NH
 </td>
 <td style="text-align:left;">
 <span style="     color: black !important;">582.00275</span>
@@ -743,7 +749,7 @@ USA-NH
 </tr>
 <tr>
 <td style="text-align:left;">
-USA-DE
+DE
 </td>
 <td style="text-align:left;">
 <span style="     color: black !important;">1180.3357</span>
@@ -805,7 +811,7 @@ USA-DE
 </tr>
 <tr>
 <td style="text-align:left;">
-USA-SD
+SD
 </td>
 <td style="text-align:left;">
 <span style="     color: black !important;">10.56905</span>
@@ -867,7 +873,7 @@ USA-SD
 </tr>
 <tr>
 <td style="text-align:left;">
-USA-OR
+OR
 </td>
 <td style="text-align:left;">
 <span style="     color: black !important;">5131.43772</span>
@@ -929,7 +935,7 @@ USA-OR
 </tr>
 <tr>
 <td style="text-align:left;">
-USA-NJ
+NJ
 </td>
 <td style="text-align:left;">
 <span style="     color: black !important;">22304.47549</span>
@@ -991,7 +997,7 @@ USA-NJ
 </tr>
 <tr>
 <td style="text-align:left;">
-USA-MA
+MA
 </td>
 <td style="text-align:left;">
 <span style="     color: black !important;">19868.91052</span>
@@ -1053,7 +1059,7 @@ USA-MA
 </tr>
 <tr>
 <td style="text-align:left;">
-USA-WA
+WA
 </td>
 <td style="text-align:left;">
 <span style="     color: black !important;">1269.29777</span>
@@ -1115,7 +1121,7 @@ USA-WA
 </tr>
 <tr>
 <td style="text-align:left;">
-USA-NV
+NV
 </td>
 <td style="text-align:left;">
 <span style="     color: black !important;">33179.13055</span>
@@ -1177,7 +1183,7 @@ USA-NV
 </tr>
 <tr>
 <td style="text-align:left;">
-USA-NY
+NY
 </td>
 <td style="text-align:left;">
 <span style="     color: black !important;">14030.75486</span>
@@ -1239,7 +1245,7 @@ USA-NY
 </tr>
 <tr>
 <td style="text-align:left;">
-USA-MS
+MS
 </td>
 <td style="text-align:left;">
 <span style="     color: black !important;">1545.31959</span>
@@ -1301,7 +1307,7 @@ USA-MS
 </tr>
 <tr>
 <td style="text-align:left;">
-USA-MT
+MT
 </td>
 <td style="text-align:left;">
 <span style="     color: black !important;">291.33129</span>
@@ -1363,7 +1369,7 @@ USA-MT
 </tr>
 <tr>
 <td style="text-align:left;">
-USA-LA
+LA
 </td>
 <td style="text-align:left;">
 <span style="     color: black !important;">1561.1192</span>
@@ -1425,7 +1431,7 @@ USA-LA
 </tr>
 <tr>
 <td style="text-align:left;">
-USA-MD
+MD
 </td>
 <td style="text-align:left;">
 <span style="     color: black !important;">8138.47137</span>
@@ -1487,7 +1493,7 @@ USA-MD
 </tr>
 <tr>
 <td style="text-align:left;">
-USA-NE
+NE
 </td>
 <td style="text-align:left;">
 <span style="     color: black !important;">260.01279</span>
@@ -1549,7 +1555,7 @@ USA-NE
 </tr>
 <tr>
 <td style="text-align:left;">
-USA-VA
+VA
 </td>
 <td style="text-align:left;">
 <span style="     color: black !important;">6531.45188</span>
@@ -1611,7 +1617,7 @@ USA-VA
 </tr>
 <tr>
 <td style="text-align:left;">
-USA-NM
+NM
 </td>
 <td style="text-align:left;">
 <span style="     color: black !important;">10571.88264</span>
@@ -1673,7 +1679,7 @@ USA-NM
 </tr>
 <tr>
 <td style="text-align:left;">
-USA-AR
+AR
 </td>
 <td style="text-align:left;">
 <span style="     color: black !important;">1332.28719</span>
@@ -1735,7 +1741,7 @@ USA-AR
 </tr>
 <tr>
 <td style="text-align:left;">
-USA-MN
+MN
 </td>
 <td style="text-align:left;">
 <span style="     color: black !important;">6669.7018</span>
@@ -1797,7 +1803,7 @@ USA-MN
 </tr>
 <tr>
 <td style="text-align:left;">
-USA-OK
+OK
 </td>
 <td style="text-align:left;">
 <span style="     color: black !important;">394.53682</span>
@@ -1859,7 +1865,7 @@ USA-OK
 </tr>
 <tr>
 <td style="text-align:left;">
-USA-ND
+ND
 </td>
 <td style="text-align:left;">
 <span style="     color: black !important;">3.95326</span>
@@ -1921,7 +1927,7 @@ USA-ND
 </tr>
 <tr>
 <td style="text-align:left;">
-USA-KS
+KS
 </td>
 <td style="text-align:left;">
 <span style="     color: black !important;">309.43823</span>
@@ -1983,7 +1989,7 @@ USA-KS
 </tr>
 <tr>
 <td style="text-align:left;">
-USA-SC
+SC
 </td>
 <td style="text-align:left;">
 <span style="     color: black !important;">6341.83099</span>
@@ -2045,7 +2051,7 @@ USA-SC
 </tr>
 <tr>
 <td style="text-align:left;">
-USA-CO
+CO
 </td>
 <td style="text-align:left;">
 <span style="     color: black !important;">11311.73993</span>
@@ -2107,7 +2113,7 @@ USA-CO
 </tr>
 <tr>
 <td style="text-align:left;">
-USA-UT
+UT
 </td>
 <td style="text-align:left;">
 <span style="     color: black !important;">15104.34631</span>
@@ -2169,7 +2175,7 @@ USA-UT
 </tr>
 <tr>
 <td style="text-align:left;">
-USA-IA
+IA
 </td>
 <td style="text-align:left;">
 <span style="     color: black !important;">1080.03489</span>
@@ -2231,7 +2237,7 @@ USA-IA
 </tr>
 <tr>
 <td style="text-align:left;">
-USA-AZ
+AZ
 </td>
 <td style="text-align:left;">
 <span style="     color: black !important;">52434.27495</span>
@@ -2293,7 +2299,7 @@ USA-AZ
 </tr>
 <tr>
 <td style="text-align:left;">
-USA-WI
+WI
 </td>
 <td style="text-align:left;">
 <span style="     color: black !important;">1044.37124</span>
@@ -2355,7 +2361,7 @@ USA-WI
 </tr>
 <tr>
 <td style="text-align:left;">
-USA-WY
+WY
 </td>
 <td style="text-align:left;">
 <span style="     color: black !important;">530.11849</span>
@@ -2417,7 +2423,7 @@ USA-WY
 </tr>
 <tr>
 <td style="text-align:left;">
-USA-TN
+TN
 </td>
 <td style="text-align:left;">
 <span style="     color: black !important;">1991.62408</span>
@@ -2479,7 +2485,7 @@ USA-TN
 </tr>
 <tr>
 <td style="text-align:left;">
-USA-FL
+FL
 </td>
 <td style="text-align:left;">
 <span style="     color: black !important;">24774.7416</span>
@@ -2541,7 +2547,7 @@ USA-FL
 </tr>
 <tr>
 <td style="text-align:left;">
-USA-AL
+AL
 </td>
 <td style="text-align:left;">
 <span style="     color: black !important;">45.20489</span>
@@ -2603,7 +2609,7 @@ USA-AL
 </tr>
 <tr>
 <td style="text-align:left;">
-USA-NC
+NC
 </td>
 <td style="text-align:left;">
 <span style="     color: black !important;">42184.77426</span>
@@ -2665,7 +2671,7 @@ USA-NC
 </tr>
 <tr>
 <td style="text-align:left;">
-USA-MI
+MI
 </td>
 <td style="text-align:left;">
 <span style="     color: black !important;">1516.2678</span>
@@ -2727,7 +2733,7 @@ USA-MI
 </tr>
 <tr>
 <td style="text-align:left;">
-USA-GA
+GA
 </td>
 <td style="text-align:left;">
 <span style="     color: black !important;">7448.43252</span>
@@ -2789,7 +2795,7 @@ USA-GA
 </tr>
 <tr>
 <td style="text-align:left;">
-USA-MO
+MO
 </td>
 <td style="text-align:left;">
 <span style="     color: black !important;">2308.71695</span>
@@ -2851,7 +2857,7 @@ USA-MO
 </tr>
 <tr>
 <td style="text-align:left;">
-USA-WV
+WV
 </td>
 <td style="text-align:left;">
 <span style="     color: black !important;">74.13589</span>
@@ -2913,7 +2919,7 @@ USA-WV
 </tr>
 <tr>
 <td style="text-align:left;">
-USA-KY
+KY
 </td>
 <td style="text-align:left;">
 <span style="     color: black !important;">434.90704</span>
@@ -2975,7 +2981,7 @@ USA-KY
 </tr>
 <tr>
 <td style="text-align:left;">
-USA-IL
+IL
 </td>
 <td style="text-align:left;">
 <span style="     color: black !important;">2221.071</span>
@@ -3037,7 +3043,7 @@ USA-IL
 </tr>
 <tr>
 <td style="text-align:left;">
-USA-PA
+PA
 </td>
 <td style="text-align:left;">
 <span style="     color: black !important;">3963.358</span>
@@ -3099,7 +3105,7 @@ USA-PA
 </tr>
 <tr>
 <td style="text-align:left;">
-USA-IN
+IN
 </td>
 <td style="text-align:left;">
 <span style="     color: black !important;">2890.21313</span>
@@ -3161,7 +3167,7 @@ USA-IN
 </tr>
 <tr>
 <td style="text-align:left;">
-USA-OH
+OH
 </td>
 <td style="text-align:left;">
 <span style="     color: black !important;">2393.47135</span>
@@ -3223,7 +3229,7 @@ USA-OH
 </tr>
 <tr>
 <td style="text-align:left;">
-USA-TX
+TX
 </td>
 <td style="text-align:left;">
 <span style="     color: black !important;">34090.65723</span>
@@ -3286,8 +3292,8 @@ USA-TX
 </tbody>
 </table>
 </div>
-<p>The plot below shows the time series of different types of energy production. From the plot it can be noticed that not all energy generated starts from the same dates. We can notice that the solar data starts only around 2014. Therefore, we can say that the solar energy data is missing for all dates before that.</p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-14-1.png" width="960" /></p>
+<p>The plot below shows the time series of different types of solar energy production. From the plot it can be noticed that the “all_solar” fuel type, which is the aggregation of the “all_utility_scale_solar” and “small_scale_solar_photovoltaic” fuels, is missing data for dates before 2014. It seems that the aggregation did not include the all_utility_scale_solar values before that time; perhaps the aggregation had an error because there were n/a’s in the data for small_scale_solar_photovoltaic during this time period.</p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
 
 </div>
 </div>
