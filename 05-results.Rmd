@@ -1,1 +1,33 @@
 # Results
+
+```{r, warning=F, echo=F}
+library(tidyverse)
+df <- read.csv('data/raw/clean_monthly_fuel_generation.csv')
+df$fuel <- trimws(df$fuel) 
+df$date <- as.Date(df$date)
+df[is.na(df$thousand_megawatthours),]$thousand_megawatthours <- 0
+df$fuel <- gsub(" ", "_", df$fuel)
+df$fuel <- gsub("-", "_", df$fuel)
+current <- df %>% filter(date >= as.Date('2021-01-01'))
+current_states <- current %>% group_by(state, fuel) %>% summarize(total_thousand_mwh = mean(thousand_megawatthours)) %>% pivot_wider(id_cols = c(state), names_from= fuel, values_from = total_thousand_mwh)
+current_states[is.na(current_states)] <- 0
+current_states <- current_states[names(current_states) %in% c('state', 'coal', 'petroleum_liquids','petroleum_coke','natural_gas', 'other_gases', 'nuclear', 'conventional_hydroelectric', 'other', 'other_renewables_(total)')]
+current_states_percent <- current_states %>% 
+  gather(variable, value, -state) %>% 
+  group_by(state) %>% 
+  mutate(percentage = value/sum(value)*100) %>% 
+  select(-value) %>% 
+  spread(variable, percentage)
+current_states_percent$renewables <- current_states_percent$conventional_hydroelectric + current_states_percent$nuclear + current_states_percent$`other_renewables_(total)`
+plot_df <- current_states_percent[names(current_states_percent) %in% c('state', 'coal', 'renewables')]
+plot_df <- plot_df %>% pivot_longer(cols = !state, names_to = "fuel", values_to = "percent")
+
+ggplot(current_states_percent, aes(x = renewables, y = fct_reorder(state, renewables))) +
+  geom_point(color = "blue") +
+  ggtitle("2021 Mean Renewable Percent of Total Power Generation") +
+  xlab("Renewables Percent of Net Generation") +
+  ylab("State") + 
+  theme_linedraw() +
+  theme(plot.title = element_text(hjust=.5))
+```
+

@@ -1,5 +1,7 @@
 introduction
 data-sources
+u.s.-energy-information-administration-eia
+column-descriptions
 data-transformation
 missing-values
 u.s.-energy-information-administration-data
@@ -7,5 +9,3 @@ missing-statefuel-type-power-generation
 results
 interactive-component
 conclusion
-u.s.-energy-information-administration-eia
-column-descriptions
