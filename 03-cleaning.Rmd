@@ -1,6 +1,7 @@
 # Data transformation
 
-Correcting Date format in Financial Data
+## Financial Data
+### Correcting Date format
 ```{r}
 library(tidyverse)
 
@@ -24,7 +25,7 @@ write.csv(Crushing_crude_oil,'data/raw/clean_crushing_crude_oil.csv',
           row.names=FALSE)
 Crushing_crude_oil
 ```
-```{r}
+```{r, warning=F, echo=F}
 worldbank <-read_csv('data/raw/US_Country_Data_WorldBank.csv') 
 str_split(names(worldbank)," ")
 
@@ -58,7 +59,9 @@ worldbank
 write.csv(worldbank,'data/raw/clean_worldbank.csv',row.names = FALSE)
 ```
 
-```{r}
+## EIA Data
+### Corrections
+```{r, warning=F, echo=F}
 df <- read.csv('data/raw/monthly_fuel_generation_by_state_full.csv')
 row.names(df)
 
@@ -71,4 +74,25 @@ for (vals in row.names(df)) {
 write.csv(df,'data/raw/clean_monthly_fuel_generation.csv',row.names = FALSE)
 ```
 
+### Create interactive data
+The data needs to be transformed for the interactive component of this project. The data is wrangled to create a dataframe that contains each the percent of each fuel type used by each state on each date. 
+```{r}
+df <- read.csv('data/raw/clean_monthly_fuel_generation.csv')
+df$fuel <- trimws(df$fuel) 
+df$date <- as.Date(df$date)
+df[is.na(df$thousand_megawatthours),]$thousand_megawatthours <- 0
+df$fuel <- gsub(" ", "_", df$fuel)
+df$fuel <- gsub("-", "_", df$fuel)
+interactive_data <- df %>% group_by(state, fuel, date) %>% pivot_wider(id_cols = c(state, date), names_from= fuel, values_from = thousand_megawatthours)
+interactive_data[is.na(interactive_data)] <- 0
+interactive_data <- interactive_data[names(interactive_data) %in% c('state', 'date', 'coal', 'petroleum_liquids','petroleum_coke','natural_gas', 'other_gases', 'nuclear', 'conventional_hydroelectric', 'other', 'other_renewables_(total)')]
+interactive_data_percent <- interactive_data %>%
+  gather(variable, value, -c(state,date)) %>%
+  group_by(state,date) %>%
+  mutate(percentage = value/sum(value, na.rm=TRUE)*100) %>%
+  select(-value) %>%
+  spread(variable, percentage)
+interactive_data_percent$renewables <- interactive_data_percent$conventional_hydroelectric + interactive_data_percent$`other_renewables_(total)`
+write.csv(interactive_data_percent, 'data/clean/interactive_data.csv',row.names = FALSE)
+```
 

@@ -10,14 +10,21 @@ df$date <- as.Date(df$date)
 df[is.na(df$thousand_megawatthours),]$thousand_megawatthours <- 0
 df$fuel <- gsub(" ", "_", df$fuel)
 df$fuel <- gsub("-", "_", df$fuel)
+#Update solar summation to be correct
+df <- df %>% pivot_wider(id_cols = c(date, state), names_from=c(fuel), values_from = thousand_megawatthours)
+df <- df %>% rowwise() %>% mutate(all_solar = sum(small_scale_solar_photovoltaic, all_utility_scale_solar, na.rm = TRUE))
+df <- df %>% pivot_longer(cols=names(df)[3:21],  names_to='fuel', values_to='thousand_megawatthours')
+```
+
+```{r, warning=F, echo=F}
 current <- df %>% filter(date >= as.Date('2021-01-01'))
-current_states <- current %>% group_by(state, fuel) %>% summarize(total_thousand_mwh = mean(thousand_megawatthours)) %>% pivot_wider(id_cols = c(state), names_from= fuel, values_from = total_thousand_mwh)
+current_states <- current %>% group_by(state, fuel) %>% summarize(total_thousand_mwh = mean(thousand_megawatthours, na.rm=TRUE)) %>% pivot_wider(id_cols = c(state), names_from= fuel, values_from = total_thousand_mwh)
 current_states[is.na(current_states)] <- 0
 current_states <- current_states[names(current_states) %in% c('state', 'coal', 'petroleum_liquids','petroleum_coke','natural_gas', 'other_gases', 'nuclear', 'conventional_hydroelectric', 'other', 'other_renewables_(total)')]
 current_states_percent <- current_states %>% 
   gather(variable, value, -state) %>% 
   group_by(state) %>% 
-  mutate(percentage = value/sum(value)*100) %>% 
+  mutate(percentage = value/sum(value, na.rm=TRUE)*100) %>% 
   select(-value) %>% 
   spread(variable, percentage)
 current_states_percent$renewables <- current_states_percent$conventional_hydroelectric + current_states_percent$`other_renewables_(total)`
@@ -26,8 +33,8 @@ plot_df <- plot_df %>% pivot_longer(cols = !state, names_to = "fuel", values_to 
 
 ggplot(current_states_percent, aes(x = renewables, y = fct_reorder(state, renewables))) +
   geom_point(color = "blue") +
-  ggtitle("2021 Mean Renewable Percent of Total Power Generation") +
-  xlab("Renewables Percent of Net Generation") +
+  ggtitle("2021 Average Renewable Percent of Total Power Generation") +
+  xlab("Average Renewables Percent of Net Generation") +
   ylab("State") + 
   theme_linedraw() +
   theme(plot.title = element_text(hjust=.5))
@@ -42,7 +49,7 @@ To explore macro trends in the energy sources utilized by the United States as a
 
 ```{r, echo=F, warning=F}
 df  %>% 
-  group_by(fuel, date) %>% summarise(thousand_megawatthours = sum(thousand_megawatthours)) %>% filter(fuel %in% c('all_solar', 'coal','natural_gas', 'wind', 'nuclear', 'conventional_hydroelectric')) %>%
+  group_by(fuel, date) %>% summarise(thousand_megawatthours = sum(thousand_megawatthours, na.rm = TRUE)) %>% filter(fuel %in% c('all_solar', 'coal','natural_gas', 'wind', 'nuclear', 'conventional_hydroelectric')) %>%
   ggplot(aes(x = date, y = thousand_megawatthours, color = fct_relevel(fuel, c('natural_gas', 'coal','nuclear', 'conventional_hydroelectric', 'wind', 'solar')))) +
   geom_line() +
   theme_classic() +
@@ -59,7 +66,7 @@ library(GGally)
 df  %>% filter(fuel %in% c('wind','coal', 'natural_gas', 'all_solar')) %>%
   select(c(fuel, date, thousand_megawatthours)) %>% 
   group_by(fuel, date) %>% 
-  summarise(thousand_megawatthours = sum(thousand_megawatthours)) %>% ungroup()  %>%
+  summarise(thousand_megawatthours = sum(thousand_megawatthours, na.rm = TRUE)) %>% ungroup()  %>%
   pivot_wider(names_from=fuel, id_cols = date, values_from = thousand_megawatthours) %>%
   ggparcoord(columns=c(array(2:5)), scale= "uniminmax", alphaLines = .3, splineFactor = 9) +
   theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1),
@@ -68,4 +75,5 @@ df  %>% filter(fuel %in% c('wind','coal', 'natural_gas', 'all_solar')) %>%
   xlab("Fuel") +
   ylab("") 
 ```
+
 

@@ -9,3 +9,10 @@ missing-statefuel-type-power-generation
 results
 interactive-component
 conclusion
+renewable-fuel-adoption
+macro-trends
+financial-data
+correcting-date-format
+eia-data
+corrections
+create-interactive-data
