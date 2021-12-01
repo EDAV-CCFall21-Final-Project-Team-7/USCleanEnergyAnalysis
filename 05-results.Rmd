@@ -1,5 +1,6 @@
 # Results
-
+## Renewable Fuel Adoption
+The below chart explores the average percent of power generated in 2021 by each state that is produced by renewable energy sources. Renewable energy sources include wind, solar, geothermal, biomass, and hydroelectric power sources.
 ```{r, warning=F, echo=F}
 library(tidyverse)
 df <- read.csv('data/raw/clean_monthly_fuel_generation.csv')
@@ -18,7 +19,7 @@ current_states_percent <- current_states %>%
   mutate(percentage = value/sum(value)*100) %>% 
   select(-value) %>% 
   spread(variable, percentage)
-current_states_percent$renewables <- current_states_percent$conventional_hydroelectric + current_states_percent$nuclear + current_states_percent$`other_renewables_(total)`
+current_states_percent$renewables <- current_states_percent$conventional_hydroelectric + current_states_percent$`other_renewables_(total)`
 plot_df <- current_states_percent[names(current_states_percent) %in% c('state', 'coal', 'renewables')]
 plot_df <- plot_df %>% pivot_longer(cols = !state, names_to = "fuel", values_to = "percent")
 
@@ -29,5 +30,36 @@ ggplot(current_states_percent, aes(x = renewables, y = fct_reorder(state, renewa
   ylab("State") + 
   theme_linedraw() +
   theme(plot.title = element_text(hjust=.5))
+```
+It is interesting to note that Vermont is already generating 100% of their power from renewable energy sources. Additionally, Mississippi has the lower percentage of power generated from renewables with these sources comprising just over 2% of the average 2021 power.
+
+Some states have set Renewable Portfolio Goals (RPS) that specify that utilities must sell a certain percentage of electricity that is generated from renewable sources. Delaware set a goal in 2005 to achieve achieve power generation that is 25% renewables by 2025 (https://www.ncsl.org/research/energy/renewable-portfolio-standards.aspx); however, they have only achieved 3% renewables in the current year. 
+
+## Macro Trends
+To explore macro trends in the energy sources utilized by the United States as a whole, the time series for each power source is plotted from 2001 - 2021. It is seen below that in 2001 coal was the predominant electricity source for America. Coal had a steady power generation until it began to decline around 2010. Natural gas took off at this time and by 2021 is the biggest producer of energy. Conventional hydroelectric was one of the first renewable energy resources to appear at significant levels in the electricity power generation for the US. Both solar and wind power have slowly increased in the amount of power they produce. 
+```{r, echo=F, warning=F}
+df  %>% 
+  group_by(fuel, date) %>% summarise(thousand_megawatthours = sum(thousand_megawatthours)) %>% filter(fuel %in% c('all_solar', 'coal','natural_gas', 'wind', 'nuclear', 'conventional_hydroelectric')) %>%
+  ggplot(aes(x = date, y = thousand_megawatthours, color = fct_relevel(fuel, c('natural_gas', 'coal','nuclear', 'conventional_hydroelectric', 'wind', 'solar')))) +
+  geom_line() +
+  theme_classic() +
+  ggtitle('USA Net Generation by Fuel Type') + 
+  xlab("Date") +
+  ylab("MW Hours (thousand)") +
+  theme(legend.title=element_blank(), plot.title = element_text(hjust=.5))
+```
+We can explore the relationship between specific fuel types to determine which are correlated. From the plot below, it appears that coal is negatively correlated with both solar and natural gas. This is not necessarily surprising because natural gas is typically used to complement renewable energy sources and act as a form of stability to produce power when the sun isn't shining or the wind isn't blowing. 
+```{r, echo=F, warning=F}
+df  %>% filter(fuel %in% c('wind','coal', 'natural_gas', 'all_solar')) %>%
+  select(c(fuel, date, thousand_megawatthours)) %>% 
+  group_by(fuel, date) %>% 
+  summarise(thousand_megawatthours = sum(thousand_megawatthours)) %>% ungroup()  %>%
+  pivot_wider(names_from=fuel, id_cols = date, values_from = thousand_megawatthours) %>%
+  ggparcoord(columns=c(array(2:5)), scale= "uniminmax", alphaLines = .3, splineFactor = 9) +
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1),
+        plot.title = element_text(hjust=.5)) +
+  ggtitle('Relationship between Fuel Types') +
+  xlab("Fuel") +
+  ylab("") 
 ```
 
