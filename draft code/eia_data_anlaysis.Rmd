@@ -254,7 +254,7 @@ Strip off USA- from state col and plot them on a map
 Missing data plots
 ```{r}
 
-WorldBank <-read_csv('data/raw/US_Country_Data_WorldBank.csv')
+WorldBank <-read_csv('../data/raw/US_Country_Data_WorldBank.csv')
 
 png(file='test1.jpeg')
 find_missing_patterns(WorldBank,'percent')
@@ -324,4 +324,39 @@ plot_usmap(data = df_wind1, values = 'thousand_megawatthours',regions = 'states'
   theme(legend.position = "right",plot.title = element_text(hjust = 0.5,size=10))
 ```
 
+```{r}
+min_max_norm <- function(x) {
+    (x - min(x)) / (max(x) - min(x))
+  }
+
+oil <- read_csv('../data/raw/clean_crushing_crude_oil.csv')
+oil$Day <- as.Date(oil$Day,format = '%m/%d/%Y')
+names(oil) <- c("Date","Cost")
+
+df_grouped <- df  %>% 
+  group_by(fuel, date) %>% summarise(thousand_megawatthours = sum(thousand_megawatthours)) %>% filter(fuel %in% c('all_solar', 'all_utility_scale_solar', 'coal','natural_gas', 'wind'))
+
+cnrg <-read_csv('../data/raw/CNRG.csv')
+icln <- read_csv('../data/raw/ICLN.csv')
+xle <- read_csv('../data/raw/XLE.csv')
+
+
+df_grouped$thousand_megawatthours<-as.data.frame(lapply(df_grouped[3],min_max_norm))$thousand_megawatthours
+cnrg$Close<-as.data.frame(lapply(cnrg[5],min_max_norm))$Close
+icln$Close<-as.data.frame(lapply(icln[5],min_max_norm))$Close
+xle$Close<-as.data.frame(lapply(xle[5],min_max_norm))$Close
+
+ggplot()+
+  #geom_line(data=cnrg,aes(Date,Close))+
+  geom_line(data = df_grouped, aes(x=date,y=thousand_megawatthours, color = fuel))+
+  #geom_line(data=icln,aes(Date,Close))+
+  geom_line(data=xle,aes(Date,Close))
+
+ggplot()+
+  geom_line(data = oil,aes(x=Date,y=Cost)) +
+  geom_line(data = df_grouped, aes(x=date,y=thousand_megawatthours, color = fuel))
+
+
+
+```
 
