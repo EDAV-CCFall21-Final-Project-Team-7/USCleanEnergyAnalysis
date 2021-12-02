@@ -4,16 +4,16 @@ The below chart explores the average percent of power generated in 2021 by each 
 
 ```{r, warning=F, echo=F}
 library(tidyverse)
-df <- read.csv('data/raw/clean_monthly_fuel_generation.csv')
-df$fuel <- trimws(df$fuel) 
+df <- read.csv('data/clean/clean_monthly_fuel_generation.csv')
+# df$fuel <- trimws(df$fuel) 
 df$date <- as.Date(df$date)
-df[is.na(df$thousand_megawatthours),]$thousand_megawatthours <- 0
-df$fuel <- gsub(" ", "_", df$fuel)
-df$fuel <- gsub("-", "_", df$fuel)
+# df[is.na(df$thousand_megawatthours),]$thousand_megawatthours <- 0
+# df$fuel <- gsub(" ", "_", df$fuel)
+# df$fuel <- gsub("-", "_", df$fuel)
 #Update solar summation to be correct
-df <- df %>% pivot_wider(id_cols = c(date, state), names_from=c(fuel), values_from = thousand_megawatthours)
-df <- df %>% rowwise() %>% mutate(all_solar = sum(small_scale_solar_photovoltaic, all_utility_scale_solar, na.rm = TRUE))
-df <- df %>% pivot_longer(cols=names(df)[3:21],  names_to='fuel', values_to='thousand_megawatthours')
+# df <- df %>% pivot_wider(id_cols = c(date, state), names_from=c(fuel), values_from = thousand_megawatthours)
+# df <- df %>% rowwise() %>% mutate(all_solar = sum(small_scale_solar_photovoltaic, all_utility_scale_solar, na.rm = TRUE))
+# df <- df %>% pivot_longer(cols=names(df)[3:21],  names_to='fuel', values_to='thousand_megawatthours')
 ```
 
 ```{r, warning=F, echo=F}
@@ -38,6 +38,7 @@ ggplot(current_states_percent, aes(x = renewables, y = fct_reorder(state, renewa
   ylab("State") + 
   theme_linedraw() +
   theme(plot.title = element_text(hjust=.5))
+options(repr.P.width=4,repr.P.height=10)
 ```
 
 It is interesting to note that Vermont is already generating 100% of their power from renewable energy sources. Additionally, Mississippi has the lower percentage of power generated from renewables with these sources comprising just over 2% of the average 2021 power.

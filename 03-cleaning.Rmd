@@ -61,28 +61,68 @@ write.csv(worldbank,'data/raw/clean_worldbank.csv',row.names = FALSE)
 
 ## EIA Data
 ### Corrections
+There were several issues with the EIA data. First, the state name read in as "USA-<state>" (examples below).
+
 ```{r, warning=F, echo=F}
 df <- read.csv('data/raw/monthly_fuel_generation_by_state_full.csv')
-row.names(df)
+unique(df$state)[1:5]
 
-i<-0
-for (vals in row.names(df)) {
-  i<-i+1
-  df$state[i] <- str_split(df$state[i],"-",simplify=TRUE)[2]
-}
+```
 
-write.csv(df,'data/raw/clean_monthly_fuel_generation.csv',row.names = FALSE)
+We updated this column by splitting on the "-" delimiter and only keeping the actual state name. 
+
+```{r, warning=F, echo=F}
+df <- df %>% separate(state, sep = "-", into = c('country','state'), remove = TRUE)
+df$country <- NULL
+unique(df$state)[1:5]
+```
+
+Other formatting issues existed with the fuel type. There was white space at the start and end of each fuel and some fuels had a space in the middle of it (i.e. natural gas ) which is shown below. 
+
+```{r, warning=F, echo=F}
+unique(df$fuel)[1:5]
+```
+
+To make these variables easier to work with, we trimmed the white space at the beginning and end of the fuels and added an underscore if there was a space in the middle of the fuel type. A sample of the updated fuels is shown below:
+
+```{r, warning=F, echo=F}
+df$fuel <- trimws(df$fuel) 
+df$fuel <- gsub(" ", "_", df$fuel)
+df$fuel <- gsub("-", "_", df$fuel)
+unique(df$fuel)[1:5]
+```
+
+The "date" column of the data was imported as a character column, so we updated it to be a date datatype.
+
+```{r, warning=F, echo=F}
+df$date <- as.Date(df$date)
+```
+
+Lastly, there was an issue where the solar generation total was not aggregated correctly on the EIA website. This is detailed more in the [missing values chapter](https://edav-ccfall21-final-project-team-7.github.io/USCleanEnergyAnalysis/missing-values.html). To fix this, we performed a pivot on the data and recalculated the aggregation, ignoring N/a's in the data. We also imputed zero for other values of the power generation so that aggregations were not affected in later code. 
+
+```{r, warning=F, echo=F}
+df[is.na(df$thousand_megawatthours),]$thousand_megawatthours <- 0
+#Update solar summation to be correct
+df <- df %>% pivot_wider(id_cols = c(date, state), names_from=c(fuel), values_from = thousand_megawatthours)
+df <- df %>% rowwise() %>% mutate(all_solar = sum(small_scale_solar_photovoltaic, all_utility_scale_solar, na.rm = TRUE))
+df <- df %>% pivot_longer(cols=names(df)[3:21],  names_to='fuel', values_to='thousand_megawatthours')
+df[is.na(df$thousand_megawatthours),]$thousand_megawatthours <- 0
+
+# i<-0
+# for (vals in row.names(df)) {
+#   i<-i+1
+#   df$state[i] <- str_split(df$state[i],"-",simplify=TRUE)[2]
+# }
+
+write.csv(df,'data/clean/clean_monthly_fuel_generation.csv',row.names = FALSE)
 ```
 
 ### Create interactive data
+
 The data needs to be transformed for the interactive component of this project. The data is wrangled to create a dataframe that contains each the percent of each fuel type used by each state on each date. 
-```{r}
-df <- read.csv('data/raw/clean_monthly_fuel_generation.csv')
-df$fuel <- trimws(df$fuel) 
-df$date <- as.Date(df$date)
-df[is.na(df$thousand_megawatthours),]$thousand_megawatthours <- 0
-df$fuel <- gsub(" ", "_", df$fuel)
-df$fuel <- gsub("-", "_", df$fuel)
+
+```{r, warning=F, echo=F}
+df <- read.csv('data/clean/clean_monthly_fuel_generation.csv')
 interactive_data <- df %>% group_by(state, fuel, date) %>% pivot_wider(id_cols = c(state, date), names_from= fuel, values_from = thousand_megawatthours)
 interactive_data[is.na(interactive_data)] <- 0
 interactive_data <- interactive_data[names(interactive_data) %in% c('state', 'date', 'coal', 'petroleum_liquids','petroleum_coke','natural_gas', 'other_gases', 'nuclear', 'conventional_hydroelectric', 'other', 'other_renewables_(total)')]
