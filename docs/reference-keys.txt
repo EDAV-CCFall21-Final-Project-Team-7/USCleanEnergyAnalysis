@@ -16,5 +16,6 @@ missing-values-analysis-of-the-wb-data
 results
 renewable-fuel-adoption
 macro-trends
+correlation-of-energy-consumption-co2-emission-and-economic-indicators
 interactive-component
 conclusion

@@ -167,6 +167,27 @@ image(x)
 find_missing_patterns(us_wb_df_r, 'count')
 find_missing_patterns(my_us_wb_df_p, 'count')
 
+#  Parallel coordinate plot 
+
+my_us_wb_df_p <- my_us_wb_df_p %>% relocate('GDP %', .before = 'GDP T')
+my_us_wb_df_p <- my_us_wb_df_p %>% relocate('GNI Pc', .before = 'GDP %')
+
+library(tidyverse)
+library (dplyr)
+library(GGally)
+
+ggparcoord(my_us_wb_df_p, columns = 23:27, scale = "globalminmax") + 
+  geom_vline(xintercept = 1:8, color = "lightblue") +
+  ggtitle("US Macro Energy Consumption, CO2 Emission, & Economic Indicators ") + 
+  xlab("") + 
+  ylab("") +
+  theme(plot.title = element_text(hjust=.5))
 
 
+ggparcoord(my_us_wb_df_p, columns = 23:27, scale = "uniminmax", alphaLines = 0.3, splineFactor = 10) + 
+  geom_vline(xintercept = 1:8, color = "lightblue") +
+  ggtitle("US Macro Energy Consumption, CO2 Emission, & Economic Indicators ") + 
+  xlab("") + 
+  ylab("") +
+  theme(plot.title = element_text(hjust=.5))
 
