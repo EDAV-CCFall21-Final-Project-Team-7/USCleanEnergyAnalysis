@@ -24,7 +24,7 @@
 <meta name="author" content="Raihan Bashir, Gabrielle Nyirjesy, Abhimanyu Swaroop" />
 
 
-<meta name="date" content="2021-11-29" />
+<meta name="date" content="2021-12-05" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -83,15 +83,34 @@
 <li class="chapter" data-level="2.1.1" data-path="data-sources.html"><a href="data-sources.html#column-descriptions"><i class="fa fa-check"></i><b>2.1.1</b> Column Descriptions</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a></li>
+<li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="data-transformation.html"><a href="data-transformation.html#financial-data"><i class="fa fa-check"></i><b>3.1</b> Financial Data</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="data-transformation.html"><a href="data-transformation.html#correcting-date-format"><i class="fa fa-check"></i><b>3.1.1</b> Correcting Date format</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="data-transformation.html"><a href="data-transformation.html#eia-data"><i class="fa fa-check"></i><b>3.2</b> EIA Data</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="data-transformation.html"><a href="data-transformation.html#corrections"><i class="fa fa-check"></i><b>3.2.1</b> Corrections</a></li>
+<li class="chapter" data-level="3.2.2" data-path="data-transformation.html"><a href="data-transformation.html#create-interactive-data"><i class="fa fa-check"></i><b>3.2.2</b> Create interactive data</a></li>
+</ul></li>
+</ul></li>
 <li class="chapter" data-level="4" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing values</a>
 <ul>
 <li class="chapter" data-level="4.1" data-path="missing-values.html"><a href="missing-values.html#u.s.-energy-information-administration-data"><i class="fa fa-check"></i><b>4.1</b> U.S. Energy Information Administration Data</a>
 <ul>
 <li class="chapter" data-level="4.1.1" data-path="missing-values.html"><a href="missing-values.html#missing-statefuel-type-power-generation"><i class="fa fa-check"></i><b>4.1.1</b> Missing State/Fuel Type Power Generation</a></li>
 </ul></li>
+<li class="chapter" data-level="4.2" data-path="missing-values.html"><a href="missing-values.html#the-world-bank-wb-data"><i class="fa fa-check"></i><b>4.2</b> The World Bank (WB) Data</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="missing-values.html"><a href="missing-values.html#missing-values-analysis-of-the-wb-data"><i class="fa fa-check"></i><b>4.2.1</b> Missing values analysis of the WB data</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="results.html"><a href="results.html#renewable-fuel-adoption"><i class="fa fa-check"></i><b>5.1</b> Renewable Fuel Adoption</a></li>
+<li class="chapter" data-level="5.2" data-path="results.html"><a href="results.html#macro-trends"><i class="fa fa-check"></i><b>5.2</b> Macro Trends</a></li>
+</ul></li>
 <li class="chapter" data-level="6" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>6</b> Interactive component</a></li>
 <li class="chapter" data-level="7" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>7</b> Conclusion</a></li>
 <li class="divider"></li>
@@ -120,7 +139,7 @@
 <div id="missing-statefuel-type-power-generation" class="section level3" number="4.1.1">
 <h3><span class="header-section-number">4.1.1</span> Missing State/Fuel Type Power Generation</h3>
 <p>The EIA.gov data set was one of the data set with missing values that we used in our analysis. Most of the missing values were absent because most states did not generate electricity for all fuel types. This missing data can show which fuel types are most widely adopted by all U.S. states and which fuel types are less common.
-<img src="state-fuel%20type%20missing%20patterns.png" width="2323" /></p>
+<img src="state-fuel%20type%20missing%20patterns.png" /><!-- --></p>
 From the table above, it is seen that all states use solar energy at some point. An interesting observation is that there are some states that did not use coal at any point during this time period. Taking a closer look, using the table below, it is seen that Vermont and Rhode Island are the two states that did not use coal as an energy generation source. This table also shows that California was the only state to use all fuel types.
 <div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:300px; overflow-x: scroll; width:800px; ">
 <table class="table table-striped" style="font-size: 9px; width: auto !important; margin-left: auto; margin-right: auto;">
@@ -3293,7 +3312,28 @@ TX
 </table>
 </div>
 <p>The plot below shows the time series of different types of solar energy production. From the plot it can be noticed that the “all_solar” fuel type, which is the aggregation of the “all_utility_scale_solar” and “small_scale_solar_photovoltaic” fuels, is missing data for dates before 2014. It seems that the aggregation did not include the all_utility_scale_solar values before that time; perhaps the aggregation had an error because there were n/a’s in the data for small_scale_solar_photovoltaic during this time period.</p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
+</div>
+</div>
+<div id="the-world-bank-wb-data" class="section level2" number="4.2">
+<h2><span class="header-section-number">4.2</span> The World Bank (WB) Data</h2>
+<div id="missing-values-analysis-of-the-wb-data" class="section level3" number="4.2.1">
+<h3><span class="header-section-number">4.2.1</span> Missing values analysis of the WB data</h3>
+<p>We examined missing data in the WB data set from two perspectives - by data fields (column) and years (row). The tables of top 10 missing values by rows/columns, heat map of missing values analysis by data fields , and find missing values pattern by year plot below:</p>
+<pre><code>##    Pov Rt  Ext Debt Debt Sv %       ODA Prim Comp  Start up   Water P       HIV  Under Wt Migration 
+##        59        59        59        59        56        52        51        49        48        47</code></pre>
+<pre><code>## 1960 1961 1963 1964 1966 1968 1969 2020 1962 1967 
+##   36   33   31   31   31   31   31   31   30   30</code></pre>
+<pre><code>## NOTE: The following pairs of variables appear to have the same missingness pattern.
+##  Please verify whether they are in fact logically distinct variables.
+##      [,1]           [,2]          
+## [1,] &quot;Life Exp&quot;     &quot;Fertility Rt&quot;
+## [2,] &quot;Life Exp&quot;     &quot;Ado Ft&quot;      
+## [3,] &quot;Life Exp&quot;     &quot;Mort Rt&quot;     
+## [4,] &quot;Fertility Rt&quot; &quot;Ado Ft&quot;      
+## [5,] &quot;Fertility Rt&quot; &quot;Mort Rt&quot;     
+## [6,] &quot;Ado Ft&quot;       &quot;Mort Rt&quot;</code></pre>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-26-1.png" width="672" /><img src="finalproj_files/figure-html/unnamed-chunk-26-2.png" width="672" /></p>
 
 </div>
 </div>

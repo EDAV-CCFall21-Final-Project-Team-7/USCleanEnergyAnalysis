@@ -196,4 +196,47 @@ df  %>%
 #  annotate("text", x = as.Date('2013-01-01'), y = 2500, label = "all_solar aggregated incorrectly before this #point.")
 ```
 
+## The World Bank (WB) Data
+### Missing values analysis of the WB data
+
+We examined missing data in the WB data set  from two perspectives - by data fields (column) and years (row). The tables of top 10 missing values by rows/columns, heat map of missing values analysis by data fields , and find missing values pattern by year plot below:
+
+```{r, message = FALSE, warning = FALSE}
+
+library(tidyverse)
+
+#Get Wb data & process it for analysis
+us_wb_df_r <- as.data.frame(read_csv('data/raw/clean_worldbank.csv'))
+
+us_wb_df <- as.data.frame(read_csv('data/raw/clean_worldbank.csv'))
+row.names(us_wb_df)<-us_wb_df[,"Series"]
+us_wb_df <-us_wb_df[,2:length(names(us_wb_df))]
+
+#Apply short names
+rownames(us_wb_df) <- c('Pop T', 'Pop G', 'Area', 'Pov Rt', 'GNI T','GNI Pc', 'GNI PPP', 'GNI PPP Pc', 'Inc Shr', 'Life Exp', 'Fertility Rt', 'Ado Ft', 'Contr Pr', 'Birth Rt', 'Mort Rt', 'Under Wt', 'Imm Mea', 'Prim Comp', 'Sec Sch', 'Prim Sch', 'HIV', 'Forest A', 'Water P', 'Energy Use', 'C02 Em', 'Elec Pwr', 'GDP T', 'GDP %', 'Infl %', 'Agri %', 'Industry %', 'Exports %', 'Imports %', 'Gross %', 'Revenue, %', 'Start up', 'Mkt Cap %', 'Military %', 'Mobile Sub', 'HT Exp %', 'Merchandise %', 'Net Bart', 'Ext Debt', 'Debt Sv %', 'Migration', 'Remittance', 'FDI', 'ODA')
+
+
+
+#matrix for missing data analysis
+my_us_wb_m <- t(us_wb_df)
+my_us_wb_df_p <- as.data.frame(t(us_wb_df))
+
+#Missing value by column
+missing_column_values <- as.matrix(colSums(is.na(my_us_wb_m)) %>%
+           sort(decreasing = TRUE))
+print(missing_column_values[1:10, ])
+
+
+#Missing value by row
+missing_row_values <- as.matrix(rowSums(is.na(my_us_wb_m)) %>%
+                                  sort(decreasing = TRUE))
+print(missing_row_values[1:10, ])
+
+library(mi)
+x <- mi::missing_data.frame(my_us_wb_m)
+image(x)
+
+find_missing_patterns(us_wb_df_r, 'count')
+
+```
 
