@@ -77,6 +77,56 @@ df  %>% filter(fuel %in% c('wind','coal', 'natural_gas', 'all_solar')) %>%
   ylab("") 
 ```
 
+
+```{r,fig.width=16,fig.height=16}
+df_all_solar <- df  %>% 
+  group_by(fuel, date, state) %>% summarise(thousand_megawatthours = sum(thousand_megawatthours)) %>% filter(fuel %in% c('all_solar'))
+
+df_coal <- df  %>% 
+  group_by(fuel, date, state) %>% summarise(thousand_megawatthours = sum(thousand_megawatthours)) %>% filter(fuel %in% c('coal'))
+
+df_natural_gas <- df  %>% 
+  group_by(fuel, date, state) %>% summarise(thousand_megawatthours = sum(thousand_megawatthours)) %>% filter(fuel %in% c('natural_gas'))
+
+df_wind <- df  %>% 
+  group_by(fuel, date, state) %>% summarise(thousand_megawatthours = sum(thousand_megawatthours)) %>% filter(fuel %in% c('wind'))
+
+df_all_solar1 <- df_all_solar %>% group_by(state) %>% summarize(thousand_megawatthours = mean(thousand_megawatthours)) 
+
+df_coal1 <- df_coal %>% group_by(state) %>% summarize(thousand_megawatthours = mean(thousand_megawatthours)) 
+
+df_natural_gas1 <- df_natural_gas %>% group_by(state) %>% summarize(thousand_megawatthours = mean(thousand_megawatthours)) 
+
+df_wind1 <- df_wind %>% group_by(state) %>% summarize(thousand_megawatthours = mean(thousand_megawatthours)) 
+
+
+library(usmap)
+
+g1 <- plot_usmap(data = df_all_solar1, values = 'thousand_megawatthours',regions = 'states', labels = TRUE, color = 'pink')+
+  scale_fill_continuous(low = "pink", high = "red", name = "Average thousand megawatthours", label = scales::comma) + 
+  labs(title = "Average thousand megawatthours by State (Solar Energy)") +
+  theme(legend.position = "right",plot.title = element_text(hjust = 0.5,size=10))
+
+g2 <- plot_usmap(data = df_coal1, values = 'thousand_megawatthours',regions = 'states', labels = TRUE, color = 'pink')+
+  scale_fill_continuous(low = "pink", high = "red", name = "Average thousand megawatthours", label = scales::comma) + 
+  labs(title = "Average thousand megawatthours by State (Coal)") +
+  theme(legend.position = "right",plot.title = element_text(hjust = 0.5,size=10))
+
+g3 <- plot_usmap(data = df_natural_gas1, values = 'thousand_megawatthours',regions = 'states', labels = TRUE, color = 'pink')+
+  scale_fill_continuous(low = "pink", high = "red", name = "Average thousand megawatthours", label = scales::comma) + 
+  labs(title = "Average thousand megawatthours by State (Natual Gas)") +
+  theme(legend.position = "right",plot.title = element_text(hjust = 0.5,size=10))
+
+g4 <- plot_usmap(data = df_wind1, values = 'thousand_megawatthours',regions = 'states', labels = TRUE, color = 'pink')+
+  scale_fill_continuous(low = "pink", high = "red", name = "Average thousand megawatthours", label = scales::comma) + 
+  labs(title = "Average thousand megawatthours by State (Wind Energy)") +
+  theme(legend.position = "right",plot.title = element_text(hjust = 0.5,size=10))
+
+library(patchwork)
+
+g1+g2+g3+g4+plot_layout(ncol=2,nrow=2,widths=c(8,8),heights=c(38,38))
+```
+
 ## Correlation of Energy Consumption, CO2 Emission and Economic Indicators
 
 ```{r, echo=F, warning=F}
@@ -113,4 +163,97 @@ ggparcoord(my_us_wb_df_p, columns = 23:27, scale = "uniminmax", alphaLines = 0.3
 
 
 ```
+
+
+## Correlation between Energy ETF and macro trends in energy
+```{r}
+min_max_norm <- function(x) {
+    (x - min(x)) / (max(x) - min(x))
+  }
+
+oil <- read_csv('data/clean/clean_crushing_crude_oil.csv')
+oil$Day <- as.Date(oil$Day,format = '%m/%d/%Y')
+names(oil) <- c("Date","Cost")
+
+
+#cnrg <-read_csv('data/raw/CNRG.csv')
+#icln <- read_csv('data/raw/ICLN.csv')
+xle <- read_csv('data/raw/XLE.csv')
+
+
+
+#cnrg$Close<-as.data.frame(lapply(cnrg[5],min_max_norm))$Close
+#icln$Close<-as.data.frame(lapply(icln[5],min_max_norm))$Close
+xle$Close<-as.data.frame(lapply(xle[5],min_max_norm))$Close
+
+
+energy_df <- df  %>% 
+  group_by(fuel, date) %>%
+  summarise(thousand_megawatthours = sum(thousand_megawatthours, na.rm = TRUE)) %>%
+  filter(fuel %in% c('all_solar', 'coal','natural_gas', 'wind', 'nuclear', 'conventional_hydroelectric'))
+
+total_energy <- energy_df %>% 
+  group_by(date) %>% 
+  summarise(thousand_megawatthours = sum(thousand_megawatthours, na.rm = TRUE))
+
+total_energy$thousand_megawatthours<-as.data.frame(lapply(total_energy[2],min_max_norm))$thousand_megawatthours
+
+names(total_energy) <- c('Date','thousand_megawatthours')
+
+colors<-c("Total enegry (normalized)" = "red", "Normalized Closing Price (XLE)" = "blue")
+merged_data <-merge(xle,total_energy,by='Date')
+
+g1<-ggplot(merged_data)+
+  geom_line(aes(Date,thousand_megawatthours,color="Total enegry (normalized)"))+
+  geom_line(aes(Date,Close,color="Normalized Closing Price (XLE)"))+
+  labs(x='Year', y='normalized scale',color='Legend')
+
+
+df_solar2 <- df_all_solar %>% 
+  group_by(date) %>% 
+  summarize(solar_megawatt = sum(thousand_megawatthours)) 
+
+df_solar2$solar_megawatt<-as.data.frame(lapply(df_solar2[2],min_max_norm))$solar_megawatt
+
+df_coal2 <- df_coal %>% 
+  group_by(date) %>% 
+  summarize(coal_megawatt = sum(thousand_megawatthours)) 
+
+df_coal2$coal_megawatt<-as.data.frame(lapply(df_coal2[2],min_max_norm))$coal_megawatt
+
+df_natural_gas2 <- df_natural_gas %>% 
+  group_by(date) %>% 
+  summarize(gas_megawatt = sum(thousand_megawatthours)) 
+
+df_natural_gas2$gas_megawatt<-as.data.frame(lapply(df_natural_gas2[2],min_max_norm))$gas_megawatt
+
+df_wind2 <- df_wind %>% 
+  group_by(date) %>% 
+  summarize(wind_megawatt = sum(thousand_megawatthours)) 
+
+df_wind2$wind_megawatt<-as.data.frame(lapply(df_wind2[2],min_max_norm))$wind_megawatt
+
+names(xle)<-c("date","Open","High","Low","Close","Adj Close","Volume")
+
+colors<-c("solar"="goldenrod3","coal"="grey1","natural gas"="darkolivegreen3","wind"="dodgerblue3","close price (XLE)"="red")
+
+merged_data1 <-merge(xle,df_solar2,by='date')
+merged_data2 <-merge(merged_data1,df_coal2,by='date')
+merged_data3 <-merge(merged_data2,df_natural_gas2,by='date')
+merged_data <-merge(merged_data3,df_wind2,by='date')
+
+g2<-ggplot(merged_data)+
+  geom_line(aes(date,solar_megawatt,color="solar"))+
+  geom_line(aes(date,coal_megawatt,color="coal"))+
+  geom_line(aes(date,gas_megawatt,color="natural gas"))+
+  geom_line(aes(date,wind_megawatt,color="wind"))+
+  geom_line(aes(date,Close,color="close price (XLE)"))+
+  labs(x='Year', y='normalized scale',color='Legend')+
+  scale_color_manual(values=colors)
+
+
+g1+g2+plot_layout(nrow=2,ncol=1)
+
+```
+
 
