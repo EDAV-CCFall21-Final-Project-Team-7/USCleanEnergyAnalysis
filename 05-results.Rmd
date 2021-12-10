@@ -4,6 +4,12 @@ The below chart explores the average percent of power generated in 2021 by each 
 
 ```{r, warning=F, echo=F}
 library(tidyverse)
+library(GGally)
+library(lubridate)
+library(forecast)
+library(gridExtra)
+library(cowplot)
+library(RColorBrewer)
 df <- read.csv('data/clean/clean_monthly_fuel_generation.csv')
 # df$fuel <- trimws(df$fuel) 
 df$date <- as.Date(df$date)
@@ -16,65 +22,220 @@ df$date <- as.Date(df$date)
 # df <- df %>% pivot_longer(cols=names(df)[3:21],  names_to='fuel', values_to='thousand_megawatthours')
 ```
 
-```{r, warning=F, echo=F}
-current <- df %>% filter(date >= as.Date('2021-01-01'))
+```{r, warning=F, echo=F, fig.heigh=8}
+current <- df %>% filter(year(date) == 2020)
 current_states <- current %>% group_by(state, fuel) %>% summarize(total_thousand_mwh = mean(thousand_megawatthours, na.rm=TRUE)) %>% pivot_wider(id_cols = c(state), names_from= fuel, values_from = total_thousand_mwh)
 current_states[is.na(current_states)] <- 0
-current_states <- current_states[names(current_states) %in% c('state', 'coal', 'petroleum_liquids','petroleum_coke','natural_gas', 'other_gases', 'nuclear', 'conventional_hydroelectric', 'other', 'other_renewables_(total)')]
-current_states_percent <- current_states %>% 
-  gather(variable, value, -state) %>% 
-  group_by(state) %>% 
-  mutate(percentage = value/sum(value, na.rm=TRUE)*100) %>% 
-  select(-value) %>% 
-  spread(variable, percentage)
-current_states_percent$renewables <- current_states_percent$conventional_hydroelectric + current_states_percent$`other_renewables_(total)`
-plot_df <- current_states_percent[names(current_states_percent) %in% c('state', 'coal', 'renewables')]
-plot_df <- plot_df %>% pivot_longer(cols = !state, names_to = "fuel", values_to = "percent")
+current_states <- current_states[names(current_states) %in% c('state', 'coal', 'wind','all_solar', 'petroleum_liquids','petroleum_coke','natural_gas', 'other_gases', 'nuclear', 'conventional_hydroelectric', 'other', 'other_renewables_(total)')]
+current_states$total <- current_states$coal + current_states$petroleum_coke + current_states$petroleum_liquids + current_states$natural_gas + current_states$other_gases + current_states$nuclear + current_states$conventional_hydroelectric + current_states$other + current_states$`other_renewables_(total)`
+current_states$renewables <- current_states$conventional_hydroelectric + current_states$`other_renewables_(total)`
 
-ggplot(current_states_percent, aes(x = renewables, y = fct_reorder(state, renewables))) +
-  geom_point(color = "blue") +
-  ggtitle("2021 Average Renewable Percent of Total Power Generation") +
+current_states$coal <- current_states$coal/current_states$total*100
+current_states$renewables <- current_states$renewables/current_states$total*100
+current_states$all_solar <- current_states$all_solar/current_states$total*100
+current_states$wind <- current_states$wind/current_states$total*100
+
+
+# current_states_percent <- current_states %>% 
+#   gather(variable, value, -state) %>% 
+#   group_by(state) %>% 
+#   mutate(percentage = value/sum(value, na.rm=TRUE)*100) %>% 
+#   select(-value) %>% 
+#   spread(variable, percentage)
+
+plot_df <- current_states[names(current_states) %in% c('state', 'all_solar', 'wind', 'renewables')]
+plot_df <- plot_df %>% pivot_longer(cols = !state, names_to = "fuel", values_to = "percent") %>% mutate(fuel = replace(fuel, fuel == "all_solar", "solar"))
+
+plot_df$fuel <- fct_relevel(plot_df$fuel, c('renewables', 'wind', 'solar'))
+
+
+ggplot(plot_df, aes(x = percent, y = fct_reorder2(state, fuel == "renewables", percent, .desc = FALSE),
+       color = fuel)) +
+  geom_point() +
+  ggtitle("2020 Average Renewable Percent of Total Power Generation") +
   xlab("Average Renewables Percent of Net Generation") +
   ylab("State") + 
-  theme_linedraw() +
+  theme_linedraw(base_size = 12) +
   theme(plot.title = element_text(hjust=.5))
 options(repr.P.width=4,repr.P.height=10)
+
 ```
 
-It is interesting to note that Vermont is already generating 100% of their power from renewable energy sources. Additionally, Mississippi has the lower percentage of power generated from renewables with these sources comprising just over 2% of the average 2021 power.
+It is interesting to note that Vermont is already generating 100% of their power from renewable energy sources. Additionally, Delaware has the lower percentage of power generated from renewables with these sources comprising just over 2% of the average 2020 power.
 
-Some states have set Renewable Portfolio Goals (RPS) that specify that utilities must sell a certain percentage of electricity that is generated from renewable sources. Delaware set a goal in 2005 to achieve achieve power generation that is 25% renewables by 2025 (https://www.ncsl.org/research/energy/renewable-portfolio-standards.aspx); however, they have only achieved 3% renewables in the current year. 
+Some states have set Renewable Portfolio Goals (RPS) that specify that utilities must sell a certain percentage of electricity that is generated from renewable sources. Delaware set a goal in 2005 to achieve achieve power generation that is 25% renewables by 2025 (https://www.ncsl.org/research/energy/renewable-portfolio-standards.aspx); however, they have only achieved 2% renewables in the current year. 
 
 ## Macro Trends
 To explore macro trends in the energy sources utilized by the United States as a whole, the time series for each power source is plotted from 2001 - 2021. It is seen below that in 2001 coal was the predominant electricity source for America. Coal had a steady power generation until it began to decline around 2010. Natural gas took off at this time and by 2021 is the biggest producer of energy. Conventional hydroelectric was one of the first renewable energy resources to appear at significant levels in the electricity power generation for the US. Both solar and wind power have slowly increased in the amount of power they produce. 
 
-```{r, echo=F, warning=F}
+```{r, echo=F, warning=F, fig.width = 10}
 df  %>% 
-  group_by(fuel, date) %>% summarise(thousand_megawatthours = sum(thousand_megawatthours, na.rm = TRUE)) %>% filter(fuel %in% c('all_solar', 'coal','natural_gas', 'wind', 'nuclear', 'conventional_hydroelectric')) %>%
-  ggplot(aes(x = date, y = thousand_megawatthours, color = fct_relevel(fuel, c('natural_gas', 'coal','nuclear', 'conventional_hydroelectric', 'wind', 'solar')))) +
+  group_by(fuel, date) %>% 
+  summarise(mil_mwhrs = sum(thousand_megawatthours, na.rm = TRUE)/1000) %>% 
+  filter(fuel %in% c('all_solar', 'coal','natural_gas', 'wind', 'nuclear', 'conventional_hydroelectric')) %>%
+  mutate(fuel = replace(fuel, fuel == "conventional_hydroelectric", "hydroelectric")) %>% 
+  mutate(fuel = replace(fuel, fuel == "all_solar", "solar")) %>% 
+  ggplot(aes(x = date, y = mil_mwhrs, color = fct_relevel(fuel, c('natural_gas', 'coal','nuclear', 'hydroelectric', 'wind', 'solar')))) +
   geom_line() +
-  theme_classic() +
   ggtitle('USA Net Generation by Fuel Type') + 
   xlab("Date") +
-  ylab("MW Hours (thousand)") +
+  ylab("MW Hours (Mil)") +
+  theme_classic(12)+
   theme(legend.title=element_blank(), plot.title = element_text(hjust=.5))
 ```
 
 We can explore the relationship between specific fuel types to determine which are correlated. From the plot below, it appears that coal is negatively correlated with both solar and natural gas. This is not necessarily surprising because natural gas is typically used to complement renewable energy sources and act as a form of stability to produce power when the sun isn't shining or the wind isn't blowing. 
 
 ```{r, echo=F, warning=F}
-library(GGally)
-df  %>% filter(fuel %in% c('wind','coal', 'natural_gas', 'all_solar')) %>%
-  select(c(fuel, date, thousand_megawatthours)) %>% 
-  group_by(fuel, date) %>% 
-  summarise(thousand_megawatthours = sum(thousand_megawatthours, na.rm = TRUE)) %>% ungroup()  %>%
-  pivot_wider(names_from=fuel, id_cols = date, values_from = thousand_megawatthours) %>%
-  ggparcoord(columns=c(array(2:5)), scale= "uniminmax", alphaLines = .3, splineFactor = 9) +
-  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1),
+# df  %>% filter(fuel %in% c('wind','coal', 'natural_gas', 'all_solar')) %>%
+#   select(c(fuel, date, thousand_megawatthours)) %>% 
+#   group_by(fuel, date) %>% 
+#   summarise(thousand_megawatthours = sum(thousand_megawatthours, na.rm = TRUE)) %>% ungroup()  %>%
+#   pivot_wider(names_from=fuel, id_cols = date, values_from = thousand_megawatthours) %>%
+#   ggparcoord(columns=c(array(2:5)), scale= "uniminmax", alphaLines = .3, splineFactor = 9) +
+#   theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1),
+#         plot.title = element_text(hjust=.5)) +
+#   ggtitle('Relationship between Fuel Types') +
+#   xlab("Fuel") +
+#   ylab("") 
+
+```
+
+We can explore the relationship between specific fuel types to determine which are correlated. From the plot below, we can see that solar is negatively correlated with coal and positively correlated with natural gas and wind. This is not necessarily surprising because natural gas is typically used to complement variable renewable energy sources like solar and wind and act as a form of stability to produce power when the sun isn't shining or the wind isn't blowing. It makes sense that as the adoption of wind and solar energy increases, natural gas usage will also increase until a cleaner alternative is found. Natural gas is a cleaner fuel source than coal and produces 50% less CO\_2 emissions (https://group.met.com/fyouture/natural-gas-vs-coal/66). However, the cleanest alternative would be another renewable energy source that could help address the variability in production of wind and solar, like batteries.  
+
+```{r, echo=F, warning=F}
+df  %>% filter(fuel %in% c('wind','coal', 'natural_gas', 'all_solar', 'nuclear')) %>%
+  group_by(fuel, date) %>% summarise(million_mwhrs = sum(thousand_megawatthours, na.rm = TRUE)/1000) %>%
+  pivot_wider(names_from=fuel, id_cols = c(date), values_from = million_mwhrs) %>% ungroup() %>% select(-c( date)) %>% ggpairs(lower=list(continuous=wrap(ggally_smooth, color='darkgray', size=1)),
+  diag=list(continuous=wrap(ggally_barDiag, color='black')), 
+  upper=list(axisLabels='show',continuous=wrap('cor', color='black'))) + 
+  xlab('MW Hours (Mil)') +
+  ylab('MW Hours (Mil)') +
+  theme_bw() +
+  theme(legend.position = "none", 
+        panel.grid.major = element_blank(), 
+        axis.ticks = element_blank(), 
+        panel.border = element_rect( colour = "black", fill = NA),
+        axis.text.x = element_text(angle = 45, vjust = 1, hjust=1),
         plot.title = element_text(hjust=.5)) +
-  ggtitle('Relationship between Fuel Types') +
-  xlab("Fuel") +
-  ylab("") 
+  ggtitle('Correlation of Fuel Source Power Generation')
+```
+
+To explore the seasonal component, look at the seasonplot for 2015-2021 when solar was adopted more widely as a fuel type. The solar power net generation seasonal trend peaks in the summer months (May - August) and dip in the winter months. This is most likely due to the fact that there is more sunshine in the summer months, so more solar power is able to be generated. The coal plot shows the power generation trends overall. There is a peak in June - September and December - February. These peaks make sense because these are the times of year that energy demand is at the highest due to heating demand during the cold months and cooling demand during the hot months. In the seasonal plot, we can see that solar is increasing in production from 2015-201, while coal is decreasing in production.
+
+```{r, warning=F, echo =F}
+my_colors <- RColorBrewer::brewer.pal(9, "Greens")[3:9]
+seasonal_plot_data <- df  %>% filter(fuel %in% c('wind','coal', 'natural_gas', 'all_solar', 'nuclear')) %>%
+  group_by(fuel, date) %>% summarise(thousand_megawatthours = sum(thousand_megawatthours, na.rm = TRUE)) %>%
+  pivot_wider(names_from=fuel, id_cols = c(date), values_from = thousand_megawatthours) %>% ungroup()
+seasonal_plot_data <- seasonal_plot_data %>% mutate(month_val = month(date))
+seasonal_plot_data$date <- as.Date(seasonal_plot_data$date)
+
+seasonal_plot_data <- seasonal_plot_data %>% filter(year(seasonal_plot_data$date) > 2014)
+solar_series <- ts(seasonal_plot_data$all_solar/1000, start = c(2015,1,1), frequency = 12)
+wind_series <- ts(seasonal_plot_data$wind/1000, start = c(2015,1,1), frequency = 12)
+coal_series <- ts(seasonal_plot_data$coal/1000, start = c(2015,1,1), frequency = 12)
+g1 <- ggseasonplot(solar_series) +
+  labs(title = "Solar") +
+  xlab("Month") + 
+  ylab("MW Hours (Mil)") +
+  guides(colour = guide_legend(reverse = TRUE)) +
+  theme_bw(12) +
+  theme(plot.title = element_text(hjust = 0.5)) + 
+  scale_color_manual(values=my_colors) +
+  theme(legend.position = "none")
+
+g2 <- ggseasonplot(coal_series) +
+  labs(title = "Coal") +
+  xlab("Month") + 
+  ylab("MW Hours (Mil)") +
+  guides(colour = guide_legend(reverse = TRUE)) +
+  theme_bw(12) +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  scale_color_manual(values=my_colors) +
+  theme(legend.position = "none")
+
+gplaceholder <- ggseasonplot(coal_series) +
+  guides(colour = guide_legend(reverse = TRUE)) +
+  theme_bw(12) +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  scale_color_manual(values=my_colors) +
+  theme(legend.position = "right")
+
+extract_legend <- function(my_ggp) {
+  step1 <- ggplot_gtable(ggplot_build(my_ggp))
+  step2 <- which(sapply(step1$grobs, function(x) x$name) == "guide-box")
+  step3 <- step1$grobs[[step2]]
+  return(step3)
+}
+
+# Apply user-defined function to extract legend
+shared_legend <- extract_legend(gplaceholder)
+
+#grid.arrange(arrangeGrob(g1,shared_legend,g2, nrow=2, ncol=2) ,widths = c(10, 1), top=textGrob("Seasonal #Plot for Total Power Generation", gp=gpar(fontsize=16,font=8)))
+
+plot_row <- plot_grid(g1,shared_legend, g2, align = "v", nrow = 2, rel_widths  = c(7/8, 1/8, 7/8))
+
+title <- ggdraw() + 
+  draw_label(
+    "Seasonal Plot for Total Power Generation by Fuel",
+    x = .5,
+    hjust = .5
+  ) +
+  theme(
+    # add margin on the left of the drawing canvas,
+    # so title is aligned with left edge of first plot
+    plot.margin = margin(0, 0, 0, 7)
+  )
+plot_grid(
+  title, plot_row,
+  ncol = 1,
+  # rel_heights values control vertical title margins
+  rel_heights = c(0.1, 1)
+)
+#https://wilkelab.org/cowplot/articles/plot_grid.html - cowplot
+#shared legend function: https://statisticsglobe.com/add-common-legend-to-combined-ggplot2-plots-in-r/
+
+```
+
+The most noticeable change in primary fuels can be seen from coal and natural gas. In 2001, 32 states used coal as the primary fuel, while by 2020 this number changed to 11. Natural gas experienced the opposite trend where it grew from being the primary fuel for 7 states to 22. nuclear, hydroelectric, and petroleum liquids were also primary fuels for states in 2001 and 2020. These fuels did not see much change in number of states using them as their primary fuel. Renewables (other than hydroelectric) did become the primary fuel for 4 states (Iowa, Kansas, Maine, and Minnesota) in 2020, while in 2001 no states were using other renewables as the primary fuel.
+
+```{r, echo=F, warning=F}
+max_fuel_2020 <- df %>% filter(year(date) == 2020) %>%
+  select(c(fuel, state, thousand_megawatthours)) %>% 
+  group_by(fuel, state) %>% 
+  summarise(thousand_megawatthours = sum(thousand_megawatthours, na.rm = TRUE)) %>% ungroup()  %>%
+  group_by(state) %>% filter(thousand_megawatthours == max(thousand_megawatthours)) 
+
+max_fuel_2020 <- max_fuel_2020 %>% group_by(fuel) %>% summarize(count=n())
+max_fuel_2020$year <- '2020'
+
+max_fuel_2001 <- df %>% filter(year(date) == 2001) %>%
+  select(c(fuel, state, thousand_megawatthours)) %>% 
+  group_by(fuel, state) %>% 
+  summarise(thousand_megawatthours = sum(thousand_megawatthours, na.rm = TRUE)) %>% ungroup()  %>%
+  group_by(state) %>% filter(thousand_megawatthours == max(thousand_megawatthours)) 
+
+max_fuel_2001 <- max_fuel_2001 %>% group_by(fuel) %>% summarize(count=n())
+max_fuel_2001$year <- '2001'
+
+full_df <- rbind(max_fuel_2020, max_fuel_2001)
+full_df$fuel[full_df$fuel == "conventional_hydroelectric"] <- 'hydroelectric'
+full_df$fuel[full_df$fuel == "other_renewables_(total)"] <- 'other_renewables'
+fuel <- 'other_renewables'
+count <- 0
+year <- '2001'
+missing_row <- data.frame(fuel, count,year)
+full_df <- rbind(full_df, missing_row)
+
+ggplot(full_df, aes(x = fct_reorder2(fuel, year == '2001', count), y = count, fill =year)) +
+  geom_col(position = "dodge") +
+  xlab("Primary Fuel") +
+  ylab("State Count") +
+  ggtitle("Count of States' Primary Fuel Source") +
+  theme_classic() +
+  theme(plot.title = element_text(hjust=.5), axis.text.x = element_text(angle = 45, hjust=1)) + scale_fill_brewer(palette = "Paired")
+
 ```
 
 
