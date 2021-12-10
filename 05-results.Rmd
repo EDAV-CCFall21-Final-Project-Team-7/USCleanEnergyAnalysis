@@ -476,7 +476,6 @@ df1 <- df  %>%
 
 
 df2<-merge(df1,xle,by='date')
-df2$Close
 
   ggplot(df2) +
   geom_line(aes(x = date, y = mil_mwhrs,color = fct_relevel(fuel, c('natural_gas', 'coal','nuclear', 'hydroelectric', 'wind', 'solar')))) +
@@ -486,5 +485,39 @@ df2$Close
   ylab("MW Hours (Mil)") +
   theme_classic(12)+
   theme(legend.title=element_blank(), plot.title = element_text(hjust=.5))
+```
+
+```{r}
+all_energy <- df  %>% 
+  group_by(fuel, date) %>% 
+  summarise(mil_mwhrs = sum(thousand_megawatthours, na.rm = TRUE)/1000) %>% 
+  filter(fuel %in% c('all_solar', 'coal','natural_gas', 'wind', 'nuclear', 'conventional_hydroelectric')) %>%
+  mutate(fuel = replace(fuel, fuel == "conventional_hydroelectric", "hydroelectric")) %>% 
+  mutate(fuel = replace(fuel, fuel == "all_solar", "solar")) %>%
+  pivot_wider(names_from=fuel, id_cols = c(date), values_from = mil_mwhrs)
+
+all_data <-merge(all_energy,xle,by='date')
+
+library(ggpmisc)
+
+ggplot(all_data,aes(x=solar,y=Close))+
+  geom_point()+
+  geom_smooth(method = "lm", se = TRUE)+
+  stat_poly_eq(formula=y~x)
+
+ggplot(all_data,aes(x=coal,y=Close))+
+  geom_point()+
+  geom_smooth(method = "lm", se = TRUE)+
+  stat_poly_eq(formula=y~x)
+
+ggplot(all_data,aes(x=natural_gas,y=Close))+
+  geom_point()+
+  geom_smooth(method = "lm", se = TRUE)+
+  stat_poly_eq(formula=y~x)
+
+ggplot(all_data,aes(x=solar,y=Close))+
+  geom_point()+
+  geom_smooth(method = "lm", se = TRUE)+
+  stat_poly_eq(formula=y~x)
 ```
 

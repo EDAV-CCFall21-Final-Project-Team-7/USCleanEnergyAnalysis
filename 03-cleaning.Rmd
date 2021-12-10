@@ -158,16 +158,39 @@ The data needs to be transformed for the interactive component of this project. 
 
 ```{r, warning=F, echo=F}
 df <- read.csv('data/clean/clean_monthly_fuel_generation.csv')
-interactive_data <- df %>% group_by(state, fuel, date) %>% pivot_wider(id_cols = c(state, date), names_from= fuel, values_from = thousand_megawatthours)
-interactive_data[is.na(interactive_data)] <- 0
-interactive_data <- interactive_data[names(interactive_data) %in% c('state', 'date', 'coal', 'petroleum_liquids','petroleum_coke','natural_gas', 'other_gases', 'nuclear', 'conventional_hydroelectric', 'other', 'other_renewables_(total)')]
+# interactive_data <- df %>% group_by(state, fuel, date) %>% pivot_wider(id_cols = c(state, date), names_from= fuel, values_from = thousand_megawatthours)
+# interactive_data[is.na(interactive_data)] <- 0
+# interactive_data <- interactive_data[names(interactive_data) %in% c('state', 'date', 'coal', 'petroleum_liquids','petroleum_coke','natural_gas', 'other_gases', 'nuclear', 'conventional_hydroelectric', 'other', 'other_renewables_(total)')]
+# 
+# interactive_data_percent <- interactive_data %>%
+#   gather(variable, value, -c(state,date)) %>%
+#   group_by(state,date) %>%
+#   mutate(percentage = value/sum(value, na.rm=TRUE)*100) %>%
+#   select(-value) %>%
+#   spread(variable, percentage)
+# interactive_data_percent$renewables <- interactive_data_percent$conventional_hydroelectric + interactive_data_percent$`other_renewables_(total)`
+# write.csv(interactive_data_percent, 'data/clean/interactive_data.csv',row.names = FALSE)
+
+
+df$year <- year(df$date)
+df$date <- NULL
+interactive_data<-df %>%
+  group_by(fuel,year,state) %>%
+  summarize(thousand_megawatthours = sum(thousand_megawatthours,na.rm=TRUE)) %>% 
+  pivot_wider(id_cols = c(state, year), names_from= fuel, values_from = thousand_megawatthours)
+
+interactive_data <- interactive_data[names(interactive_data) %in% c('state', 'year', 'coal', 'petroleum_liquids','petroleum_coke','natural_gas', 'other_gases', 'nuclear', 'conventional_hydroelectric', 'other', 'other_renewables_(total)')]
+
 interactive_data_percent <- interactive_data %>%
-  gather(variable, value, -c(state,date)) %>%
-  group_by(state,date) %>%
+  gather(variable, value, -c(state,year)) %>%
+  group_by(state,year) %>%
   mutate(percentage = value/sum(value, na.rm=TRUE)*100) %>%
   select(-value) %>%
   spread(variable, percentage)
 interactive_data_percent$renewables <- interactive_data_percent$conventional_hydroelectric + interactive_data_percent$`other_renewables_(total)`
+
+interactive_data_percent <- interactive_data_percent[names(interactive_data_percent) %in% c('state','year','renewables')]
+
 write.csv(interactive_data_percent, 'data/clean/interactive_data.csv',row.names = FALSE)
 ```
 
