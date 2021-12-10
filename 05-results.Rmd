@@ -22,7 +22,7 @@ df$date <- as.Date(df$date)
 # df <- df %>% pivot_longer(cols=names(df)[3:21],  names_to='fuel', values_to='thousand_megawatthours')
 ```
 
-```{r, warning=F, echo=F, fig.heigh=8}
+```{r, warning=F, echo=F, fig.height=8}
 current <- df %>% filter(year(date) == 2020)
 current_states <- current %>% group_by(state, fuel) %>% summarize(total_thousand_mwh = mean(thousand_megawatthours, na.rm=TRUE)) %>% pivot_wider(id_cols = c(state), names_from= fuel, values_from = total_thousand_mwh)
 current_states[is.na(current_states)] <- 0
