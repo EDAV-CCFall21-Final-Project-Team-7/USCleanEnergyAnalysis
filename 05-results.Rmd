@@ -30,10 +30,10 @@ current_states <- current_states[names(current_states) %in% c('state', 'coal', '
 current_states$total <- current_states$coal + current_states$petroleum_coke + current_states$petroleum_liquids + current_states$natural_gas + current_states$other_gases + current_states$nuclear + current_states$conventional_hydroelectric + current_states$other + current_states$`other_renewables_(total)`
 current_states$renewables <- current_states$conventional_hydroelectric + current_states$`other_renewables_(total)`
 
-current_states$coal <- current_states$coal/current_states$total*100
-current_states$renewables <- current_states$renewables/current_states$total*100
-current_states$all_solar <- current_states$all_solar/current_states$total*100
-current_states$wind <- current_states$wind/current_states$total*100
+current_states$coal <- current_states$coal/current_states$total
+current_states$renewables <- current_states$renewables/current_states$total
+current_states$all_solar <- current_states$all_solar/current_states$total
+current_states$wind <- current_states$wind/current_states$total
 
 
 # current_states_percent <- current_states %>% 
@@ -52,8 +52,9 @@ plot_df$fuel <- fct_relevel(plot_df$fuel, c('renewables', 'wind', 'solar'))
 ggplot(plot_df, aes(x = percent, y = fct_reorder2(state, fuel == "renewables", percent, .desc = FALSE),
        color = fuel)) +
   geom_point() +
+  scale_x_continuous(labels = scales::percent) +
   ggtitle("2020 Average Renewable Percent of Total Power Generation") +
-  xlab("Average Renewables Percent of Net Generation") +
+  xlab("Net Generation (%)") +
   ylab("State") + 
   theme_linedraw(base_size = 12) +
   theme(plot.title = element_text(hjust=.5))
