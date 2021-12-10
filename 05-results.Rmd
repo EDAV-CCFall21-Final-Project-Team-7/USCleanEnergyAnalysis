@@ -10,6 +10,8 @@ library(forecast)
 library(gridExtra)
 library(cowplot)
 library(RColorBrewer)
+library(usmap)
+library(patchwork)
 df <- read.csv('data/clean/clean_monthly_fuel_generation.csv')
 # df$fuel <- trimws(df$fuel) 
 df$date <- as.Date(df$date)
@@ -239,6 +241,7 @@ ggplot(full_df, aes(x = fct_reorder2(fuel, year == '2001', count), y = count, fi
 
 ```
 
+The heatmaps below provide insights into how the energy production is distributed over the United States. It can be noticed that California is the major producer of solar energy whereas Texas is the major producer of Coal, Natural Gas, and Wind energy. 
 
 ```{r,fig.width=16,fig.height=16}
 df_all_solar <- df  %>% 
@@ -262,32 +265,76 @@ df_natural_gas1 <- df_natural_gas %>% group_by(state) %>% summarize(thousand_meg
 df_wind1 <- df_wind %>% group_by(state) %>% summarize(thousand_megawatthours = mean(thousand_megawatthours)) 
 
 
-library(usmap)
 
 g1 <- plot_usmap(data = df_all_solar1, values = 'thousand_megawatthours',regions = 'states', labels = TRUE, color = 'pink')+
   scale_fill_continuous(low = "pink", high = "red", name = "Average thousand megawatthours", label = scales::comma) + 
   labs(title = "Average thousand megawatthours by State (Solar Energy)") +
-  theme(legend.position = "right",plot.title = element_text(hjust = 0.5,size=10))
+  theme(legend.position = "right",plot.title = element_text(hjust = 0.5,size=16))
 
 g2 <- plot_usmap(data = df_coal1, values = 'thousand_megawatthours',regions = 'states', labels = TRUE, color = 'pink')+
   scale_fill_continuous(low = "pink", high = "red", name = "Average thousand megawatthours", label = scales::comma) + 
   labs(title = "Average thousand megawatthours by State (Coal)") +
-  theme(legend.position = "right",plot.title = element_text(hjust = 0.5,size=10))
+  theme(legend.position = "right",plot.title = element_text(hjust = 0.5,size=16))
 
 g3 <- plot_usmap(data = df_natural_gas1, values = 'thousand_megawatthours',regions = 'states', labels = TRUE, color = 'pink')+
   scale_fill_continuous(low = "pink", high = "red", name = "Average thousand megawatthours", label = scales::comma) + 
   labs(title = "Average thousand megawatthours by State (Natual Gas)") +
-  theme(legend.position = "right",plot.title = element_text(hjust = 0.5,size=10))
+  theme(legend.position = "right",plot.title = element_text(hjust = 0.5,size=16))
 
 g4 <- plot_usmap(data = df_wind1, values = 'thousand_megawatthours',regions = 'states', labels = TRUE, color = 'pink')+
-  scale_fill_continuous(low = "pink", high = "red", name = "Average thousand megawatthours", label = scales::comma) + 
+  scale_fill_continuous(low = "pink", high = "red", name = "Normalized Average thousand megawatthours", label = scales::comma) + 
   labs(title = "Average thousand megawatthours by State (Wind Energy)") +
-  theme(legend.position = "right",plot.title = element_text(hjust = 0.5,size=10))
+  theme(legend.position = "right",plot.title = element_text(hjust = 0.5,size=16))
 
-library(patchwork)
 
-g1+g2+g3+g4+plot_layout(ncol=2,nrow=2,widths=c(8,8),heights=c(38,38))
+
+g1+g2+g3+g4+plot_layout(ncol=2,nrow=2,widths=c(8,8),heights=c(38,38))+plot_annotation(title = "Raw values for energy produced",theme = theme(plot.title = element_text(size = 36,face='bold')))
 ```
+
+However, we know that the size of every state is the United States varies a lot. Therefore, to account for the size and provide a better comparison of the energy produced in a state, we normalize the amount of energy produced by the area of the state and plot it on a heatmap as done above. It can be noticed from this heatmap that Texas is no longer one of the dominating producers of coal and natural gas. 
+
+```{r,fig.width=16,fig.height=16}
+area <- as.data.frame(read_csv('data/raw/area.csv'))
+
+df_all_solar2 <- merge(df_all_solar1,area,by='state')
+df_all_solar2$thousand_megawatthours<-df_all_solar2$thousand_megawatthours/df_all_solar2$area
+
+df_coal2 <- merge(df_coal1,area,by='state')
+df_coal2$thousand_megawatthours<-df_coal2$thousand_megawatthours/df_coal2$area
+
+df_natural_gas2 <- merge(df_natural_gas1,area,by='state')
+df_natural_gas2$thousand_megawatthours<-df_natural_gas2$thousand_megawatthours/df_natural_gas2$area
+
+df_wind2 <- merge(df_wind1,area,by='state')
+df_wind2$thousand_megawatthours<-df_wind2$thousand_megawatthours/df_wind2$area
+
+
+g1 <- plot_usmap(data = df_all_solar2, values = 'thousand_megawatthours',regions = 'states', labels = TRUE, color = 'pink')+
+  scale_fill_continuous(low = "pink", high = "red", name = "Normalized Average thousand megawatthours", label = scales::comma) + 
+  labs(title = "Normalized Average thousand megawatthours by State (Solar Energy)") +
+  theme(legend.position = "right",plot.title = element_text(hjust = 0.5,size=16))
+
+g2 <- plot_usmap(data = df_coal2, values = 'thousand_megawatthours',regions = 'states', labels = TRUE, color = 'pink')+
+  scale_fill_continuous(low = "pink", high = "red", name ="Normalized Average thousand megawatthours", label = scales::comma) + 
+  labs(title = "Normalized Average thousand megawatthours by State (Coal)") +
+  theme(legend.position = "right",plot.title = element_text(hjust = 0.5,size=16))
+
+g3 <- plot_usmap(data = df_natural_gas2, values = 'thousand_megawatthours',regions = 'states', labels = TRUE, color = 'pink')+
+  scale_fill_continuous(low = "pink", high = "red", name = "Normalized Average thousand megawatthours", label = scales::comma) + 
+  labs(title = "Normalized Average thousand megawatthours by State (Natual Gas)") +
+  theme(legend.position = "right",plot.title = element_text(hjust = 0.5,size=16))
+
+g4 <- plot_usmap(data = df_wind2, values = 'thousand_megawatthours',regions = 'states', labels = TRUE, color = 'pink')+
+  scale_fill_continuous(low = "pink", high = "red", name = "Normalized Average thousand megawatthours", label = scales::comma) + 
+  labs(title = "Normalized Average thousand megawatthours by State (Wind Energy)") +
+  theme(legend.position = "right",plot.title = element_text(hjust = 0.5,size=16))
+
+
+g1+g2+g3+g4+plot_layout(ncol=2,nrow=2,widths=c(8,8),heights=c(38,38))+plot_annotation(title = "Energy Produced per sq miles (by state)",theme = theme(plot.title = element_text(size = 36,face='bold')))
+
+```
+
+However, it should be kept in mind that the actual energy production is represented by the first plot where california and texas are dominating producers of energy and the second plot only slows the energy produced per sq miles for every state. 
 
 ## Correlation of Energy Consumption, CO2 Emission and Economic Indicators
 
@@ -418,4 +465,26 @@ g1+g2+plot_layout(nrow=2,ncol=1)
 
 ```
 
+
+```{r}
+df1 <- df  %>% 
+  group_by(fuel, date) %>% 
+  summarise(mil_mwhrs = sum(thousand_megawatthours, na.rm = TRUE)/1000) %>% 
+  filter(fuel %in% c('all_solar', 'coal','natural_gas', 'wind', 'nuclear', 'conventional_hydroelectric')) %>%
+  mutate(fuel = replace(fuel, fuel == "conventional_hydroelectric", "hydroelectric")) %>% 
+  mutate(fuel = replace(fuel, fuel == "all_solar", "solar"))
+
+
+df2<-merge(df1,xle,by='date')
+df2$Close
+
+  ggplot(df2) +
+  geom_line(aes(x = date, y = mil_mwhrs,color = fct_relevel(fuel, c('natural_gas', 'coal','nuclear', 'hydroelectric', 'wind', 'solar')))) +
+  geom_line(aes(x=date,y=Close*175))+
+  ggtitle('USA Net Generation by Fuel Type') + 
+  xlab("Date") +
+  ylab("MW Hours (Mil)") +
+  theme_classic(12)+
+  theme(legend.title=element_blank(), plot.title = element_text(hjust=.5))
+```
 
