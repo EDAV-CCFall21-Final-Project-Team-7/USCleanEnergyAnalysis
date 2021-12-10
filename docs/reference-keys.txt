@@ -19,3 +19,8 @@ macro-trends
 correlation-of-energy-consumption-co2-emission-and-economic-indicators
 interactive-component
 conclusion
+column-descriptions-1
+financial-data-1
+worldbank-data
+cleaning-data
+correlation-between-energy-etf-and-macro-trends-in-energy
