@@ -41,8 +41,8 @@ for(val in Crushing_crude_oil$Day){
     Crushing_crude_oil$Day[i]<-paste(temp,temp2,sep="/")
   }
 }
-write.csv(Crushing_crude_oil,'data/clean/clean_crushing_crude_oil.csv',
-          row.names=FALSE)
+# write.csv(Crushing_crude_oil,'data/clean/clean_crushing_crude_oil.csv',
+#           row.names=FALSE)
 head(Crushing_crude_oil,10)
 ```
 
@@ -86,7 +86,7 @@ drop <- c("Series Code","Country")
 
 worldbank<-worldbank[,!(names(worldbank) %in% drop)]
 
-write.csv(worldbank,'data/clean/clean_worldbank.csv',row.names = FALSE)
+# write.csv(worldbank,'data/clean/clean_worldbank.csv',row.names = FALSE)
 
 worldbank %>% kable(escape = F) %>% 
   kable_styling("striped", font_size = 9, full_width = F) %>% 
@@ -148,12 +148,12 @@ df[is.na(df$thousand_megawatthours),]$thousand_megawatthours <- 0
 #   df$state[i] <- str_split(df$state[i],"-",simplify=TRUE)[2]
 # }
 
-write.csv(df,'data/clean/clean_monthly_fuel_generation.csv',row.names = FALSE)
+# write.csv(df,'data/clean/clean_monthly_fuel_generation.csv',row.names = FALSE)
 ```
 
 ### Create interactive data
 
-The data needs to be transformed for the interactive component of this project. The data is wrangled to create a dataframe that contains each the percent of each fuel type used by each state on each date. 
+The data needs to be transformed for the interactive component of this project. The data is wrangled to create a dataframe that contains the renewable percent of total generation for each state on each date as shown below. As mentioned in the data introduction, the total power generation is the aggregate of coal, petroleum_liquids, petroleum_coke, natural_gas, other_gases, nuclear, conventional_hydroelectric, other, and other_renewables_(total) fuel types. Additionally, the renewables value is the sum of the conventional_hydroelectric and other_renewables_(total) fuels. After performing these aggregations, the percent of renewables was found by dividing the aggregate renewables by the total power generation for each state on each date. 
 
 ```{r, warning=F, echo=F}
 df <- read.csv('data/clean/clean_monthly_fuel_generation.csv')
@@ -190,7 +190,8 @@ interactive_data_percent$renewables <- interactive_data_percent$conventional_hyd
 
 interactive_data_percent <- interactive_data_percent[names(interactive_data_percent) %in% c('state','year','renewables')]
 
-write.csv(interactive_data_percent, 'data/clean/interactive_data.csv',row.names = FALSE)
+head(interactive_data_percent, 5)
+# write.csv(interactive_data_percent, 'data/clean/interactive_data.csv',row.names = FALSE)
 ```
 
 ```{r}
@@ -302,26 +303,26 @@ d2020<-d2020[order(-d2020$value,d2020$month),]
 d2021<-d2021[order(-d2021$value,d2021$month),]
 
 
-write.csv(d2001, 'draft code/d2001',row.names = FALSE)
-write.csv(d2002, 'draft code/d2002',row.names = FALSE)
-write.csv(d2003, 'draft code/d2003',row.names = FALSE)
-write.csv(d2004, 'draft code/d2004',row.names = FALSE)
-write.csv(d2005, 'draft code/d2005',row.names = FALSE)
-write.csv(d2006, 'draft code/d2006',row.names = FALSE)
-write.csv(d2007, 'draft code/d2007',row.names = FALSE)
-write.csv(d2008, 'draft code/d2008',row.names = FALSE)
-write.csv(d2009, 'draft code/d2009',row.names = FALSE)
-write.csv(d2010, 'draft code/d2010',row.names = FALSE)
-write.csv(d2011, 'draft code/d2011',row.names = FALSE)
-write.csv(d2012, 'draft code/d2012',row.names = FALSE)
-write.csv(d2013, 'draft code/d2013',row.names = FALSE)
-write.csv(d2014, 'draft code/d2014',row.names = FALSE)
-write.csv(d2015, 'draft code/d2015',row.names = FALSE)
-write.csv(d2016, 'draft code/d2016',row.names = FALSE)
-write.csv(d2017, 'draft code/d2017',row.names = FALSE)
-write.csv(d2018, 'draft code/d2018',row.names = FALSE)
-write.csv(d2019, 'draft code/d2019',row.names = FALSE)
-write.csv(d2020, 'draft code/d2020',row.names = FALSE)
-write.csv(d2021, 'draft code/d2021',row.names = FALSE)
+# write.csv(d2001, 'draft code/d2001',row.names = FALSE)
+# write.csv(d2002, 'draft code/d2002',row.names = FALSE)
+# write.csv(d2003, 'draft code/d2003',row.names = FALSE)
+# write.csv(d2004, 'draft code/d2004',row.names = FALSE)
+# write.csv(d2005, 'draft code/d2005',row.names = FALSE)
+# write.csv(d2006, 'draft code/d2006',row.names = FALSE)
+# write.csv(d2007, 'draft code/d2007',row.names = FALSE)
+# write.csv(d2008, 'draft code/d2008',row.names = FALSE)
+# write.csv(d2009, 'draft code/d2009',row.names = FALSE)
+# write.csv(d2010, 'draft code/d2010',row.names = FALSE)
+# write.csv(d2011, 'draft code/d2011',row.names = FALSE)
+# write.csv(d2012, 'draft code/d2012',row.names = FALSE)
+# write.csv(d2013, 'draft code/d2013',row.names = FALSE)
+# write.csv(d2014, 'draft code/d2014',row.names = FALSE)
+# write.csv(d2015, 'draft code/d2015',row.names = FALSE)
+# write.csv(d2016, 'draft code/d2016',row.names = FALSE)
+# write.csv(d2017, 'draft code/d2017',row.names = FALSE)
+# write.csv(d2018, 'draft code/d2018',row.names = FALSE)
+# write.csv(d2019, 'draft code/d2019',row.names = FALSE)
+# write.csv(d2020, 'draft code/d2020',row.names = FALSE)
+# write.csv(d2021, 'draft code/d2021',row.names = FALSE)
 ```
 
