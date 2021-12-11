@@ -24,7 +24,7 @@
 <meta name="author" content="Raihan Bashir, Gabrielle Nyirjesy, Abhimanyu Swaroop" />
 
 
-<meta name="date" content="2021-12-05" />
+<meta name="date" content="2021-12-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -53,8 +53,11 @@
 
 <link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
-<script src="libs/kePrint-0.0.1/kePrint.js"></script>
-<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<script src="libs/r2d3-render-0.1.0/r2d3-render.js"></script>
+<script src="libs/webcomponents-2.0.0/webcomponents.js"></script>
+<script src="libs/r2d3-binding-0.2.5/r2d3.js"></script>
+<script src="libs/d3v5-5.9.2/d3.min.js"></script>
 
 
 
@@ -82,17 +85,25 @@
 <ul>
 <li class="chapter" data-level="2.1.1" data-path="data-sources.html"><a href="data-sources.html#column-descriptions"><i class="fa fa-check"></i><b>2.1.1</b> Column Descriptions</a></li>
 </ul></li>
+<li class="chapter" data-level="2.2" data-path="data-sources.html"><a href="data-sources.html#financial-data"><i class="fa fa-check"></i><b>2.2</b> Financial Data</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="data-sources.html"><a href="data-sources.html#column-descriptions-1"><i class="fa fa-check"></i><b>2.2.1</b> Column Descriptions</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="data-transformation.html"><a href="data-transformation.html#financial-data"><i class="fa fa-check"></i><b>3.1</b> Financial Data</a>
+<li class="chapter" data-level="3.1" data-path="data-transformation.html"><a href="data-transformation.html#financial-data-1"><i class="fa fa-check"></i><b>3.1</b> Financial Data</a>
 <ul>
 <li class="chapter" data-level="3.1.1" data-path="data-transformation.html"><a href="data-transformation.html#correcting-date-format"><i class="fa fa-check"></i><b>3.1.1</b> Correcting Date format</a></li>
 </ul></li>
-<li class="chapter" data-level="3.2" data-path="data-transformation.html"><a href="data-transformation.html#eia-data"><i class="fa fa-check"></i><b>3.2</b> EIA Data</a>
+<li class="chapter" data-level="3.2" data-path="data-transformation.html"><a href="data-transformation.html#worldbank-data"><i class="fa fa-check"></i><b>3.2</b> Worldbank Data</a>
 <ul>
-<li class="chapter" data-level="3.2.1" data-path="data-transformation.html"><a href="data-transformation.html#corrections"><i class="fa fa-check"></i><b>3.2.1</b> Corrections</a></li>
-<li class="chapter" data-level="3.2.2" data-path="data-transformation.html"><a href="data-transformation.html#create-interactive-data"><i class="fa fa-check"></i><b>3.2.2</b> Create interactive data</a></li>
+<li class="chapter" data-level="3.2.1" data-path="data-transformation.html"><a href="data-transformation.html#cleaning-data"><i class="fa fa-check"></i><b>3.2.1</b> Cleaning Data</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="data-transformation.html"><a href="data-transformation.html#eia-data"><i class="fa fa-check"></i><b>3.3</b> EIA Data</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="data-transformation.html"><a href="data-transformation.html#corrections"><i class="fa fa-check"></i><b>3.3.1</b> Corrections</a></li>
+<li class="chapter" data-level="3.3.2" data-path="data-transformation.html"><a href="data-transformation.html#create-interactive-data"><i class="fa fa-check"></i><b>3.3.2</b> Create interactive data</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing values</a>
@@ -111,6 +122,7 @@
 <li class="chapter" data-level="5.1" data-path="results.html"><a href="results.html#renewable-fuel-adoption"><i class="fa fa-check"></i><b>5.1</b> Renewable Fuel Adoption</a></li>
 <li class="chapter" data-level="5.2" data-path="results.html"><a href="results.html#macro-trends"><i class="fa fa-check"></i><b>5.2</b> Macro Trends</a></li>
 <li class="chapter" data-level="5.3" data-path="results.html"><a href="results.html#correlation-of-energy-consumption-co2-emission-and-economic-indicators"><i class="fa fa-check"></i><b>5.3</b> Correlation of Energy Consumption, CO2 Emission and Economic Indicators</a></li>
+<li class="chapter" data-level="5.4" data-path="results.html"><a href="results.html#correlation-between-energy-etf-and-macro-trends-in-energy"><i class="fa fa-check"></i><b>5.4</b> Correlation between Energy ETF and macro trends in energy</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>6</b> Interactive component</a></li>
 <li class="chapter" data-level="7" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>7</b> Conclusion</a></li>
@@ -135,6 +147,8 @@
             <section class="normal" id="section-">
 <div id="interactive-component" class="section level1" number="6">
 <h1><span class="header-section-number">Chapter 6</span> Interactive component</h1>
+<div id="htmlwidget-e1e6fd8dbc69c046dcf4" style="width:672px;height:480px;" class="r2d3 html-widget"></div>
+<script type="application/json" data-for="htmlwidget-e1e6fd8dbc69c046dcf4">{"x":{"data":null,"type":"NULL","container":"svg","options":null,"script":"var d3Script = function(d3, r2d3, data, svg, width, height, options, theme, console) {\nthis.d3 = d3;\n\nsvg = d3.select(svg.node());\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Document<\/title>\n    <script src=\"//d3js.org/d3.v4.min.js\"><\/script>\n    <script src=\"//cdnjs.cloudflare.com/ajax/libs/d3-queue/3.0.4/d3-queue.min.js\"><\/script>\n    <style>\n        html, body, #vis {\n            height: 100%;\n            margin: 0;\n        }\n    <\/style>\n<\/head>\n<body>\n    <form>\n        <label for=\"year\">Please select a year: <\/label>\n        <label for=\"year\">Please select a year: <\/label>\n        <input type=\"range\" min=2001 max=2021 step=1 id=\"year\" value=2021 oninput=\"selected_year.value = year.value\">\n        <output name=\"selected_year\" id=\"selected_year\">2021<\/output>\n    <\/form>\n    <div id=\"vis\">\n    <\/div>\n    <script>\n            var width = document.getElementById('vis')\n          .clientWidth;\n      var height = document.getElementById('vis')\n          .clientHeight;\n      \n      var margin = {\n          top: 10,\n          bottom: 70,\n          left: 70,\n          right: 20\n      }\n      \n      var svg = d3.select('#vis')\n          .append('svg')\n          .attr('width', width)\n          .attr('height', height)\n          .append('g')\n          .attr('transform', 'translate(' + margin.left + ',' + margin.right + ')');\n      \n      width = width - margin.left - margin.right;\n      height = height - margin.top - margin.bottom;\n      \n      var data = {};\n      \n      var x_scale = d3.scaleBand()\n          .rangeRound([0, width])\n          .padding(0.1);\n      \n      var y_scale = d3.scaleLinear()\n          .range([height, 0]);\n      \n      var colour_scale = d3.scaleQuantile()\n          .range([\"#A1D99B\", \"#74C476\", \"#41AB5D\", \"#238B45\", \"#006D2C\", \"#00441B\"]);\n      \n      var y_axis = d3.axisLeft(y_scale);\n      var x_axis = d3.axisBottom(x_scale);\n      \n      svg.append('g')\n          .attr('class', 'x axis')\n          .attr('transform', 'translate(0,' + height + ')');\n      \n      svg.append('g')\n          .attr('class', 'y axis');\n      \n      function draw(year) {\n      \n          var csv_data = data[year];\n      \n          var t = d3.transition()\n              .duration(2000);\n      \n          var months = csv_data.map(function(d) {\n              return d.month;\n          });\n          x_scale.domain(months);\n      \n          var max_value = d3.max(csv_data, function(d) {\n              return +d.value;\n          });\n      \n          y_scale.domain([0, 100]);\n          colour_scale.domain([0, max_value]);\n      \n          var bars = svg.selectAll('.bar')\n              .data(csv_data)\n      \n          bars\n              .exit()\n              .remove();\n      \n          var new_bars = bars\n              .enter()\n              .append('rect')\n              .attr('class', 'bar')\n              .attr('x', function(d) {\n                  return x_scale(d.month);\n              })\n              .attr('width', x_scale.bandwidth())\n              .attr('y', height)\n              .attr('height', 0)\n      \n          new_bars.merge(bars)\n              .transition(t)\n              .attr('y', function(d) {\n                  return y_scale(+d.value);\n              })\n              .attr('height', function(d) {\n                  return height - y_scale(+d.value)\n              })\n              .attr('fill', function(d) {\n                  return colour_scale(+d.value);\n              })\n      \n          svg.select('.x.axis')\n              .call(x_axis);\n      \n          svg.select('.y.axis')\n              .transition(t)\n              .call(y_axis);\n      \n      }\n      \n      \n      \n      d3.queue()\n          .defer(d3.csv, 'draft code/d2021')\n          .defer(d3.csv, 'draft code/d2020')\n          .defer(d3.csv, 'draft code/d2019')\n          .defer(d3.csv, 'draft code/d2018')\n          .defer(d3.csv, 'draft code/d2017')\n          .defer(d3.csv, 'draft code/d2016')\n          .defer(d3.csv, 'draft code/d2015')\n          .defer(d3.csv, 'draft code/d2014')\n          .defer(d3.csv, 'draft code/d2013')\n          .defer(d3.csv, 'draft code/d2012')\n          .defer(d3.csv, 'draft code/d2011')\n          .defer(d3.csv, 'draft code/d2010')\n          .defer(d3.csv, 'draft code/d2009')\n          .defer(d3.csv, 'draft code/d2008')\n          .defer(d3.csv, 'draft code/d2007')\n          .defer(d3.csv, 'draft code/d2006')\n          .defer(d3.csv, 'draft code/d2005')\n          .defer(d3.csv, 'draft code/d2004')\n          .defer(d3.csv, 'draft code/d2003')\n          .defer(d3.csv, 'draft code/d2002')\n          .defer(d3.csv, 'draft code/d2001')\n          .await(function(error, d2021,d2020,d2019,d2018,d2017,d2016,d2015,d2014, d2013, d2012, d2011, d2010, d2009,d2008,d2007,d2006,d2005,d2004,d2004,d2003,d2002,d2001) {\n              data['2001'] = d2001;\n              data['2002'] = d2002;\n              data['2003'] = d2003;\n              data['2004'] = d2004;\n              data['2005'] = d2005;\n              data['2006'] = d2006;\n              data['2007'] = d2007;\n              data['2008'] = d2008;\n              data['2009'] = d2009;\n              data['2010'] = d2010;\n              data['2011'] = d2011;\n              data['2012'] = d2012;\n              data['2013'] = d2013;\n              data['2014'] = d2014;\n              data['2015'] = d2015;\n              data['2016'] = d2016;\n              data['2017'] = d2017;\n              data['2018'] = d2018;\n              data['2019'] = d2019;\n              data['2020'] = d2020;\n              data['2021'] = d2021;\n              draw('2021');\n          });\n      \n      var slider = d3.select('#year');\n      slider.on('change', function() {\n          draw(this.value);\n      });\n    <\/script>\n<\/body>\n<\/html>\n};","style":null,"version":5,"theme":{"default":{"background":"#FFFFFF","foreground":"#000000"},"runtime":null},"useShadow":true},"evals":[],"jsHooks":[]}</script>
 
 </div>
             </section>

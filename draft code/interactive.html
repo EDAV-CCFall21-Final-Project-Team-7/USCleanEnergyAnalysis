@@ -54,7 +54,7 @@
           .range([height, 0]);
       
       var colour_scale = d3.scaleQuantile()
-          .range(["#ffffe5", "#fff7bc", "#fee391", "#fec44f", "#fe9929", "#ec7014", "#cc4c02", "#993404", "#662506"]);
+          .range(["#A1D99B", "#74C476", "#41AB5D", "#238B45", "#006D2C", "#00441B"]);
       
       var y_axis = d3.axisLeft(y_scale);
       var x_axis = d3.axisBottom(x_scale);
@@ -123,6 +123,8 @@
               .call(y_axis);
       
       }
+      
+      
       
       d3.queue()
           .defer(d3.csv, 'd2021')
