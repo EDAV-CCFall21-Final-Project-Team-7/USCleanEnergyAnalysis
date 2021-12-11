@@ -236,7 +236,5 @@ library(mi)
 x <- mi::missing_data.frame(my_us_wb_m)
 image(x)
 
-find_missing_patterns(us_wb_df_r, 'count')
-
 ```
 

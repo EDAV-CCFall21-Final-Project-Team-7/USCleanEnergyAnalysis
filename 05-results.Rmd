@@ -363,12 +363,12 @@ ggparcoord(my_us_wb_df_p, columns = 23:27, scale = "globalminmax") +
   theme(plot.title = element_text(hjust=.5))
 
 
-ggparcoord(my_us_wb_df_p, columns = 23:27, scale = "uniminmax", alphaLines = 0.3, splineFactor = 10) + 
-  geom_vline(xintercept = 1:8, color = "lightblue") +
-  ggtitle("US Macro Energy Consumption, CO2 Emission, & Economic Indicators ") + 
-  xlab("") + 
-  ylab("") +
-  theme(plot.title = element_text(hjust=.5))
+# ggparcoord(my_us_wb_df_p, columns = 23:27, scale = "uniminmax", alphaLines = 0.3, splineFactor = 10) + 
+#   geom_vline(xintercept = 1:8, color = "lightblue") +
+#   ggtitle("US Macro Energy Consumption, CO2 Emission, & Economic Indicators ") + 
+#   xlab("") + 
+#   ylab("") +
+#   theme(plot.title = element_text(hjust=.5))
 
 
 ```
@@ -461,7 +461,7 @@ g2<-ggplot(merged_data)+
   scale_color_manual(values=colors)
 
 
-g1+g2+plot_layout(nrow=2,ncol=1)
+# g1+g2+plot_layout(nrow=2,ncol=1)
 
 ```
 
@@ -477,14 +477,14 @@ df1 <- df  %>%
 
 df2<-merge(df1,xle,by='date')
 
-  ggplot(df2) +
-  geom_line(aes(x = date, y = mil_mwhrs,color = fct_relevel(fuel, c('natural_gas', 'coal','nuclear', 'hydroelectric', 'wind', 'solar')))) +
-  geom_line(aes(x=date,y=Close*175))+
-  ggtitle('USA Net Generation by Fuel Type') + 
-  xlab("Date") +
-  ylab("MW Hours (Mil)") +
-  theme_classic(12)+
-  theme(legend.title=element_blank(), plot.title = element_text(hjust=.5))
+  # ggplot(df2) +
+  # geom_line(aes(x = date, y = mil_mwhrs,color = fct_relevel(fuel, c('natural_gas', 'coal','nuclear', 'hydroelectric', 'wind', 'solar')))) +
+  # geom_line(aes(x=date,y=Close*175))+
+  # ggtitle('USA Net Generation by Fuel Type') + 
+  # xlab("Date") +
+  # ylab("MW Hours (Mil)") +
+  # theme_classic(12)+
+  # theme(legend.title=element_blank(), plot.title = element_text(hjust=.5))
 ```
 
 ```{r}
@@ -500,24 +500,24 @@ all_data <-merge(all_energy,xle,by='date')
 
 library(ggpmisc)
 
-ggplot(all_data,aes(x=solar,y=Close))+
-  geom_point()+
-  geom_smooth(method = "lm", se = TRUE)+
-  stat_poly_eq(formula=y~x)
-
-ggplot(all_data,aes(x=coal,y=Close))+
-  geom_point()+
-  geom_smooth(method = "lm", se = TRUE)+
-  stat_poly_eq(formula=y~x)
-
-ggplot(all_data,aes(x=natural_gas,y=Close))+
-  geom_point()+
-  geom_smooth(method = "lm", se = TRUE)+
-  stat_poly_eq(formula=y~x)
-
-ggplot(all_data,aes(x=solar,y=Close))+
-  geom_point()+
-  geom_smooth(method = "lm", se = TRUE)+
-  stat_poly_eq(formula=y~x)
+# ggplot(all_data,aes(x=solar,y=Close))+
+#   geom_point()+
+#   geom_smooth(method = "lm", se = TRUE)+
+#   stat_poly_eq(formula=y~x)
+# 
+# ggplot(all_data,aes(x=coal,y=Close))+
+#   geom_point()+
+#   geom_smooth(method = "lm", se = TRUE)+
+#   stat_poly_eq(formula=y~x)
+# 
+# ggplot(all_data,aes(x=natural_gas,y=Close))+
+#   geom_point()+
+#   geom_smooth(method = "lm", se = TRUE)+
+#   stat_poly_eq(formula=y~x)
+# 
+# ggplot(all_data,aes(x=solar,y=Close))+
+#   geom_point()+
+#   geom_smooth(method = "lm", se = TRUE)+
+#   stat_poly_eq(formula=y~x)
 ```
 
