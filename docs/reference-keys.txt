@@ -2,9 +2,13 @@ introduction
 data-sources
 u.s.-energy-information-administration-eia
 column-descriptions
-data-transformation
 financial-data
+column-descriptions-1
+data-transformation
+financial-data-1
 correcting-date-format
+worldbank-data
+cleaning-data
 eia-data
 corrections
 create-interactive-data
@@ -17,10 +21,6 @@ results
 renewable-fuel-adoption
 macro-trends
 correlation-of-energy-consumption-co2-emission-and-economic-indicators
+correlation-between-energy-etf-and-macro-trends-in-energy
 interactive-component
 conclusion
-column-descriptions-1
-financial-data-1
-worldbank-data
-cleaning-data
-correlation-between-energy-etf-and-macro-trends-in-energy
