@@ -6,6 +6,7 @@ In the dataset for oil data there were different types of date formats such as '
 ```{r}
 library(tidyverse)
 library(kableExtra)
+library(lubridate) 
 
 Crushing_crude_oil <-read_csv('data/raw/Cushing_OK_WTI_Spot_Price_FOB.csv')
 head(Crushing_crude_oil,10)
@@ -277,6 +278,28 @@ names(d2018)<-c("month","value")
 names(d2019)<-c("month","value")
 names(d2020)<-c("month","value")
 names(d2021)<-c("month","value")
+
+d2001<-d2001[order(-d2001$value,d2001$month),]
+d2002<-d2002[order(-d2002$value,d2002$month),]
+d2003<-d2003[order(-d2003$value,d2003$month),]
+d2004<-d2004[order(-d2004$value,d2004$month),]
+d2005<-d2005[order(-d2005$value,d2005$month),]
+d2006<-d2006[order(-d2006$value,d2006$month),]
+d2007<-d2007[order(-d2007$value,d2007$month),]
+d2008<-d2008[order(-d2008$value,d2008$month),]
+d2009<-d2009[order(-d2009$value,d2009$month),]
+d2010<-d2010[order(-d2010$value,d2010$month),]
+d2011<-d2011[order(-d2011$value,d2011$month),]
+d2012<-d2012[order(-d2012$value,d2012$month),]
+d2013<-d2013[order(-d2013$value,d2013$month),]
+d2014<-d2014[order(-d2014$value,d2014$month),]
+d2015<-d2015[order(-d2015$value,d2015$month),]
+d2016<-d2016[order(-d2016$value,d2016$month),]
+d2017<-d2017[order(-d2017$value,d2017$month),]
+d2018<-d2018[order(-d2018$value,d2018$month),]
+d2019<-d2019[order(-d2019$value,d2019$month),]
+d2020<-d2020[order(-d2020$value,d2020$month),]
+d2021<-d2021[order(-d2021$value,d2021$month),]
 
 
 write.csv(d2001, 'draft code/d2001',row.names = FALSE)
