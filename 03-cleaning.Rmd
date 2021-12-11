@@ -60,8 +60,6 @@ After the above mentioned things have been corrected (changing column names and 
 
 ```{r, warning=F, echo=F}
 
-str_split(names(worldbank)," ")
-
 i<-0
 for (val in names(worldbank)){
   i<-i+1
