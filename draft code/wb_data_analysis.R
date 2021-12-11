@@ -183,6 +183,10 @@ ggparcoord(my_us_wb_df_p, columns = 23:27, scale = "globalminmax") +
   ylab("") +
   theme(plot.title = element_text(hjust=.5))
 
+#library(GGally)
+#library(parcoords)
+#parcoords(my_us_wb_df_p[,23:27], reorderable = T, queue = T, brushMode = '1D-axes', withD3 = TRUE)
+
 
 ggparcoord(my_us_wb_df_p, columns = 23:27, scale = "uniminmax", alphaLines = 0.3, splineFactor = 10) + 
   geom_vline(xintercept = 1:8, color = "lightblue") +
@@ -190,4 +194,35 @@ ggparcoord(my_us_wb_df_p, columns = 23:27, scale = "uniminmax", alphaLines = 0.3
   xlab("") + 
   ylab("") +
   theme(plot.title = element_text(hjust=.5))
+
+# Annual CO2 emission trend plot
+
+ggplot(my_us_wb_df_p, aes( my_us_wb_df_p$`Energy Use`, my_us_wb_df_p$`C02 Em`)) +
+  geom_point() +
+  ylab("CO2 emissions (metric tons per capita)") +
+  xlab("Energy use per capita") +
+  ggtitle("U.S. CO2 emission went up with more per capita energy consumption 1960 - 2020") +
+  geom_smooth( method = 'lm', se = FALSE) +
+  stat_poly_eq(formula = y~x) +
+  theme_classic(16) +
+  theme(plot.title = element_text(hjust=.5))
+
+
+my_us_wb_df_p_yr <- my_us_wb_df_p
+my_us_wb_df_p_yr <-tibble::rownames_to_column(my_us_wb_df_p_yr, "Year")
+my_us_wb_df_p_yr$Year <- as.numeric(my_us_wb_df_p_yr$Year)
+my_us_wb_df_p_yr_2000 <-my_us_wb_df_p_yr %>% filter(Year > 1999)
+
+ggplot(my_us_wb_df_p_yr_2000, aes( my_us_wb_df_p_yr_2000$Year, my_us_wb_df_p_yr_2000$`C02 Em`)) +
+  geom_point() +
+  ylab("CO2 emissions (metric tons per capita)") +
+  xlab("Year") +
+  ggtitle("U.S. reversed the trend of per capaita CO2 emission 2020 - 2020") +
+  stat_smooth(colour = "green") +
+  theme_classic(16) +
+  theme(plot.title = element_text(hjust=.5))
+
+
+
+
 
