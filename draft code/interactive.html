@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
-    <script src="//d3js.org/d3.v4.min.js"></script>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
     <style>
         html, body, #vis {
             height: 100%;
@@ -68,7 +68,7 @@
       
       function draw(year) {
         
-          d3.csv('https://raw.githubusercontent.com/EDAV-CCFall21-Final-Project-Team-7/USCleanEnergyAnalysis/main/draft%20code/d'+year,function(csv_data){
+          d3.csv('https://raw.githubusercontent.com/EDAV-CCFall21-Final-Project-Team-7/USCleanEnergyAnalysis/main/draft%20code/d'+year).then( function(csv_data){
             
             var t = d3.transition()
                 .duration(2000);
