@@ -194,3 +194,113 @@ interactive_data_percent <- interactive_data_percent[names(interactive_data_perc
 write.csv(interactive_data_percent, 'data/clean/interactive_data.csv',row.names = FALSE)
 ```
 
+```{r}
+d2001<-interactive_data_percent %>% filter(year=='2001')
+d2001$year<-NULL
+
+d2002<-interactive_data_percent %>% filter(year=='2002')
+d2002$year<-NULL
+
+d2003<-interactive_data_percent %>% filter(year=='2003')
+d2003$year<-NULL
+
+d2004<-interactive_data_percent %>% filter(year=='2004')
+d2004$year<-NULL
+
+d2005<-interactive_data_percent %>% filter(year=='2005')
+d2005$year<-NULL
+
+d2006<-interactive_data_percent %>% filter(year=='2006')
+d2006$year<-NULL
+
+d2007<-interactive_data_percent %>% filter(year=='2007')
+d2007$year<-NULL
+
+d2008<-interactive_data_percent %>% filter(year=='2008')
+d2008$year<-NULL
+
+d2009<-interactive_data_percent %>% filter(year=='2009')
+d2009$year<-NULL
+
+d2010<-interactive_data_percent %>% filter(year=='2010')
+d2010$year<-NULL
+
+d2011<-interactive_data_percent %>% filter(year=='2011')
+d2011$year<-NULL
+
+d2012<-interactive_data_percent %>% filter(year=='2012')
+d2012$year<-NULL
+
+d2013<-interactive_data_percent %>% filter(year=='2013')
+d2013$year<-NULL
+
+d2014<-interactive_data_percent %>% filter(year=='2014')
+d2014$year<-NULL
+
+d2015<-interactive_data_percent %>% filter(year=='2015')
+d2015$year<-NULL
+
+d2016<-interactive_data_percent %>% filter(year=='2016')
+d2016$year<-NULL
+
+d2017<-interactive_data_percent %>% filter(year=='2017')
+d2017$year<-NULL
+
+d2018<-interactive_data_percent %>% filter(year=='2018')
+d2018$year<-NULL
+
+d2019<-interactive_data_percent %>% filter(year=='2019')
+d2019$year<-NULL
+
+d2020<-interactive_data_percent %>% filter(year=='2020')
+d2020$year<-NULL
+
+d2021<-interactive_data_percent %>% filter(year=='2021')
+d2021$year<-NULL
+
+names(d2001)<-c("month","value")
+names(d2002)<-c("month","value")
+names(d2003)<-c("month","value")
+names(d2004)<-c("month","value")
+names(d2005)<-c("month","value")
+names(d2006)<-c("month","value")
+names(d2007)<-c("month","value")
+names(d2008)<-c("month","value")
+names(d2009)<-c("month","value")
+names(d2010)<-c("month","value")
+names(d2011)<-c("month","value")
+names(d2012)<-c("month","value")
+names(d2013)<-c("month","value")
+names(d2014)<-c("month","value")
+names(d2015)<-c("month","value")
+names(d2016)<-c("month","value")
+names(d2017)<-c("month","value")
+names(d2018)<-c("month","value")
+names(d2019)<-c("month","value")
+names(d2020)<-c("month","value")
+names(d2021)<-c("month","value")
+
+
+write.csv(d2001, 'draft code/d2001',row.names = FALSE)
+write.csv(d2002, 'draft code/d2002',row.names = FALSE)
+write.csv(d2003, 'draft code/d2003',row.names = FALSE)
+write.csv(d2004, 'draft code/d2004',row.names = FALSE)
+write.csv(d2005, 'draft code/d2005',row.names = FALSE)
+write.csv(d2006, 'draft code/d2006',row.names = FALSE)
+write.csv(d2007, 'draft code/d2007',row.names = FALSE)
+write.csv(d2008, 'draft code/d2008',row.names = FALSE)
+write.csv(d2009, 'draft code/d2009',row.names = FALSE)
+write.csv(d2010, 'draft code/d2010',row.names = FALSE)
+write.csv(d2011, 'draft code/d2011',row.names = FALSE)
+write.csv(d2012, 'draft code/d2012',row.names = FALSE)
+write.csv(d2013, 'draft code/d2013',row.names = FALSE)
+write.csv(d2014, 'draft code/d2014',row.names = FALSE)
+write.csv(d2015, 'draft code/d2015',row.names = FALSE)
+write.csv(d2016, 'draft code/d2016',row.names = FALSE)
+write.csv(d2017, 'draft code/d2017',row.names = FALSE)
+write.csv(d2018, 'draft code/d2018',row.names = FALSE)
+write.csv(d2019, 'draft code/d2019',row.names = FALSE)
+write.csv(d2020, 'draft code/d2020',row.names = FALSE)
+write.csv(d2021, 'draft code/d2021',row.names = FALSE)
+```
+
