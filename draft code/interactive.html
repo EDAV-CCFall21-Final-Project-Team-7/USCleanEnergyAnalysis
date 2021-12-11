@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="//d3js.org/d3.v4.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/d3-queue/3.0.4/d3-queue.min.js"></script>
+    <style>
+        html, body, #vis {
+            height: 100%;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <form>
+        <label for="year">Please select a year: </label>
+        <label for="year">Please select a year: </label>
+        <input type="range" min=2001 max=2021 step=1 id="year" value=2021 oninput="selected_year.value = year.value">
+        <output name="selected_year" id="selected_year">2021</output>
+    </form>
+    <div id="vis">
+    </div>
+    <script>
+            var width = document.getElementById('vis')
+          .clientWidth;
+      var height = document.getElementById('vis')
+          .clientHeight;
+      
+      var margin = {
+          top: 10,
+          bottom: 70,
+          left: 70,
+          right: 20
+      }
+      
+      var svg = d3.select('#vis')
+          .append('svg')
+          .attr('width', width)
+          .attr('height', height)
+          .append('g')
+          .attr('transform', 'translate(' + margin.left + ',' + margin.right + ')');
+      
+      width = width - margin.left - margin.right;
+      height = height - margin.top - margin.bottom;
+      
+      var data = {};
+      
+      var x_scale = d3.scaleBand()
+          .rangeRound([0, width])
+          .padding(0.1);
+      
+      var y_scale = d3.scaleLinear()
+          .range([height, 0]);
+      
+      var colour_scale = d3.scaleQuantile()
+          .range(["#ffffe5", "#fff7bc", "#fee391", "#fec44f", "#fe9929", "#ec7014", "#cc4c02", "#993404", "#662506"]);
+      
+      var y_axis = d3.axisLeft(y_scale);
+      var x_axis = d3.axisBottom(x_scale);
+      
+      svg.append('g')
+          .attr('class', 'x axis')
+          .attr('transform', 'translate(0,' + height + ')');
+      
+      svg.append('g')
+          .attr('class', 'y axis');
+      
+      function draw(year) {
+      
+          var csv_data = data[year];
+      
+          var t = d3.transition()
+              .duration(2000);
+      
+          var months = csv_data.map(function(d) {
+              return d.month;
+          });
+          x_scale.domain(months);
+      
+          var max_value = d3.max(csv_data, function(d) {
+              return +d.value;
+          });
+      
+          y_scale.domain([0, 100]);
+          colour_scale.domain([0, max_value]);
+      
+          var bars = svg.selectAll('.bar')
+              .data(csv_data)
+      
+          bars
+              .exit()
+              .remove();
+      
+          var new_bars = bars
+              .enter()
+              .append('rect')
+              .attr('class', 'bar')
+              .attr('x', function(d) {
+                  return x_scale(d.month);
+              })
+              .attr('width', x_scale.bandwidth())
+              .attr('y', height)
+              .attr('height', 0)
+      
+          new_bars.merge(bars)
+              .transition(t)
+              .attr('y', function(d) {
+                  return y_scale(+d.value);
+              })
+              .attr('height', function(d) {
+                  return height - y_scale(+d.value)
+              })
+              .attr('fill', function(d) {
+                  return colour_scale(+d.value);
+              })
+      
+          svg.select('.x.axis')
+              .call(x_axis);
+      
+          svg.select('.y.axis')
+              .transition(t)
+              .call(y_axis);
+      
+      }
+      
+      d3.queue()
+          .defer(d3.csv, 'd2021')
+          .defer(d3.csv, 'd2020')
+          .defer(d3.csv, 'd2019')
+          .defer(d3.csv, 'd2018')
+          .defer(d3.csv, 'd2017')
+          .defer(d3.csv, 'd2016')
+          .defer(d3.csv, 'd2015')
+          .defer(d3.csv, 'd2014')
+          .defer(d3.csv, 'd2013')
+          .defer(d3.csv, 'd2012')
+          .defer(d3.csv, 'd2011')
+          .defer(d3.csv, 'd2010')
+          .defer(d3.csv, 'd2009')
+          .defer(d3.csv, 'd2008')
+          .defer(d3.csv, 'd2007')
+          .defer(d3.csv, 'd2006')
+          .defer(d3.csv, 'd2005')
+          .defer(d3.csv, 'd2004')
+          .defer(d3.csv, 'd2003')
+          .defer(d3.csv, 'd2002')
+          .defer(d3.csv, 'd2001')
+          .await(function(error, d2021,d2020,d2019,d2018,d2017,d2016,d2015,d2014, d2013, d2012, d2011, d2010, d2009,d2008,d2007,d2006,d2005,d2004,d2004,d2003,d2002,d2001) {
+              data['2001'] = d2001;
+              data['2002'] = d2002;
+              data['2003'] = d2003;
+              data['2004'] = d2004;
+              data['2005'] = d2005;
+              data['2006'] = d2006;
+              data['2007'] = d2007;
+              data['2008'] = d2008;
+              data['2009'] = d2009;
+              data['2010'] = d2010;
+              data['2011'] = d2011;
+              data['2012'] = d2012;
+              data['2013'] = d2013;
+              data['2014'] = d2014;
+              data['2015'] = d2015;
+              data['2016'] = d2016;
+              data['2017'] = d2017;
+              data['2018'] = d2018;
+              data['2019'] = d2019;
+              data['2020'] = d2020;
+              data['2021'] = d2021;
+              draw('2021');
+          });
+      
+      var slider = d3.select('#year');
+      slider.on('change', function() {
+          draw(this.value);
+      });
+    </script>
+</body>
+</html>
