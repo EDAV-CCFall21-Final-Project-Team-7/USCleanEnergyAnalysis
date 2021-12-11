@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <title>Document</title>
     <script src="//d3js.org/d3.v4.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/d3-queue/3.0.4/d3-queue.min.js"></script>
     <style>
         html, body, #vis {
             height: 100%;
@@ -22,7 +21,7 @@
     <div id="vis">
     </div>
     <script>
-            var width = document.getElementById('vis')
+      var width = document.getElementById('vis')
           .clientWidth;
       var height = document.getElementById('vis')
           .clientHeight;
@@ -56,6 +55,7 @@
       var colour_scale = d3.scaleQuantile()
           .range(["#A1D99B", "#74C476", "#41AB5D", "#238B45", "#006D2C", "#00441B"]);
       
+      
       var y_axis = d3.axisLeft(y_scale);
       var x_axis = d3.axisBottom(x_scale);
       
@@ -67,111 +67,66 @@
           .attr('class', 'y axis');
       
       function draw(year) {
-      
-          var csv_data = data[year];
-      
-          var t = d3.transition()
-              .duration(2000);
-      
-          var months = csv_data.map(function(d) {
-              return d.month;
+        
+          d3.csv('https://raw.githubusercontent.com/EDAV-CCFall21-Final-Project-Team-7/USCleanEnergyAnalysis/main/draft%20code/d'+year,function(csv_data){
+            
+            var t = d3.transition()
+                .duration(2000);
+                
+            var months = csv_data.map(function(d) {
+                return d.month;
+            });
+            x_scale.domain(months);
+            
+            var max_value = d3.max(csv_data, function(d) {
+                return +d.value;
+            });
+        
+            y_scale.domain([0, 100]);
+            colour_scale.domain([0, max_value]);
+        
+            var bars = svg.selectAll('.bar')
+                .data(csv_data)
+        
+            bars
+                .exit()
+                .remove();
+                
+            var new_bars = bars
+                .enter()
+                .append('rect')
+                .attr('class', 'bar')
+                .attr('x', function(d) {
+                    return x_scale(d.month);
+                })
+                .attr('width', x_scale.bandwidth())
+                .attr('y', height)
+                .attr('height', 0)
+        
+            new_bars.merge(bars)
+                .transition(t)
+                .attr('y', function(d) {
+                    return y_scale(+d.value);
+                })
+                .attr('height', function(d) {
+                    return height - y_scale(+d.value)
+                })
+                .attr('fill', function(d) {
+                    return colour_scale(+d.value);
+                })
+        
+            svg.select('.x.axis')
+                .call(x_axis);
+        
+            svg.select('.y.axis')
+                .transition(t)
+                .call(y_axis);
+          
           });
-          x_scale.domain(months);
-      
-          var max_value = d3.max(csv_data, function(d) {
-              return +d.value;
-          });
-      
-          y_scale.domain([0, 100]);
-          colour_scale.domain([0, max_value]);
-      
-          var bars = svg.selectAll('.bar')
-              .data(csv_data)
-      
-          bars
-              .exit()
-              .remove();
-      
-          var new_bars = bars
-              .enter()
-              .append('rect')
-              .attr('class', 'bar')
-              .attr('x', function(d) {
-                  return x_scale(d.month);
-              })
-              .attr('width', x_scale.bandwidth())
-              .attr('y', height)
-              .attr('height', 0)
-      
-          new_bars.merge(bars)
-              .transition(t)
-              .attr('y', function(d) {
-                  return y_scale(+d.value);
-              })
-              .attr('height', function(d) {
-                  return height - y_scale(+d.value)
-              })
-              .attr('fill', function(d) {
-                  return colour_scale(+d.value);
-              })
-      
-          svg.select('.x.axis')
-              .call(x_axis);
-      
-          svg.select('.y.axis')
-              .transition(t)
-              .call(y_axis);
       
       }
       
-      
-      
-      d3.queue()
-          .defer(d3.csv, 'https://raw.githubusercontent.com/EDAV-CCFall21-Final-Project-Team-7/USCleanEnergyAnalysis/main/draft%20code/d2021')
-          .defer(d3.csv, 'https://raw.githubusercontent.com/EDAV-CCFall21-Final-Project-Team-7/USCleanEnergyAnalysis/main/draft%20code/d2020')
-          .defer(d3.csv, 'https://raw.githubusercontent.com/EDAV-CCFall21-Final-Project-Team-7/USCleanEnergyAnalysis/main/draft%20code/d2019')
-          .defer(d3.csv, 'https://raw.githubusercontent.com/EDAV-CCFall21-Final-Project-Team-7/USCleanEnergyAnalysis/main/draft%20code/d2018')
-          .defer(d3.csv, 'https://raw.githubusercontent.com/EDAV-CCFall21-Final-Project-Team-7/USCleanEnergyAnalysis/main/draft%20code/d2017')
-          .defer(d3.csv, 'https://raw.githubusercontent.com/EDAV-CCFall21-Final-Project-Team-7/USCleanEnergyAnalysis/main/draft%20code/d2016')
-          .defer(d3.csv, 'https://raw.githubusercontent.com/EDAV-CCFall21-Final-Project-Team-7/USCleanEnergyAnalysis/main/draft%20code/d2015')
-          .defer(d3.csv, 'https://raw.githubusercontent.com/EDAV-CCFall21-Final-Project-Team-7/USCleanEnergyAnalysis/main/draft%20code/d2014')
-          .defer(d3.csv, 'https://raw.githubusercontent.com/EDAV-CCFall21-Final-Project-Team-7/USCleanEnergyAnalysis/main/draft%20code/d2013')
-          .defer(d3.csv, 'https://raw.githubusercontent.com/EDAV-CCFall21-Final-Project-Team-7/USCleanEnergyAnalysis/main/draft%20code/d2012')
-          .defer(d3.csv, 'https://raw.githubusercontent.com/EDAV-CCFall21-Final-Project-Team-7/USCleanEnergyAnalysis/main/draft%20code/d2011')
-          .defer(d3.csv, 'https://raw.githubusercontent.com/EDAV-CCFall21-Final-Project-Team-7/USCleanEnergyAnalysis/main/draft%20code/d2010')
-          .defer(d3.csv, 'https://raw.githubusercontent.com/EDAV-CCFall21-Final-Project-Team-7/USCleanEnergyAnalysis/main/draft%20code/d2009')
-          .defer(d3.csv, 'https://raw.githubusercontent.com/EDAV-CCFall21-Final-Project-Team-7/USCleanEnergyAnalysis/main/draft%20code/d2008')
-          .defer(d3.csv, 'https://raw.githubusercontent.com/EDAV-CCFall21-Final-Project-Team-7/USCleanEnergyAnalysis/main/draft%20code/d2007')
-          .defer(d3.csv, 'https://raw.githubusercontent.com/EDAV-CCFall21-Final-Project-Team-7/USCleanEnergyAnalysis/main/draft%20code/d2006')
-          .defer(d3.csv, 'https://raw.githubusercontent.com/EDAV-CCFall21-Final-Project-Team-7/USCleanEnergyAnalysis/main/draft%20code/d2005')
-          .defer(d3.csv, 'https://raw.githubusercontent.com/EDAV-CCFall21-Final-Project-Team-7/USCleanEnergyAnalysis/main/draft%20code/d2004')
-          .defer(d3.csv, 'https://raw.githubusercontent.com/EDAV-CCFall21-Final-Project-Team-7/USCleanEnergyAnalysis/main/draft%20code/d2003')
-          .defer(d3.csv, 'https://raw.githubusercontent.com/EDAV-CCFall21-Final-Project-Team-7/USCleanEnergyAnalysis/main/draft%20code/d2002')
-          .defer(d3.csv, 'https://raw.githubusercontent.com/EDAV-CCFall21-Final-Project-Team-7/USCleanEnergyAnalysis/main/draft%20code/d2001')
-          .await(function(error, d2021,d2020,d2019,d2018,d2017,d2016,d2015,d2014, d2013, d2012, d2011, d2010, d2009,d2008,d2007,d2006,d2005,d2004,d2004,d2003,d2002,d2001) {
-              data['2001'] = d2001;
-              data['2002'] = d2002;
-              data['2003'] = d2003;
-              data['2004'] = d2004;
-              data['2005'] = d2005;
-              data['2006'] = d2006;
-              data['2007'] = d2007;
-              data['2008'] = d2008;
-              data['2009'] = d2009;
-              data['2010'] = d2010;
-              data['2011'] = d2011;
-              data['2012'] = d2012;
-              data['2013'] = d2013;
-              data['2014'] = d2014;
-              data['2015'] = d2015;
-              data['2016'] = d2016;
-              data['2017'] = d2017;
-              data['2018'] = d2018;
-              data['2019'] = d2019;
-              data['2020'] = d2020;
-              data['2021'] = d2021;
-              draw('2021');
-          });
+      draw(2021);
       
       var slider = d3.select('#year');
       slider.on('change', function() {
