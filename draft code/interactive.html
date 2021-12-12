@@ -14,7 +14,6 @@
 <body>
     <form>
         <label for="year">Please select a year: </label>
-        <label for="year">Please select a year: </label>
         <input type="range" min=2001 max=2021 step=1 id="year" value=2021 oninput="selected_year.value = year.value">
         <output name="selected_year" id="selected_year">2021</output>
     </form>
@@ -45,12 +44,12 @@
       
       var data = {};
       
-      var x_scale = d3.scaleBand()
-          .rangeRound([0, width])
+      var y_scale = d3.scaleBand()
+          .rangeRound([0, height])
           .padding(0.1);
       
-      var y_scale = d3.scaleLinear()
-          .range([height, 0]);
+      var x_scale = d3.scaleLinear()
+          .range([0, width]);
       
       var colour_scale = d3.scaleQuantile()
           .range(["#A1D99B", "#74C476", "#41AB5D", "#238B45", "#006D2C", "#00441B"]);
@@ -76,13 +75,13 @@
             var months = csv_data.map(function(d) {
                 return d.month;
             });
-            x_scale.domain(months);
+            y_scale.domain(months);
             
             var max_value = d3.max(csv_data, function(d) {
                 return +d.value;
             });
         
-            y_scale.domain([0, 100]);
+            x_scale.domain([0, 100]);
             colour_scale.domain([0, max_value]);
         
             var bars = svg.selectAll('.bar')
@@ -96,20 +95,22 @@
                 .enter()
                 .append('rect')
                 .attr('class', 'bar')
-                .attr('x', function(d) {
-                    return x_scale(d.month);
+                .attr('y', function(d) {
+                    return y_scale(d.month);
                 })
-                .attr('width', x_scale.bandwidth())
-                .attr('y', height)
-                .attr('height', 0)
-        
+                .attr('height', y_scale.bandwidth())
+                .attr('x', x_scale(0))
+                .attr('width', d => x_scale(+d.value))
+                
+
+        //move bars with size, then change axis name
             new_bars.merge(bars)
                 .transition(t)
-                .attr('y', function(d) {
+                .attr('x', function(d) {
                     return y_scale(+d.value);
                 })
-                .attr('height', function(d) {
-                    return height - y_scale(+d.value)
+                .attr('width', function(d) {
+                    return x_scale(+d.value)
                 })
                 .attr('fill', function(d) {
                     return colour_scale(+d.value);
