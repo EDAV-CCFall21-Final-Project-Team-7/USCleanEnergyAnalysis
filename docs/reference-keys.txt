@@ -21,6 +21,5 @@ results
 renewable-fuel-adoption
 macro-trends
 correlation-of-energy-consumption-co2-emission-and-economic-indicators
-correlation-between-energy-etf-and-macro-trends-in-energy
 interactive-component
 conclusion
