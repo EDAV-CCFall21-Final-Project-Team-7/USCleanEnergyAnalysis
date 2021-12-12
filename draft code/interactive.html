@@ -122,7 +122,32 @@
             svg.select('.y.axis')
                 .transition(t)
                 .call(y_axis);
-          
+                
+            svg.append("text")
+              .attr("class", "x label")
+              .attr("text-anchor", "end")
+              .attr("x", width/1.6)
+              .attr("y", height+30)
+              .text("% of energy that is renewable (in each state)");
+            
+            svg.append("text")
+              .attr("class", "y label")
+              .attr("text-anchor", "end")
+              .attr("x",-300)
+              .attr("y", -50)
+              .attr("dy", ".75em")
+              .attr("transform", "rotate(-90)")
+              .text("State");  
+              
+            
+            svg.append("text")
+              .attr("class", "title")
+              .attr("text-anchor", "end")
+              .attr("x", width/1.45)
+              .attr("y", height-730)
+              .text("Bar chart showing % of energy that is renewable (in each state)"); 
+              
+            
           });
       
       }
