@@ -95,7 +95,7 @@ worldbank %>% kable(escape = F) %>%
 
 ## EIA Data
 ### Corrections
-There were several issues with the EIA data. First, the state name read in as "USA-<state>" (examples below).
+There were several issues with the EIA data. The clean version of the data can be found [here](https://github.com/EDAV-CCFall21-Final-Project-Team-7/USCleanEnergyAnalysis/blob/main/data/clean/clean_monthly_fuel_generation.csv). First, the state name read in as "USA-<state>" (examples below).
 
 ```{r, warning=F, echo=F}
 df <- read.csv('data/raw/monthly_fuel_generation_by_state_full.csv')
@@ -153,7 +153,7 @@ df[is.na(df$thousand_megawatthours),]$thousand_megawatthours <- 0
 
 ### Create interactive data
 
-The data needs to be transformed for the interactive component of this project. The data is wrangled to create a dataframe that contains the renewable percent of total generation for each state on each date as shown below. As mentioned in the data introduction, the total power generation is the aggregate of coal, petroleum_liquids, petroleum_coke, natural_gas, other_gases, nuclear, conventional_hydroelectric, other, and other_renewables_(total) fuel types. Additionally, the renewables value is the sum of the conventional_hydroelectric and other_renewables_(total) fuels. After performing these aggregations, the percent of renewables was found by dividing the aggregate renewables by the total power generation for each state on each date. 
+The data needed to be transformed for the interactive component of this project. The data is wrangled to create [dataframes](https://github.com/EDAV-CCFall21-Final-Project-Team-7/USCleanEnergyAnalysis/tree/main/data/clean) (listed as d2001.csv - d2021.csv) that contain the renewable percent of total generation for each state for each year as shown below. As mentioned in the data introduction, the total power generation is the aggregate of coal, petroleum_liquids, petroleum_coke, natural_gas, other_gases, nuclear, conventional_hydroelectric, other, and other_renewables_(total) fuel types. Additionally, the renewables value is the sum of the conventional_hydroelectric and other_renewables_(total) fuels. After performing these aggregations, the percent of renewables was found by dividing the aggregate renewables by the total power generation for each state on each date. 
 
 ```{r, warning=F, echo=F}
 df <- read.csv('data/clean/clean_monthly_fuel_generation.csv')

@@ -270,36 +270,44 @@ g1 <- plot_usmap(data = df_all_solar1, values = 'mil_mwhrs',regions = 'states', 
   scale_fill_continuous(low = "pink", high = "red", name = "Avg. MW Hrs \n(Mil)", label = scales::comma) + 
   labs(title = "Solar") +
   theme_classic(16) +
+  xlab('') +
+  ylab('') +
   theme(legend.position = "right",plot.title = element_text(hjust = 0.5,size=16), 
-        axis.line = element_blank(), axis.text=element_blank())
+        axis.line = element_blank(), axis.text=element_blank(), axis.ticks = element_blank())
 
 g2 <- plot_usmap(data = df_coal1, values = 'mil_mwhrs',regions = 'states', labels = TRUE, color = 'pink')+
   scale_fill_continuous(low = "pink", high = "red", name = "Avg. MW Hrs \n(Mil)", label = scales::comma) + 
   labs(title = "Coal") +
   theme_classic(16) +
-  theme(legend.position = "right",plot.title = element_text(hjust = 0.5,size=16),
-        axis.line = element_blank(), axis.text=element_blank())
+  xlab('') +
+  ylab('') +
+  theme(legend.position = "right",plot.title = element_text(hjust = 0.5,size=16), 
+        axis.line = element_blank(), axis.text=element_blank(), axis.ticks = element_blank())
 
 g3 <- plot_usmap(data = df_natural_gas1, values = 'mil_mwhrs',regions = 'states', labels = TRUE, color = 'pink')+
   scale_fill_continuous(low = "pink", high = "red", name = "Avg. MW Hrs \n(Mil)", label = scales::comma) + 
   labs(title = "Natural Gas") +
   theme_classic(16) +
-  theme(legend.position = "right",plot.title = element_text(hjust = 0.5,size=16),
-        axis.line = element_blank(), axis.text=element_blank())
+  xlab('') +
+  ylab('') +
+  theme(legend.position = "right",plot.title = element_text(hjust = 0.5,size=16), 
+        axis.line = element_blank(), axis.text=element_blank(), axis.ticks = element_blank())
 
 g4 <- plot_usmap(data = df_wind1, values = 'mil_mwhrs',regions = 'states', labels = TRUE, color = 'pink')+
   scale_fill_continuous(low = "pink", high = "red", name = "Avg. MW Hrs \n(Mil)", label = scales::comma) + 
   labs(title = "Wind") +
   theme_classic(16) +
-  theme(legend.position = "right",plot.title = element_text(hjust = 0.5,size=16),
-        axis.line = element_blank(), axis.text=element_blank())
+  xlab('') +
+  ylab('') +
+  theme(legend.position = "right",plot.title = element_text(hjust = 0.5,size=16), 
+        axis.line = element_blank(), axis.text=element_blank(), axis.ticks = element_blank())
 
 
 
 g1+g2+g3+g4+plot_layout(ncol=2,nrow=2,widths=c(8,8),heights=c(38,38))+plot_annotation(title = "Raw Values for Monthly Average megawatthours (Mil)",theme = theme(plot.title = element_text(size = 36,face='bold', hjust=.5)))
 ```
 
-However, we know that the size of every state is the United States varies a lot. Therefore, to account for the size and provide a better comparison of the energy produced in a state, we normalize the amount of energy produced by the area of the state and plot it on a heatmap as done above. It can be noticed from this heatmap that Texas is no longer one of the dominating producers of coal and natural gas. 
+However, we know that the size of every state is the United States varies a lot. Therefore, to account for the size and provide a better comparison of the energy produced in a state, we normalize the amount of energy produced by the area of the state and plot it on a heatmap as done above. It can be noticed from this heatmap that Texas is no longer one of the dominating producers of coal and natural gas. In fact, Texas has one of the highest values for wind energy per square mile, following closely behind Iowa and Oklahoma. New Jersey, Massachusetts, and California are have the most solar energy produced per square mile. West Virginia, Indiana, and Ohio are producing the most coal energy per square mile. 
 
 ```{r,fig.width=16,fig.height=16}
 area <- as.data.frame(read_csv('data/raw/area.csv'))
@@ -321,29 +329,37 @@ g1 <- plot_usmap(data = df_all_solar2, values = 'thousand_megawatthours',regions
   scale_fill_continuous(low = "pink", high = "red", name = "Normalized Avg \nMW Hrs", label = scales::comma) + 
   labs(title = "Solar") +
   theme_classic(16) +
-  theme(legend.position = "right",plot.title = element_text(hjust = 0.5,size=16),
-        axis.line = element_blank(), axis.text=element_blank())
+  xlab('') +
+  ylab('') +
+  theme(legend.position = "right",plot.title = element_text(hjust = 0.5,size=16), 
+        axis.line = element_blank(), axis.text=element_blank(), axis.ticks = element_blank())
 
 g2 <- plot_usmap(data = df_coal2, values = 'thousand_megawatthours',regions = 'states', labels = TRUE, color = 'pink')+
   scale_fill_continuous(low = "pink", high = "red", name ="Normalized Avg \nMW Hrs", label = scales::comma) + 
   labs(title = "Coal") +
   theme_classic(16) +
-  theme(legend.position = "right",plot.title = element_text(hjust = 0.5,size=16),
-        axis.line = element_blank(), axis.text=element_blank())
+  xlab('') +
+  ylab('') +
+  theme(legend.position = "right",plot.title = element_text(hjust = 0.5,size=16), 
+        axis.line = element_blank(), axis.text=element_blank(), axis.ticks = element_blank())
 
 g3 <- plot_usmap(data = df_natural_gas2, values = 'thousand_megawatthours',regions = 'states', labels = TRUE, color = 'pink')+
   scale_fill_continuous(low = "pink", high = "red", name = "Normalized Avg \nMW Hrs", label = scales::comma) + 
   labs(title = "Natural Gas") +
   theme_classic(16) +
-  theme(legend.position = "right",plot.title = element_text(hjust = 0.5,size=16),
-        axis.line = element_blank(), axis.text=element_blank())
+  xlab('') +
+  ylab('') +
+  theme(legend.position = "right",plot.title = element_text(hjust = 0.5,size=16), 
+        axis.line = element_blank(), axis.text=element_blank(), axis.ticks = element_blank())
 
 g4 <- plot_usmap(data = df_wind2, values = 'thousand_megawatthours',regions = 'states', labels = TRUE, color = 'pink')+
   scale_fill_continuous(low = "pink", high = "red", name = "Normalized Avg \nMW Hrs", label = scales::comma) + 
   labs(title = "Wind") +
   theme_classic(16) +
-  theme(legend.position = "right",plot.title = element_text(hjust = 0.5,size=16),
-        axis.line = element_blank(), axis.text=element_blank())
+  xlab('') +
+  ylab('') +
+  theme(legend.position = "right",plot.title = element_text(hjust = 0.5,size=16), 
+        axis.line = element_blank(), axis.text=element_blank(), axis.ticks = element_blank())
 
 
 g1+g2+g3+g4+plot_layout(ncol=2,nrow=2,widths=c(8,8),heights=c(38,38))+plot_annotation(title = "Energy Produced per sq miles (by state)",theme = theme(plot.title = element_text(size = 36,face='bold',hjust=.5)))
