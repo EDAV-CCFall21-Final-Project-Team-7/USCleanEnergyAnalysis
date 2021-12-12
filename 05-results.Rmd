@@ -1,6 +1,6 @@
 # Results
 ## Renewable Fuel Adoption
-The below chart explores the average percent of power generated in 2021 by each state that is produced by renewable energy sources. Renewable energy sources include wind, solar, geothermal, biomass, and hydroelectric power sources.
+The below chart explores the average percent of renewable power generated in 2020 by each state. Renewable energy sources include wind, solar, geothermal, biomass, and hydroelectric power sources. We can see that Iowa is using mainly wind as its renewable energy source; whereas Hawaii is using mainly solar power. 
 
 ```{r, warning=F, echo=F}
 library(tidyverse)
@@ -28,9 +28,9 @@ df$date <- as.Date(df$date)
 current <- df %>% filter(year(date) == 2020)
 current_states <- current %>% group_by(state, fuel) %>% summarize(total_thousand_mwh = mean(thousand_megawatthours, na.rm=TRUE)) %>% pivot_wider(id_cols = c(state), names_from= fuel, values_from = total_thousand_mwh)
 current_states[is.na(current_states)] <- 0
-current_states <- current_states[names(current_states) %in% c('state', 'coal', 'wind','all_solar', 'petroleum_liquids','petroleum_coke','natural_gas', 'other_gases', 'nuclear', 'conventional_hydroelectric', 'other', 'other_renewables_(total)')]
-current_states$total <- current_states$coal + current_states$petroleum_coke + current_states$petroleum_liquids + current_states$natural_gas + current_states$other_gases + current_states$nuclear + current_states$conventional_hydroelectric + current_states$other + current_states$`other_renewables_(total)`
-current_states$renewables <- current_states$conventional_hydroelectric + current_states$`other_renewables_(total)`
+# current_states <- current_states[names(current_states) %in% c('state', 'coal', 'wind','all_solar', 'petroleum_liquids','petroleum_coke','natural_gas', 'other_gases', 'nuclear', 'conventional_hydroelectric', 'other', 'other_renewables_(total)')]
+current_states$total <- current_states$coal + current_states$petroleum_coke + current_states$petroleum_liquids + current_states$natural_gas + current_states$other_gases + current_states$nuclear + current_states$conventional_hydroelectric + current_states$other + current_states$wind + current_states$all_solar + current_states$geothermal + current_states$other_biomass + current_states$wood_and_wood_derived_fuels 
+current_states$renewables <- current_states$conventional_hydroelectric + current_states$wind + current_states$all_solar + current_states$geothermal + current_states$other_biomass + current_states$wood_and_wood_derived_fuels 
 
 current_states$coal <- current_states$coal/current_states$total
 current_states$renewables <- current_states$renewables/current_states$total
@@ -66,7 +66,7 @@ options(repr.P.width=4,repr.P.height=10)
 
 It is interesting to note that Vermont is already generating 100% of their power from renewable energy sources. Additionally, Delaware has the lower percentage of power generated from renewables with these sources comprising just over 2% of the average 2020 power.
 
-Some states have set Renewable Portfolio Goals (RPS) that specify that utilities must sell a certain percentage of electricity that is generated from renewable sources. Delaware set a goal in 2005 to achieve achieve power generation that is 25% renewables by 2025 (https://www.ncsl.org/research/energy/renewable-portfolio-standards.aspx); however, they have only achieved 2% renewables in the current year. 
+Some states have set [Renewable Portfolio Goals (RPS)](https://www.ncsl.org/research/energy/renewable-portfolio-standards.aspx) that specify that utilities must sell a certain percentage of electricity that is generated from renewable sources. In their RPS, Delaware set a goal in 2005 to achieve achieve power generation that is 25% renewables by 2025; however, they have only achieved 2% renewables in the current year. 
 
 ## Macro Trends
 To explore macro trends in the energy sources utilized by the United States as a whole, the time series for each power source is plotted from 2001 - 2021. It is seen below that in 2001 coal was the predominant electricity source for America. Coal had a steady power generation until it began to decline around 2010. Natural gas took off at this time and by 2021 is the biggest producer of energy. Conventional hydroelectric was one of the first renewable energy resources to appear at significant levels in the electricity power generation for the US. Both solar and wind power have slowly increased in the amount of power they produce. 
@@ -104,7 +104,7 @@ We can explore the relationship between specific fuel types to determine which a
 
 ```
 
-We can explore the relationship between specific fuel types to determine which are correlated. From the plot below, we can see that solar is negatively correlated with coal and positively correlated with natural gas and wind. This is not necessarily surprising because natural gas is typically used to complement variable renewable energy sources like solar and wind and act as a form of stability to produce power when the sun isn't shining or the wind isn't blowing. It makes sense that as the adoption of wind and solar energy increases, natural gas usage will also increase until a cleaner alternative is found. Natural gas is a cleaner fuel source than coal and produces 50% less CO\_2 emissions (https://group.met.com/fyouture/natural-gas-vs-coal/66). However, the cleanest alternative would be another renewable energy source that could help address the variability in production of wind and solar, like batteries.  
+We can explore the relationship between specific fuel types to determine which are correlated. From the plot below, we can see that solar is negatively correlated with coal and positively correlated with natural gas and wind. This is not necessarily surprising because natural gas is typically used to complement variable renewable energy sources like solar and wind and act as a form of stability to produce power when the sun isn't shining or the wind isn't blowing. It makes sense that as the adoption of wind and solar energy increases, natural gas usage will also increase until a cleaner alternative is found. Natural gas is a cleaner fuel source than coal and produces 50% less CO\_2 emissions according to the [Met Group](https://group.met.com/fyouture/natural-gas-vs-coal/66). However, the cleanest alternative would be another renewable energy source that could help address the variability in production of wind and solar, like batteries.  
 
 ```{r, echo=F, warning=F}
 df  %>% filter(fuel %in% c('wind','coal', 'natural_gas', 'all_solar', 'nuclear')) %>%
@@ -201,7 +201,7 @@ plot_grid(
 
 ```
 
-The most noticeable change in primary fuels can be seen from coal and natural gas. In 2001, 32 states used coal as the primary fuel, while by 2020 this number changed to 11. Natural gas experienced the opposite trend where it grew from being the primary fuel for 7 states to 22. nuclear, hydroelectric, and petroleum liquids were also primary fuels for states in 2001 and 2020. These fuels did not see much change in number of states using them as their primary fuel. Renewables (other than hydroelectric) did become the primary fuel for 4 states (Iowa, Kansas, Maine, and Minnesota) in 2020, while in 2001 no states were using other renewables as the primary fuel.
+Next, we explore the primary fuel source for the USA states in 2001 and 2020. The most noticeable change in primary fuels can be seen from coal and natural gas. In 2001, 32 states used coal as the primary fuel, while by 2020 this number changed to 11. Natural gas experienced the opposite trend where it grew from being the primary fuel for 7 states to 22. nuclear, hydroelectric, and petroleum liquids were also primary fuels for states in 2001 and 2020. These fuels did not see much change in number of states using them as their primary fuel. Renewables (other than hydroelectric) did become the primary fuel for 4 states (Iowa, Kansas, Maine, and Minnesota) in 2020, while in 2001 no states were using other renewables as the primary fuel.
 
 ```{r, echo=F, warning=F}
 max_fuel_2020 <- df %>% filter(year(date) == 2020) %>%
@@ -256,39 +256,47 @@ df_natural_gas <- df  %>%
 df_wind <- df  %>% 
   group_by(fuel, date, state) %>% summarise(thousand_megawatthours = sum(thousand_megawatthours)) %>% filter(fuel %in% c('wind'))
 
-df_all_solar1 <- df_all_solar %>% group_by(state) %>% summarize(thousand_megawatthours = mean(thousand_megawatthours)) 
+df_all_solar1 <- df_all_solar %>% group_by(state) %>% summarize(mil_mwhrs = mean(thousand_megawatthours)/1000) 
 
-df_coal1 <- df_coal %>% group_by(state) %>% summarize(thousand_megawatthours = mean(thousand_megawatthours)) 
+df_coal1 <- df_coal %>% group_by(state) %>% summarize(mil_mwhrs = mean(thousand_megawatthours)/1000) 
 
-df_natural_gas1 <- df_natural_gas %>% group_by(state) %>% summarize(thousand_megawatthours = mean(thousand_megawatthours)) 
+df_natural_gas1 <- df_natural_gas %>% group_by(state) %>% summarize(mil_mwhrs = mean(thousand_megawatthours)/1000) 
 
-df_wind1 <- df_wind %>% group_by(state) %>% summarize(thousand_megawatthours = mean(thousand_megawatthours)) 
-
-
-
-g1 <- plot_usmap(data = df_all_solar1, values = 'thousand_megawatthours',regions = 'states', labels = TRUE, color = 'pink')+
-  scale_fill_continuous(low = "pink", high = "red", name = "Average thousand megawatthours", label = scales::comma) + 
-  labs(title = "Average thousand megawatthours by State (Solar Energy)") +
-  theme(legend.position = "right",plot.title = element_text(hjust = 0.5,size=16))
-
-g2 <- plot_usmap(data = df_coal1, values = 'thousand_megawatthours',regions = 'states', labels = TRUE, color = 'pink')+
-  scale_fill_continuous(low = "pink", high = "red", name = "Average thousand megawatthours", label = scales::comma) + 
-  labs(title = "Average thousand megawatthours by State (Coal)") +
-  theme(legend.position = "right",plot.title = element_text(hjust = 0.5,size=16))
-
-g3 <- plot_usmap(data = df_natural_gas1, values = 'thousand_megawatthours',regions = 'states', labels = TRUE, color = 'pink')+
-  scale_fill_continuous(low = "pink", high = "red", name = "Average thousand megawatthours", label = scales::comma) + 
-  labs(title = "Average thousand megawatthours by State (Natual Gas)") +
-  theme(legend.position = "right",plot.title = element_text(hjust = 0.5,size=16))
-
-g4 <- plot_usmap(data = df_wind1, values = 'thousand_megawatthours',regions = 'states', labels = TRUE, color = 'pink')+
-  scale_fill_continuous(low = "pink", high = "red", name = "Normalized Average thousand megawatthours", label = scales::comma) + 
-  labs(title = "Average thousand megawatthours by State (Wind Energy)") +
-  theme(legend.position = "right",plot.title = element_text(hjust = 0.5,size=16))
+df_wind1 <- df_wind %>% group_by(state) %>% summarize(mil_mwhrs = mean(thousand_megawatthours)/1000) 
 
 
 
-g1+g2+g3+g4+plot_layout(ncol=2,nrow=2,widths=c(8,8),heights=c(38,38))+plot_annotation(title = "Raw values for energy produced",theme = theme(plot.title = element_text(size = 36,face='bold')))
+g1 <- plot_usmap(data = df_all_solar1, values = 'mil_mwhrs',regions = 'states', labels = TRUE, color = 'pink')+
+  scale_fill_continuous(low = "pink", high = "red", name = "Avg. MW Hrs \n(Mil)", label = scales::comma) + 
+  labs(title = "Solar") +
+  theme_classic(16) +
+  theme(legend.position = "right",plot.title = element_text(hjust = 0.5,size=16), 
+        axis.line = element_blank(), axis.text=element_blank())
+
+g2 <- plot_usmap(data = df_coal1, values = 'mil_mwhrs',regions = 'states', labels = TRUE, color = 'pink')+
+  scale_fill_continuous(low = "pink", high = "red", name = "Avg. MW Hrs \n(Mil)", label = scales::comma) + 
+  labs(title = "Coal") +
+  theme_classic(16) +
+  theme(legend.position = "right",plot.title = element_text(hjust = 0.5,size=16),
+        axis.line = element_blank(), axis.text=element_blank())
+
+g3 <- plot_usmap(data = df_natural_gas1, values = 'mil_mwhrs',regions = 'states', labels = TRUE, color = 'pink')+
+  scale_fill_continuous(low = "pink", high = "red", name = "Avg. MW Hrs \n(Mil)", label = scales::comma) + 
+  labs(title = "Natural Gas") +
+  theme_classic(16) +
+  theme(legend.position = "right",plot.title = element_text(hjust = 0.5,size=16),
+        axis.line = element_blank(), axis.text=element_blank())
+
+g4 <- plot_usmap(data = df_wind1, values = 'mil_mwhrs',regions = 'states', labels = TRUE, color = 'pink')+
+  scale_fill_continuous(low = "pink", high = "red", name = "Avg. MW Hrs \n(Mil)", label = scales::comma) + 
+  labs(title = "Wind") +
+  theme_classic(16) +
+  theme(legend.position = "right",plot.title = element_text(hjust = 0.5,size=16),
+        axis.line = element_blank(), axis.text=element_blank())
+
+
+
+g1+g2+g3+g4+plot_layout(ncol=2,nrow=2,widths=c(8,8),heights=c(38,38))+plot_annotation(title = "Raw Values for Monthly Average megawatthours (Mil)",theme = theme(plot.title = element_text(size = 36,face='bold', hjust=.5)))
 ```
 
 However, we know that the size of every state is the United States varies a lot. Therefore, to account for the size and provide a better comparison of the energy produced in a state, we normalize the amount of energy produced by the area of the state and plot it on a heatmap as done above. It can be noticed from this heatmap that Texas is no longer one of the dominating producers of coal and natural gas. 
@@ -297,40 +305,48 @@ However, we know that the size of every state is the United States varies a lot.
 area <- as.data.frame(read_csv('data/raw/area.csv'))
 
 df_all_solar2 <- merge(df_all_solar1,area,by='state')
-df_all_solar2$thousand_megawatthours<-df_all_solar2$thousand_megawatthours/df_all_solar2$area
+df_all_solar2$thousand_megawatthours <- df_all_solar2$mil_mwhrs*1000000/df_all_solar2$area
 
 df_coal2 <- merge(df_coal1,area,by='state')
-df_coal2$thousand_megawatthours<-df_coal2$thousand_megawatthours/df_coal2$area
+df_coal2$thousand_megawatthours<-df_coal2$mil_mwhrs*1000000/df_coal2$area
 
 df_natural_gas2 <- merge(df_natural_gas1,area,by='state')
-df_natural_gas2$thousand_megawatthours<-df_natural_gas2$thousand_megawatthours/df_natural_gas2$area
+df_natural_gas2$thousand_megawatthours<-df_natural_gas2$mil_mwhrs*1000000/df_natural_gas2$area
 
 df_wind2 <- merge(df_wind1,area,by='state')
-df_wind2$thousand_megawatthours<-df_wind2$thousand_megawatthours/df_wind2$area
+df_wind2$thousand_megawatthours<-df_wind2$mil_mwhrs*1000000/df_wind2$area
 
 
 g1 <- plot_usmap(data = df_all_solar2, values = 'thousand_megawatthours',regions = 'states', labels = TRUE, color = 'pink')+
-  scale_fill_continuous(low = "pink", high = "red", name = "Normalized Average thousand megawatthours", label = scales::comma) + 
-  labs(title = "Normalized Average thousand megawatthours by State (Solar Energy)") +
-  theme(legend.position = "right",plot.title = element_text(hjust = 0.5,size=16))
+  scale_fill_continuous(low = "pink", high = "red", name = "Normalized Avg \nMW Hrs", label = scales::comma) + 
+  labs(title = "Solar") +
+  theme_classic(16) +
+  theme(legend.position = "right",plot.title = element_text(hjust = 0.5,size=16),
+        axis.line = element_blank(), axis.text=element_blank())
 
 g2 <- plot_usmap(data = df_coal2, values = 'thousand_megawatthours',regions = 'states', labels = TRUE, color = 'pink')+
-  scale_fill_continuous(low = "pink", high = "red", name ="Normalized Average thousand megawatthours", label = scales::comma) + 
-  labs(title = "Normalized Average thousand megawatthours by State (Coal)") +
-  theme(legend.position = "right",plot.title = element_text(hjust = 0.5,size=16))
+  scale_fill_continuous(low = "pink", high = "red", name ="Normalized Avg \nMW Hrs", label = scales::comma) + 
+  labs(title = "Coal") +
+  theme_classic(16) +
+  theme(legend.position = "right",plot.title = element_text(hjust = 0.5,size=16),
+        axis.line = element_blank(), axis.text=element_blank())
 
 g3 <- plot_usmap(data = df_natural_gas2, values = 'thousand_megawatthours',regions = 'states', labels = TRUE, color = 'pink')+
-  scale_fill_continuous(low = "pink", high = "red", name = "Normalized Average thousand megawatthours", label = scales::comma) + 
-  labs(title = "Normalized Average thousand megawatthours by State (Natual Gas)") +
-  theme(legend.position = "right",plot.title = element_text(hjust = 0.5,size=16))
+  scale_fill_continuous(low = "pink", high = "red", name = "Normalized Avg \nMW Hrs", label = scales::comma) + 
+  labs(title = "Natural Gas") +
+  theme_classic(16) +
+  theme(legend.position = "right",plot.title = element_text(hjust = 0.5,size=16),
+        axis.line = element_blank(), axis.text=element_blank())
 
 g4 <- plot_usmap(data = df_wind2, values = 'thousand_megawatthours',regions = 'states', labels = TRUE, color = 'pink')+
-  scale_fill_continuous(low = "pink", high = "red", name = "Normalized Average thousand megawatthours", label = scales::comma) + 
-  labs(title = "Normalized Average thousand megawatthours by State (Wind Energy)") +
-  theme(legend.position = "right",plot.title = element_text(hjust = 0.5,size=16))
+  scale_fill_continuous(low = "pink", high = "red", name = "Normalized Avg \nMW Hrs", label = scales::comma) + 
+  labs(title = "Wind") +
+  theme_classic(16) +
+  theme(legend.position = "right",plot.title = element_text(hjust = 0.5,size=16),
+        axis.line = element_blank(), axis.text=element_blank())
 
 
-g1+g2+g3+g4+plot_layout(ncol=2,nrow=2,widths=c(8,8),heights=c(38,38))+plot_annotation(title = "Energy Produced per sq miles (by state)",theme = theme(plot.title = element_text(size = 36,face='bold')))
+g1+g2+g3+g4+plot_layout(ncol=2,nrow=2,widths=c(8,8),heights=c(38,38))+plot_annotation(title = "Energy Produced per sq miles (by state)",theme = theme(plot.title = element_text(size = 36,face='bold',hjust=.5)))
 
 ```
 
