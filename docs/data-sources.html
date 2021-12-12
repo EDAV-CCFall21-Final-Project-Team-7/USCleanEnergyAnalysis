@@ -86,6 +86,7 @@
 <ul>
 <li class="chapter" data-level="2.2.1" data-path="data-sources.html"><a href="data-sources.html#column-descriptions-1"><i class="fa fa-check"></i><b>2.2.1</b> Column Descriptions</a></li>
 </ul></li>
+<li class="chapter" data-level="2.3" data-path="data-sources.html"><a href="data-sources.html#the-world-bank-wb"><i class="fa fa-check"></i><b>2.3</b> The World Bank (WB)</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a>
 <ul>
@@ -205019,8 +205020,412 @@ Cost per barrel
 <li><strong>day:</strong> contains the date in the range from “01/02/1986” to “11/08/2021”</li>
 <li><strong>cost per barrel:</strong> contains the cost per barrel of oil based on West Texas Intermediate (WTI)</li>
 </ul>
-
 </div>
+</div>
+<div id="the-world-bank-wb" class="section level2" number="2.3">
+<h2><span class="header-section-number">2.3</span> The World Bank (WB)</h2>
+<p>The World Bank country data for the U.S. is downloaded from <a href="https://databank.worldbank.org/country/USA/556d8fa6/Popular_countries#">Data Bank - World Development Indicators</a> in CSV File format. The dataset captured annual statistics for 48 macro socio-economic indicators (rows) from 1960 to 2020 (columns). The below table describes the short names we used for these development indicators in our data analysis for the ease of data visualization.</p>
+<div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:300px; overflow-x: scroll; width:500px; ">
+<table class="table table-striped" style="font-size: 9px; width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+ï..Short.Row.Name
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+Long.Row.Name…Description.
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Pop T
+</td>
+<td style="text-align:left;">
+Population, total
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Pop G
+</td>
+<td style="text-align:left;">
+Population growth (annual %)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Area
+</td>
+<td style="text-align:left;">
+Surface area (sq. km)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Pov Rt
+</td>
+<td style="text-align:left;">
+Poverty headcount ratio at national poverty lines (% of population)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+GNI Tot
+</td>
+<td style="text-align:left;">
+GNI, Atlas method (current US Dollar)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+GNI PC
+</td>
+<td style="text-align:left;">
+GNI per capita, Atlas method (current US Dollar)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+GNI PPP
+</td>
+<td style="text-align:left;">
+GNI, PPP (current international Dollar)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+GNI Pc PPP
+</td>
+<td style="text-align:left;">
+GNI per capita, PPP (current international Dollar)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Inc Shr
+</td>
+<td style="text-align:left;">
+Income share held by lowest 20%
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Life Exp
+</td>
+<td style="text-align:left;">
+Life expectancy at birth, total (years)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Fert Rt
+</td>
+<td style="text-align:left;">
+Fertility rate, total (births per woman)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Ado Fert
+</td>
+<td style="text-align:left;">
+Adolescent fertility rate (births per 1,000 women ages 15-19)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Contr Pr
+</td>
+<td style="text-align:left;">
+Contraceptive prevalence, any methods (% of women ages 15-49)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Birth Rt
+</td>
+<td style="text-align:left;">
+Births attended by skilled health staff (% of total)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Mort Rt
+</td>
+<td style="text-align:left;">
+Mortality rate, under-5 (per 1,000 live births)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Under Wt
+</td>
+<td style="text-align:left;">
+Prevalence of underweight, weight for age (% of children under 5)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Imm Mea
+</td>
+<td style="text-align:left;">
+Immunization, measles (% of children ages 12-23 months)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Prim Comp
+</td>
+<td style="text-align:left;">
+Primary completion rate, total (% of relevant age group)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Sec Sch
+</td>
+<td style="text-align:left;">
+School enrollment, secondary (% gross)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Prim Sch
+</td>
+<td style="text-align:left;">
+School enrollment, primary and secondary (gross), gender parity index (GPI)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HIV
+</td>
+<td style="text-align:left;">
+Prevalence of HIV, total (% of population ages 15-49)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Forest A
+</td>
+<td style="text-align:left;">
+Forest area (sq. km)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Water P
+</td>
+<td style="text-align:left;">
+Water productivity, total (constant 2015 US Dollar GDP per cubic meter of total freshwater withdrawal)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Energy Use PC
+</td>
+<td style="text-align:left;">
+Energy use (kg of oil equivalent per capita)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+C02 Emis PC
+</td>
+<td style="text-align:left;">
+CO2 emissions (metric tons per capita)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Elec Cons PC
+</td>
+<td style="text-align:left;">
+Electric power consumption (kWh per capita)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+GDP T
+</td>
+<td style="text-align:left;">
+GDP (current US Dollar)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+GDP %
+</td>
+<td style="text-align:left;">
+GDP growth (annual %)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Inflation, %
+</td>
+<td style="text-align:left;">
+Inflation, GDP deflator (annual %)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Agri %
+</td>
+<td style="text-align:left;">
+Agriculture, forestry, and fishing, value added (% of GDP)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Industry %
+</td>
+<td style="text-align:left;">
+Industry (including construction), value added (% of GDP)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Exports %
+</td>
+<td style="text-align:left;">
+Exports of goods and services (% of GDP)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Imports %
+</td>
+<td style="text-align:left;">
+Imports of goods and services (% of GDP)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Gross %
+</td>
+<td style="text-align:left;">
+Gross capital formation (% of GDP)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Revenue, %
+</td>
+<td style="text-align:left;">
+Revenue, excluding grants (% of GDP)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Start up
+</td>
+<td style="text-align:left;">
+Start-up procedures to register a business (number)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Mkt Cap %
+</td>
+<td style="text-align:left;">
+Market capitalization of listed domestic companies (% of GDP)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Military %
+</td>
+<td style="text-align:left;">
+Military expenditure (% of GDP)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Mobile Sub
+</td>
+<td style="text-align:left;">
+Mobile cellular subscriptions (per 100 people)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HT Exp %
+</td>
+<td style="text-align:left;">
+High-technology exports (% of manufactured exports)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Merchandise %
+</td>
+<td style="text-align:left;">
+Merchandise trade (% of GDP)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Net Bart
+</td>
+<td style="text-align:left;">
+Net barter terms of trade index (2000 = 100)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Ext Debt
+</td>
+<td style="text-align:left;">
+External debt stocks, total (DOD, current US Dollar)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Debt Sv %
+</td>
+<td style="text-align:left;">
+Total debt service (% of GNI)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Migration
+</td>
+<td style="text-align:left;">
+Net migration
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Remittance
+</td>
+<td style="text-align:left;">
+Personal remittances, paid (current US Dollar)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+FDI
+</td>
+<td style="text-align:left;">
+Foreign direct investment, net inflows (BoP, current US Dollar)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ODA
+</td>
+<td style="text-align:left;">
+Net ODA received per capita (current US Dollar)
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+
 </div>
 </div>
             </section>

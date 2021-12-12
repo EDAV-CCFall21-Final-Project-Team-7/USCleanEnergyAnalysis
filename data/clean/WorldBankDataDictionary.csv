@@ -1,0 +1,49 @@
+﻿Short Row Name,Long Row Name ( Description)
+Pop T,"Population, total"
+Pop G ,Population growth (annual %)
+Area,Surface area (sq. km)
+Pov Rt,Poverty headcount ratio at national poverty lines (% of population)
+GNI Tot,"GNI, Atlas method (current US Dollar)"
+GNI PC,"GNI per capita, Atlas method (current US Dollar)"
+GNI PPP,"GNI, PPP (current international Dollar)"
+GNI Pc PPP,"GNI per capita, PPP (current international Dollar)"
+Inc Shr,Income share held by lowest 20%
+Life Exp,"Life expectancy at birth, total (years)"
+Fert Rt,"Fertility rate, total (births per woman)"
+Ado Fert,"Adolescent fertility rate (births per 1,000 women ages 15-19)"
+Contr Pr,"Contraceptive prevalence, any methods (% of women ages 15-49)"
+Birth Rt,Births attended by skilled health staff (% of total)
+Mort Rt,"Mortality rate, under-5 (per 1,000 live births)"
+Under Wt,"Prevalence of underweight, weight for age (% of children under 5)"
+Imm Mea,"Immunization, measles (% of children ages 12-23 months)"
+Prim Comp,"Primary completion rate, total (% of relevant age group)"
+Sec Sch,"School enrollment, secondary (% gross)"
+Prim Sch,"School enrollment, primary and secondary (gross), gender parity index (GPI)"
+HIV,"Prevalence of HIV, total (% of population ages 15-49)"
+Forest A,Forest area (sq. km)
+Water P,"Water productivity, total (constant 2015 US Dollar GDP per cubic meter of total freshwater withdrawal)"
+Energy Use PC,Energy use (kg of oil equivalent per capita)
+C02 Emis PC,CO2 emissions (metric tons per capita)
+Elec Cons PC,Electric power consumption (kWh per capita)
+GDP T,GDP (current US Dollar)
+GDP %,GDP growth (annual %)
+"Inflation, %","Inflation, GDP deflator (annual %)"
+Agri %,"Agriculture, forestry, and fishing, value added (% of GDP)"
+Industry %,"Industry (including construction), value added (% of GDP)"
+Exports %,Exports of goods and services (% of GDP)
+Imports %,Imports of goods and services (% of GDP)
+Gross %,Gross capital formation (% of GDP)
+"Revenue, %","Revenue, excluding grants (% of GDP)"
+Start up,Start-up procedures to register a business (number)
+Mkt Cap %,Market capitalization of listed domestic companies (% of GDP)
+Military %,Military expenditure (% of GDP)
+Mobile Sub,Mobile cellular subscriptions (per 100 people)
+HT Exp %,High-technology exports (% of manufactured exports)
+Merchandise %,Merchandise trade (% of GDP)
+Net Bart,Net barter terms of trade index (2000 = 100)
+Ext Debt,"External debt stocks, total (DOD, current US Dollar)"
+Debt Sv %,Total debt service (% of GNI)
+Migration,Net migration
+Remittance,"Personal remittances, paid (current US Dollar)"
+FDI,"Foreign direct investment, net inflows (BoP, current US Dollar)"
+ODA,Net ODA received per capita (current US Dollar)

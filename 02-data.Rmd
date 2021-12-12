@@ -77,5 +77,15 @@ The columns in the crude oil dataset are listed below:
 * **day:** contains the date in the range from "01/02/1986" to "11/08/2021"
 * **cost per barrel:** contains the cost per barrel of oil based on West Texas Intermediate (WTI)
 
+## The World Bank (WB)
+The World Bank country data for the U.S. is downloaded from [Data Bank - World Development Indicators](https://databank.worldbank.org/country/USA/556d8fa6/Popular_countries#) in CSV File format. The dataset captured annual statistics for 48 macro socio-economic indicators (rows) from 1960 to 2020 (columns). The below table describes the short names we used for these development indicators in our data analysis for the ease of data visualization.   
 
+```{r, message = F, warning = F}
+library(tidyverse)
+library(kableExtra)
+wb_dat <- read.csv('data/clean/WorldBankDataDictionary.csv')
+wb_dat %>% kable(escape = F) %>% 
+  kable_styling("striped", font_size = 9, full_width = F) %>% 
+  scroll_box(width = "500px", height = "300px")
 
+```
