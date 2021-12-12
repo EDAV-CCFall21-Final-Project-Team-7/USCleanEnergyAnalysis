@@ -139,7 +139,7 @@ row.names(us_wb_df)<-us_wb_df[,"Series"]
 us_wb_df <-us_wb_df[,2:length(names(us_wb_df))]
 
 #Apply short names
-rownames(us_wb_df) <- c('Pop T', 'Pop G', 'Area', 'Pov Rt', 'GNI T','GNI Pc', 'GNI PPP', 'GNI PPP Pc', 'Inc Shr', 'Life Exp', 'Fertility Rt', 'Ado Ft', 'Contr Pr', 'Birth Rt', 'Mort Rt', 'Under Wt', 'Imm Mea', 'Prim Comp', 'Sec Sch', 'Prim Sch', 'HIV', 'Forest A', 'Water P', 'Energy Use', 'C02 Em', 'Elec Pwr', 'GDP T', 'GDP %', 'Infl %', 'Agri %', 'Industry %', 'Exports %', 'Imports %', 'Gross %', 'Revenue, %', 'Start up', 'Mkt Cap %', 'Military %', 'Mobile Sub', 'HT Exp %', 'Merchandise %', 'Net Bart', 'Ext Debt', 'Debt Sv %', 'Migration', 'Remittance', 'FDI', 'ODA')
+rownames(us_wb_df) <- c('Pop T', 'Pop G', 'Area', 'Pov Rt', 'GNI T','GNI PC', 'GNI PPP', 'GNI PPP Pc', 'Inc Shr', 'Life Exp', 'Fertility Rt', 'Ado Ft', 'Contr Pr', 'Birth Rt', 'Mort Rt', 'Under Wt', 'Imm Mea', 'Prim Comp', 'Sec Sch', 'Prim Sch', 'HIV', 'Forest A', 'Water P', 'Energy Use', 'C02 Em', 'Elec Pwr', 'GDP T', 'GDP %', 'Infl %', 'Agri %', 'Industry %', 'Exports %', 'Imports %', 'Gross %', 'Revenue, %', 'Start up', 'Mkt Cap %', 'Military %', 'Mobile Sub', 'HT Exp %', 'Merchandise %', 'Net Bart', 'Ext Debt', 'Debt Sv %', 'Migration', 'Remittance', 'FDI', 'ODA')
 
 
 
@@ -170,7 +170,7 @@ find_missing_patterns(my_us_wb_df_p, 'count')
 #  Parallel coordinate plot 
 
 my_us_wb_df_p <- my_us_wb_df_p %>% relocate('GDP %', .before = 'GDP T')
-my_us_wb_df_p <- my_us_wb_df_p %>% relocate('GNI Pc', .before = 'GDP %')
+my_us_wb_df_p <- my_us_wb_df_p %>% relocate('GNI PC', .before = 'GDP %')
 
 library(tidyverse)
 library (dplyr)
@@ -181,6 +181,14 @@ ggparcoord(my_us_wb_df_p, columns = 23:27, scale = "globalminmax") +
   ggtitle("US Macro Energy Consumption, CO2 Emission, & Economic Indicators ") + 
   xlab("") + 
   ylab("") +
+  theme(plot.title = element_text(hjust=.5))
+
+ggparcoord(my_us_wb_df_p, columns = 23:27,  alphaLines = 0.3, scale = "uniminmax") + 
+  geom_vline(xintercept = 1:8, color = "lightblue") +
+  ggtitle("U.S. Macro Energy Consumption, \n CO2 Emission, & Economic Indicators ") + 
+  xlab("") + 
+  ylab("Standardize Scale") +
+  theme_classic(16) +
   theme(plot.title = element_text(hjust=.5))
 
 #library(GGally)
