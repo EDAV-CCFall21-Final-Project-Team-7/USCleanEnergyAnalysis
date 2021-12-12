@@ -376,8 +376,8 @@ ggparcoord(my_us_wb_df_p, columns = 23:27,  alphaLines = 0.3, scale = "uniminmax
 ggplot(my_us_wb_df_p, aes( my_us_wb_df_p$`Energy Use`, my_us_wb_df_p$`C02 Em`)) +
   geom_point() +
   ylab("CO2 emissions (metric tons per capita)") +
-  xlab("Energy use per capita") +
-  ggtitle("U.S. CO2 emission went up with more per capita \n energy consumption 1960 - 2020") +
+  xlab("Energy use per capita (kg of oil)") +
+  ggtitle("U.S. CO2 emission correlated to fossil-fuel based \n energy consumption 1960 - 2020") +
   geom_smooth( method = 'lm', se = FALSE) +
   stat_poly_eq(formula = y~x) +
   theme_classic(16) +
@@ -393,7 +393,7 @@ ggplot(my_us_wb_df_p_yr_2000, aes( my_us_wb_df_p_yr_2000$Year, my_us_wb_df_p_yr_
   geom_point() +
   ylab("CO2 emissions (metric tons per capita)") +
   xlab("Year") +
-  ggtitle("U.S. reversed the trend of per capita \n CO2 emission 2000 - 2020") +
+  ggtitle("U.S. reversed the CO2 per capita \n emission trend in 2000 - 2020") +
   stat_smooth(colour = "green") +
   theme_classic(16) +
   theme(plot.title = element_text(hjust=.5))
