@@ -12,6 +12,7 @@ library(cowplot)
 library(RColorBrewer)
 library(usmap)
 library(patchwork)
+library(ggpmisc)
 df <- read.csv('data/clean/clean_monthly_fuel_generation.csv')
 # df$fuel <- trimws(df$fuel) 
 df$date <- as.Date(df$date)
@@ -87,8 +88,6 @@ df  %>%
   theme(legend.title=element_blank(), plot.title = element_text(hjust=.5))
 ```
 
-We can explore the relationship between specific fuel types to determine which are correlated. From the plot below, it appears that coal is negatively correlated with both solar and natural gas. This is not necessarily surprising because natural gas is typically used to complement renewable energy sources and act as a form of stability to produce power when the sun isn't shining or the wind isn't blowing. 
-
 ```{r, echo=F, warning=F}
 # df  %>% filter(fuel %in% c('wind','coal', 'natural_gas', 'all_solar')) %>%
 #   select(c(fuel, date, thousand_megawatthours)) %>% 
@@ -104,7 +103,7 @@ We can explore the relationship between specific fuel types to determine which a
 
 ```
 
-We can explore the relationship between specific fuel types to determine which are correlated. From the plot below, we can see that solar is negatively correlated with coal and positively correlated with natural gas and wind. This is not necessarily surprising because natural gas is typically used to complement variable renewable energy sources like solar and wind and act as a form of stability to produce power when the sun isn't shining or the wind isn't blowing. It makes sense that as the adoption of wind and solar energy increases, natural gas usage will also increase until a cleaner alternative is found. Natural gas is a cleaner fuel source than coal and produces 50% less CO\_2 emissions according to the [Met Group](https://group.met.com/fyouture/natural-gas-vs-coal/66). However, the cleanest alternative would be another renewable energy source that could help address the variability in production of wind and solar, like batteries.  
+We can explore the relationship between specific fuel types to determine which are correlated. From the plot below, we can see that solar is negatively correlated with coal and positively correlated with natural gas and wind. This is not necessarily surprising because natural gas is typically used to complement variable renewable energy sources like solar and wind and act as a form of stability to produce power when the sun isn't shining or the wind isn't blowing. It makes sense that as the adoption of wind and solar energy increases, natural gas usage will also increase until a cleaner alternative is found. Natural gas is a cleaner fuel source than coal and produces 50% less CO2 emissions according to the [Met Group](https://group.met.com/fyouture/natural-gas-vs-coal/66). However, the cleanest alternative would be another renewable energy source that could help address the variability in production of wind and solar, like batteries.  
 
 ```{r, echo=F, warning=F}
 df  %>% filter(fuel %in% c('wind','coal', 'natural_gas', 'all_solar', 'nuclear')) %>%
@@ -124,7 +123,7 @@ df  %>% filter(fuel %in% c('wind','coal', 'natural_gas', 'all_solar', 'nuclear')
   ggtitle('Correlation of Fuel Source Power Generation')
 ```
 
-To explore the seasonal component, look at the seasonplot for 2015-2021 when solar was adopted more widely as a fuel type. The solar power net generation seasonal trend peaks in the summer months (May - August) and dip in the winter months. This is most likely due to the fact that there is more sunshine in the summer months, so more solar power is able to be generated. The coal plot shows the power generation trends overall. There is a peak in June - September and December - February. These peaks make sense because these are the times of year that energy demand is at the highest due to heating demand during the cold months and cooling demand during the hot months. In the seasonal plot, we can see that solar is increasing in production from 2015-201, while coal is decreasing in production.
+To explore the seasonal component of different fuels we looked at the seasonplot for 2015-2021, which was when solar was adopted more widely as a fuel type. The solar power net generation seasonal trend peaks in the summer months (May - August) and dips in the winter months. This is most likely due to the fact that there is more sunshine in the summer months, so more solar power is able to be generated. The coal plot shows the power generation trends overall. There is a peak in June - September and December - February. These peaks make sense because these are the times of year that energy demand is at the highest due to heating demand during the cold months and cooling demand during the hot months. In the seasonal plot, we can see that solar is increasing in production from 2015-2021, while coal is decreasing in production levels.
 
 ```{r, warning=F, echo =F}
 my_colors <- RColorBrewer::brewer.pal(9, "Greens")[3:9]
@@ -201,7 +200,7 @@ plot_grid(
 
 ```
 
-Next, we explore the primary fuel source for the USA states in 2001 and 2020. The most noticeable change in primary fuels can be seen from coal and natural gas. In 2001, 32 states used coal as the primary fuel, while by 2020 this number changed to 11. Natural gas experienced the opposite trend where it grew from being the primary fuel for 7 states to 22. nuclear, hydroelectric, and petroleum liquids were also primary fuels for states in 2001 and 2020. These fuels did not see much change in number of states using them as their primary fuel. Renewables (other than hydroelectric) did become the primary fuel for 4 states (Iowa, Kansas, Maine, and Minnesota) in 2020, while in 2001 no states were using other renewables as the primary fuel.
+Next, we explore the primary fuel source for the USA states in 2001 and 2020. The most noticeable change in primary fuels can be seen from coal and natural gas. In 2001, 32 states used coal as the primary fuel, while by 2020 this number changed to 11. Natural gas experienced the opposite trend where it grew from being the primary fuel for 7 states to 22. Nuclear, hydroelectric, and petroleum liquids were also primary fuels for states in 2001 and 2020. These fuels did not see much change in number of states using them as their primary fuel. Renewables (other than hydroelectric) did become the primary fuel for 4 states (Iowa, Kansas, Maine, and Minnesota) in 2020, while in 2001 no states were using other renewables as the primary fuel.
 
 ```{r, echo=F, warning=F}
 max_fuel_2020 <- df %>% filter(year(date) == 2020) %>%
@@ -241,7 +240,7 @@ ggplot(full_df, aes(x = fct_reorder2(fuel, year == '2001', count), y = count, fi
 
 ```
 
-The heatmaps below provide insights into how the energy production is distributed over the United States. It can be noticed that California is the major producer of solar energy whereas Texas is the major producer of Coal, Natural Gas, and Wind energy. 
+The heatmaps below provide insights into how the energy production is distributed over the United States. It can be noticed that California is the major producer of solar energy whereas Texas is the major producer of coal, natural nas, and wind energy. 
 
 ```{r,fig.width=16,fig.height=16}
 df_all_solar <- df  %>% 
@@ -307,7 +306,7 @@ g4 <- plot_usmap(data = df_wind1, values = 'mil_mwhrs',regions = 'states', label
 g1+g2+g3+g4+plot_layout(ncol=2,nrow=2,widths=c(8,8),heights=c(38,38))+plot_annotation(title = "Raw Values for Monthly Average megawatthours (Mil)",theme = theme(plot.title = element_text(size = 36,face='bold', hjust=.5)))
 ```
 
-However, we know that the size of every state is the United States varies a lot. Therefore, to account for the size and provide a better comparison of the energy produced in a state, we normalize the amount of energy produced by the area of the state and plot it on a heatmap as done above. It can be noticed from this heatmap that Texas is no longer one of the dominating producers of coal and natural gas. In fact, Texas has one of the highest values for wind energy per square mile, following closely behind Iowa and Oklahoma. New Jersey, Massachusetts, and California are have the most solar energy produced per square mile. West Virginia, Indiana, and Ohio are producing the most coal energy per square mile. 
+However, we know that the size of every state is the United States varies a lot. Therefore, to account for the size and provide a better comparison of the energy produced in a state, we normalized the amount of energy produced by the area of the state and plotted it on a heatmap as done above. It can be noticed from this heatmap that Texas is no longer one of the dominating producer of coal and natural gas. In fact, Texas has one of the highest values for wind energy per square mile, following closely behind Iowa and Oklahoma. New Jersey, Massachusetts, and California have the most solar energy produced per square mile. West Virginia, Indiana, and Ohio are producing the most coal energy per square mile. 
 
 ```{r,fig.width=16,fig.height=16}
 area <- as.data.frame(read_csv('data/raw/area.csv'))
@@ -366,11 +365,11 @@ g1+g2+g3+g4+plot_layout(ncol=2,nrow=2,widths=c(8,8),heights=c(38,38))+plot_annot
 
 ```
 
-However, it should be kept in mind that the actual energy production is represented by the first plot where california and texas are dominating producers of energy and the second plot only slows the energy produced per sq miles for every state. 
+However, it should be kept in mind that the actual energy production is represented by the first plot where California and Texas are dominating producers of energy and the second plot only slows the energy produced per sq miles for every state. 
 
 ## Correlation of Energy Consumption, CO2 Emission and Economic Indicators
 
-The WB data validates that the CO2 emission is correlated with the fossil-fuel based energy consumption in the U.S. As more of our growing energy demands are met from fossil fuel-based energy sources such as oil and coal – it leads to the rise of CO2 emission per capita. For example, we observed more than 30% increase in per capita C02 emission between 1960 -1980 with about 50% increase in fossil-fuel based energy consumption.  
+The WB data validates that the CO2 emission is correlated with the fossil fuel based energy consumption in the United States. As more of our growing energy demands are met from fossil fuel based energy sources such as oil and coal – it leads to the rise of CO2 emission per capita. For example, we observed a more than 30% increase in per capita C02 emission between 1960 -1980 with about 50% increase in fossil-fuel based energy consumption.  
 
 
 ```{r, echo=F, warning=F}
@@ -402,7 +401,7 @@ ggplot(my_us_wb_df_p, aes( my_us_wb_df_p$`Energy Use`, my_us_wb_df_p$`C02 Em`)) 
   theme(plot.title = element_text(hjust=.5))
 ```
 
-The parallel coordinate plot below shows correlation of per capita CO2 emission with the per capita fossil-fuel based power consumption, overall electricity consumption and gross national income (GNI) along with gross domestic product (GDP %) change. The cross lines between CO2 emission and electricity consumption represent the negative correlation as more electricity production shifted to clean and renewable energy sources while the electricity consumption maintains a positive correlation with GNI.    
+The parallel coordinate plot below shows the correlation of per capita CO2 emission with the per capita fossil fuel based power consumption, overall electricity consumption and gross national income (GNI) along with gross domestic product (GDP %) change. The crossing lines between CO2 emission and electricity consumption represent the negative correlation of these factors as more electricity production shifted to clean and renewable energy sources. The electricity consumption maintained a positive correlation with GNI.    
 
 ```{r, echo=F, warning=F}
 
@@ -421,7 +420,7 @@ ggparcoord(my_us_wb_df_p, columns = 23:27,  alphaLines = 0.3, scale = "uniminmax
 
 ```
 
-We observed the clear reduction in per capita CO2 emission by about 25% between 2000 - 2020 as more and more energy demands are met from clean and renewable energy sources such as wind and solar as well as natural gas, a significantly cleaner fossil-fuel compared to coal.
+We observed the clear reduction in per capita CO2 emission of about 25% between 2000 - 2020 as more and more energy demands were met from clean and renewable energy sources, such as wind and solar, as well as natural gas, a significantly cleaner fossil-fuel compared to coal.
 
 ```{r, echo=F, warning=F}
 

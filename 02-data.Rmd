@@ -46,6 +46,7 @@ The World Bank [country dataset](https://github.com/EDAV-CCFall21-Final-Project-
 library(tidyverse)
 library(kableExtra)
 wb_dat <- read.csv('data/clean/WorldBankDataDictionary.csv')
+names(wb_dat) <- c('Column Name', 'Description')
 wb_dat %>% kable(escape = F) %>% 
   kable_styling("striped", font_size = 9, full_width = F) %>% 
   scroll_box(width = "500px", height = "300px")

@@ -7,14 +7,14 @@ site: bookdown::bookdown_site
 
 # Introduction
 
-The climate change poses existential threat to our lives and livelihoods. The latest scientific report from the [Intergovernmental Panel on Climate Change (IPCC)](https://www.ipcc.ch/reports/) blamed it squarely on the record levels of Greenhouse gases in our atmosphere not seen in three million years. CO2 accounts for about 76 percent of the total Greenhouse gas emissions - 72 percent of which are emitted while producing energy from fossil-fuels. [McKinsey estimates](https://www.mckinsey.com/industries/electric-power-and-natural-gas/our-insights/managing-water-and-climate-risk-with-renewable-energy) that lowering the share of nonrenewable energy by five percentage points and increasing the share of renewable clean energy by five percentage points would reduce the CO2 emissions from purchased energy by approximately 40 percent.  
+Climate change poses an existential threat to our lives and livelihoods. The latest scientific report from the [Intergovernmental Panel on Climate Change (IPCC)](https://www.ipcc.ch/reports/) blamed it squarely on the record levels of greenhouse gases in our atmosphere not seen in three million years. CO2 accounts for about 76 percent of the total greenhouse gas emissions - 72 percent of which are emitted while producing energy from fossil-fuels. [McKinsey estimates](https://www.mckinsey.com/industries/electric-power-and-natural-gas/our-insights/managing-water-and-climate-risk-with-renewable-energy) that lowering the share of nonrenewable energy by five percentage points and increasing the share of renewable clean energy by five percentage points would reduce the CO2 emissions from purchased energy by approximately 40 percent.  
 
-Substituting renewables for the most carbon-intensive energy sources has a profound impact on achieving net-zero emissions and reducing the risks of climate change. In this project, we examined transformation of the U.S. Energy industry from the transition to the clean and renewable energy sources and its impact in reducing the CO2 emission and averting the impending climate change crisis. Through quantitative and qualitative data analysis in U.S. Clean Energy Industry trends across the U.S. states, socio-economic indicators and financial markets, we pursued answers to the following questions:
+Substituting renewables for the most carbon-intensive energy sources has a profound impact on achieving net-zero emissions and reducing the risks of climate change. In this project, we examined transformation of the U.S. Energy industry from the transition to the clean and renewable energy sources and its impact in reducing the CO2 emission and averting the impending climate change crisis. Through quantitative and qualitative data analysis in U.S. Clean Energy Industry trends across the U.S. states, socioeconomic indicators and financial markets, we pursued answers to the following questions:
 
-•	What is the status of renewable energy source adoption among the U.S. states? Which states hit the climate goals - already/on track? 
+•	What is the status of renewable energy source adoption among the U.S. states? Which states hit the climate goals or are already on track? 
 
 
 •	What are the macro trends in power sources within the U.S.?
 
 
-•	How do these trends correlate with the CO2 emission and socio-economic indicators? 
+•	How do these trends correlate with the CO2 emission and socioeconomic indicators? 

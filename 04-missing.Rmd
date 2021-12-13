@@ -5,7 +5,7 @@
 
 ## EIA Data
 ### Missing State/Fuel Type Power Generation
-The EIA.gov data set was one of the data set with missing values that we used in our analysis. Most of the missing values were absent because most states did not generate electricity for all fuel types. This missing data can show which fuel types are most widely adopted by all U.S. states and which fuel types are less common. For example, geothermal had the most missing values, so it was one of the least used fuels. 
+The EIA.gov data set was one of the data sets with missing values that we used in our analysis. Most of the missing values were absent because most states did not generate electricity for all fuel types. This missing data can show which fuel types are most widely adopted by all U.S. states and which fuel types are less common. For example, geothermal had the most missing values, so it was one of the least used fuels. 
 ```{r, echo = F,fig.width=12,fig.height=12}
 knitr::include_graphics('state-fuel type missing patterns.png')
 ```
@@ -174,7 +174,7 @@ state_fuel %>% arrange(!is.na(coal), coal) %>% mutate_all(~cell_spec(.x, color =
  scroll_box(width = "800px", height = "300px")
 ```
 
-The plot below shows the time series of different types of solar energy production. From the plot it can be noticed that the total solar value, which is the aggregation of the utility scale solar and small scale photovoltaics fuels, is missing data for dates before 2014. It seems that the aggregation did not include the utility scale solar values before that time; perhaps the aggregation had an error because there were n/a's in the data for small scale solar photovoltaic during this time period.
+The plot below shows the time series of different types of solar energy production. From the plot it can be noticed that the total solar value, which is the aggregation of the utility scale solar and small scale photovoltaics fuels, is missing data for dates before 2014. It seems that the aggregation did not include the utility scale solar values before that time; perhaps the aggregation had an error because there were N/a's in the data for small scale solar photovoltaic during this time period. This data was fixed and aggregated correctly in the [data transformation section](https://edav-ccfall21-final-project-team-7.github.io/USCleanEnergyAnalysis/data-transformation.html#eia-data-1).
 
 ```{r, echo = F, warning=F, fig.width = 10}
 #df <- read.csv('data/clean/clean_monthly_fuel_generation.csv')

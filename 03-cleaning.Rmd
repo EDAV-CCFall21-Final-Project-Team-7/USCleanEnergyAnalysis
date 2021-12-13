@@ -5,6 +5,9 @@
 There were several issues with the EIA data. The clean version of the data can be found [here](https://github.com/EDAV-CCFall21-Final-Project-Team-7/USCleanEnergyAnalysis/blob/main/data/clean/clean_monthly_fuel_generation.csv). First, the state name read in as "USA-<state>" (examples below).
 
 ```{r, warning=F, echo=F}
+library(tidyverse)
+library(kableExtra)
+library(lubridate) 
 df <- read.csv('data/raw/monthly_fuel_generation_by_state_full.csv')
 unique(df$state)[1:5]
 
