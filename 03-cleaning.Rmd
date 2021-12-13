@@ -1,98 +1,5 @@
 # Data transformation
 
-## Financial Data
-### Correcting Date format
-In the dataset for oil data there were different types of date formats such as 'MM/DD/YY' and 'MM/DD/YYYY' as shown below.
-```{r}
-library(tidyverse)
-library(kableExtra)
-library(lubridate) 
-
-Crushing_crude_oil <-read_csv('data/raw/Cushing_OK_WTI_Spot_Price_FOB.csv')
-head(Crushing_crude_oil,10)
-```
-
-We updated the dataset to contain dates in only one format ("MM/DD/YYYY"). This was done by splitting the date based on "/" as the delimiter. 
-```{r}
-str_split(Crushing_crude_oil$Day[1],"/",simplify=TRUE)
-```
-We then checked if the date was already in the correct format by checking the number of characters in the year component of the split. If it was not correct then we added the missing components to the year format and joined the string again while updating that in the dataframe. If the year component in the was an integer less than 22 then we added "20" before the date making the year "20xx" but if the integer was greater than 22, it is obvious that it cannot be a date from the 21th century therefore we added "19" before the date making it "19xx".
-
-```{r}
-
-i<-0
-for(val in Crushing_crude_oil$Day){
-  i<-i+1
-  if(nchar(str_split(Crushing_crude_oil$Day[i],"/",simplify=TRUE)[3]) == 2){
-    temp = paste(str_split(Crushing_crude_oil$Day[i],"/",simplify=TRUE)[1],
-                 str_split(Crushing_crude_oil$Day[i],"/",simplify=TRUE)[2],
-                 sep = "/")
-    if(as.integer(str_split(Crushing_crude_oil$Day[i],"/",simplify=TRUE)[3])<22)     {
-      temp2 = paste("20",
-                  str_split(Crushing_crude_oil$Day[i],"/",simplify=TRUE)[3],
-                  sep="")
-    }
-    else{
-      temp2 = paste("19",
-                  str_split(Crushing_crude_oil$Day[i],"/",simplify=TRUE)[3],
-                  sep="")
-    }
-    
-    Crushing_crude_oil$Day[i]<-paste(temp,temp2,sep="/")
-  }
-}
-# write.csv(Crushing_crude_oil,'data/clean/clean_crushing_crude_oil.csv',
-#           row.names=FALSE)
-head(Crushing_crude_oil,10)
-```
-
-
-## Worldbank Data
-### Cleaning Data 
-The worldbank dataset contains extra columns that are of not any use for the purpose of this project such as the 'country name', 'country code', and 'series code'. This is because we are looking at only one country and the 'Series Name' represents the same information series code would represent. It should also be noted that the column names for the years are redundantly long and it repeats the same things. The missing cells in the dataframe are filling with a string and they need to be replaced by NA so that they appear as missing data. The table below shows the raw data before any processing.
-```{r} 
-worldbank <-read_csv('data/raw/US_Country_Data_WorldBank.csv') 
-worldbank %>% kable(escape = F) %>% 
-  kable_styling("striped", font_size = 9, full_width = F) %>% 
-  scroll_box(width = "800px", height = "300px")
-```
-After the above mentioned things have been corrected (changing column names and adding NAs to the data) and reduendent columns have been dropped the dataset looks like the following,
-
-
-```{r, warning=F, echo=F}
-
-i<-0
-for (val in names(worldbank)){
-  i<-i+1
-  names(worldbank)[i] <- str_split(names(worldbank)[i]," ",simplify=TRUE)[1]
-}
-worldbank <- worldbank[,2:length(names(worldbank))]
-names(worldbank)[3] <- 'Series Code'
-
-worldbank <- worldbank %>% filter(Country == 'USA')
-
-worldbank<-as.data.frame(worldbank)
-
-
-for (name in names(worldbank)){
-  for (row in row.names(worldbank)){
-    if (worldbank[as.integer(row),name] == ".."){
-      worldbank[as.integer(row),name] <- NA
-    }
-  }
-}
-
-drop <- c("Series Code","Country")
-
-worldbank<-worldbank[,!(names(worldbank) %in% drop)]
-
-# write.csv(worldbank,'data/clean/clean_worldbank.csv',row.names = FALSE)
-
-worldbank %>% kable(escape = F) %>% 
-  kable_styling("striped", font_size = 9, full_width = F) %>% 
-  scroll_box(width = "800px", height = "300px")
-```
-
 ## EIA Data
 ### Corrections
 There were several issues with the EIA data. The clean version of the data can be found [here](https://github.com/EDAV-CCFall21-Final-Project-Team-7/USCleanEnergyAnalysis/blob/main/data/clean/clean_monthly_fuel_generation.csv). First, the state name read in as "USA-<state>" (examples below).
@@ -326,3 +233,95 @@ d2021<-d2021[order(-d2021$value,d2021$month),]
 # write.csv(d2021, 'draft code/d2021',row.names = FALSE)
 ```
 
+## WB Data
+### Cleaning Data 
+The worldbank dataset contains extra columns that are of not any use for the purpose of this project such as the 'country name', 'country code', and 'series code'. This is because we are looking at only one country and the 'Series Name' represents the same information series code would represent. It should also be noted that the column names for the years are redundantly long and it repeats the same things. The missing cells in the dataframe are filling with a string and they need to be replaced by NA so that they appear as missing data. The table below shows the raw data before any processing.
+```{r} 
+worldbank <-read_csv('data/raw/US_Country_Data_WorldBank.csv') 
+worldbank %>% kable(escape = F) %>% 
+  kable_styling("striped", font_size = 9, full_width = F) %>% 
+  scroll_box(width = "800px", height = "300px")
+```
+After the above mentioned things have been corrected (changing column names and adding NAs to the data) and reduendent columns have been dropped the dataset looks like the following,
+
+
+```{r, warning=F, echo=F}
+
+i<-0
+for (val in names(worldbank)){
+  i<-i+1
+  names(worldbank)[i] <- str_split(names(worldbank)[i]," ",simplify=TRUE)[1]
+}
+worldbank <- worldbank[,2:length(names(worldbank))]
+names(worldbank)[3] <- 'Series Code'
+
+worldbank <- worldbank %>% filter(Country == 'USA')
+
+worldbank<-as.data.frame(worldbank)
+
+
+for (name in names(worldbank)){
+  for (row in row.names(worldbank)){
+    if (worldbank[as.integer(row),name] == ".."){
+      worldbank[as.integer(row),name] <- NA
+    }
+  }
+}
+
+drop <- c("Series Code","Country")
+
+worldbank<-worldbank[,!(names(worldbank) %in% drop)]
+
+# write.csv(worldbank,'data/clean/clean_worldbank.csv',row.names = FALSE)
+
+worldbank %>% kable(escape = F) %>% 
+  kable_styling("striped", font_size = 9, full_width = F) %>% 
+  scroll_box(width = "800px", height = "300px")
+```
+
+
+## Financial Data
+### Correcting Date format
+In the dataset for oil data there were different types of date formats such as 'MM/DD/YY' and 'MM/DD/YYYY' as shown below.
+```{r}
+library(tidyverse)
+library(kableExtra)
+library(lubridate) 
+
+Crushing_crude_oil <-read_csv('data/raw/Cushing_OK_WTI_Spot_Price_FOB.csv')
+head(Crushing_crude_oil,10)
+```
+
+We updated the dataset to contain dates in only one format ("MM/DD/YYYY"). This was done by splitting the date based on "/" as the delimiter. 
+```{r}
+str_split(Crushing_crude_oil$Day[1],"/",simplify=TRUE)
+```
+We then checked if the date was already in the correct format by checking the number of characters in the year component of the split. If it was not correct then we added the missing components to the year format and joined the string again while updating that in the dataframe. If the year component in the was an integer less than 22 then we added "20" before the date making the year "20xx" but if the integer was greater than 22, it is obvious that it cannot be a date from the 21th century therefore we added "19" before the date making it "19xx".
+
+```{r}
+
+i<-0
+for(val in Crushing_crude_oil$Day){
+  i<-i+1
+  if(nchar(str_split(Crushing_crude_oil$Day[i],"/",simplify=TRUE)[3]) == 2){
+    temp = paste(str_split(Crushing_crude_oil$Day[i],"/",simplify=TRUE)[1],
+                 str_split(Crushing_crude_oil$Day[i],"/",simplify=TRUE)[2],
+                 sep = "/")
+    if(as.integer(str_split(Crushing_crude_oil$Day[i],"/",simplify=TRUE)[3])<22)     {
+      temp2 = paste("20",
+                  str_split(Crushing_crude_oil$Day[i],"/",simplify=TRUE)[3],
+                  sep="")
+    }
+    else{
+      temp2 = paste("19",
+                  str_split(Crushing_crude_oil$Day[i],"/",simplify=TRUE)[3],
+                  sep="")
+    }
+    
+    Crushing_crude_oil$Day[i]<-paste(temp,temp2,sep="/")
+  }
+}
+# write.csv(Crushing_crude_oil,'data/clean/clean_crushing_crude_oil.csv',
+#           row.names=FALSE)
+head(Crushing_crude_oil,10)
+```

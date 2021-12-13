@@ -1,9 +1,17 @@
 # Conclusion
 
-EIA data:
+We assessed following status of renewable energy adoption in U.S. and macro trends in the power sources:
 
-* As of 2020, on average US states generate ~26% of their electricity from renewable sources. Some states are ahead of the curve and have significantly more of their power coming from renewable energy sources (ex. Vermont is using 100% renewable fuel sources). President Biden set a [climate goal](https://www.whitehouse.gov/briefing-room/statements-releases/2021/04/22/fact-sheet-president-biden-sets-2030-greenhouse-gas-pollution-reduction-target-aimed-at-creating-good-paying-union-jobs-and-securing-u-s-leadership-on-clean-energy-technologies/) to have 100% carbon free electricity by 2050. If this goal is to be achieved, states need to continue to adopt renewable energy technologies. 
+* As of 2020, on average U.S. states generate ~26% of their electricity from renewable sources. Some states are ahead of the curve and have significantly more of their power coming from renewable energy sources (ex. Vermont is using 100% renewable fuel sources). President Biden set a [climate goal](https://www.whitehouse.gov/briefing-room/statements-releases/2021/04/22/fact-sheet-president-biden-sets-2030-greenhouse-gas-pollution-reduction-target-aimed-at-creating-good-paying-union-jobs-and-securing-u-s-leadership-on-clean-energy-technologies/) to have 100% carbon free electricity by 2050. If this goal is to be achieved, states need to continue to adopt renewable energy technologies. 
 * From 2001 - 2021 power generation from coal has decreased, while solar, wind, and natural gas power generation has increased. The country is moving towards incorporating more renewable energy sources; however natural gas energy production seems to be linked with wind and solar energy production. 
 * There is some variability in the production of renewables based on season. For example, solar power generation peaks in the summer months when there is more sun shining. Again, the country needs to determine a clean solution to compensate for less solar power in the winter months. 
 * Hydroelectric was one of the first renewable energy sources that was widely adopted. Around 2015, wind caught up to the production levels of hydroelectric power. Solar took a bit longer to ramp up, but as of 2021 is around the same level of production as well. These fuels still lag behind coal, natural gas, and nuclear in terms of energy production. 
-* Big picture, some states are reaching goals while others are falling behind. The general trend is in the right direction, but the US needs to incentivize those states that are falling behind to move towards using more renewable resources There are certainly options when it comes to renewable technology and some resources may be better in one location than another. 
+* Big picture, some states are reaching goals while others are falling behind. The general trend is in the right direction, but the U.S. needs to incentivize those states that are falling behind to move towards using more renewable resources There are certainly options when it comes to renewable technology and some resources may be better in one location than another. 
+
+We analyzed the impact of the clean and renewable energy adoption on meeting our overall climate change goals:
+
+* U.S. reduced per capita CO2 emission by about 25% between 2000 - 2020 as more and more energy demands are met from clean and renewable energy sources.
+
+However, we could not find any direct relationships between energy ETF financial market and energy source data because the pricing of these instruments relies on many other factors such as corporate profitability, economic factors, investor demand, government subsidy, etc.  
+
+We can further expand our project to explore the global trends in clean energy industry and CO2 emission. Additionally, we can investigate how these trends correspond with both the national and international policy changes related to climate change.  

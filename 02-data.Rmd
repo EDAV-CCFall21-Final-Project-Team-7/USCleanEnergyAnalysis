@@ -1,7 +1,7 @@
 # Data sources
 
-## U.S. Energy Information Administration (EIA)
-This dataset was pulled from the [EIA website](https://www.eia.gov/opendata/qb.php?category=1) through an API. There is a package in R called "eia" that helps automate data pulls from the EIA.gov API calls. We used this package to pull monthly power generation data by fuel type for all of the states in the USA from the time period of 2001 - 2021.
+## EIA Data
+This [dataset](https://github.com/EDAV-CCFall21-Final-Project-Team-7/USCleanEnergyAnalysis/blob/main/data/raw/monthly_fuel_generation_by_state_full.csv) was pulled from the U.S. Energy Information Administration [EIA website](https://www.eia.gov/opendata/qb.php?category=1) through an API. There is a package in R called "eia" that helps automate data pulls from the EIA.gov API calls. We used this package to pull monthly power generation data by fuel type for all of the states in the USA from the time period of 2001 - 2021.
 ```{r, include = F, message = F, warning = F}
 library(tidyverse)
 library(kableExtra)
@@ -37,6 +37,20 @@ dim(eia_dat)
 or 145239 rows and 4 columns. 
 
 This dataset only included power generation data for fuel types that were actually produced in a state. Therefore, some fuel type generation values are missing from certain states. Additionally, some states only adopted certain fuel types at a specific time interval during the period of interest, so again the power generation data is missing for some of the time period. This will be discussed more in the [missing values chapter](https://edav-ccfall21-final-project-team-7.github.io/USCleanEnergyAnalysis/missing-values.html)
+
+
+## WB Data
+The World Bank [country dataset](https://github.com/EDAV-CCFall21-Final-Project-Team-7/USCleanEnergyAnalysis/blob/main/data/clean/clean_worldbank.csv) for the U.S. is downloaded from [Data Bank - World Development Indicators](https://databank.worldbank.org/country/USA/556d8fa6/Popular_countries#) in CSV File format. The dataset captured annual statistics for 48 macro socio-economic indicators (rows) from 1960 to 2020 (columns). The below table describes the short names we used for these development indicators in our data analysis for the ease of data visualization.   
+
+```{r, message = F, warning = F}
+library(tidyverse)
+library(kableExtra)
+wb_dat <- read.csv('data/clean/WorldBankDataDictionary.csv')
+wb_dat %>% kable(escape = F) %>% 
+  kable_styling("striped", font_size = 9, full_width = F) %>% 
+  scroll_box(width = "500px", height = "300px")
+
+```
 
 ## Financial Data
 This dataset was obtained from Yahoo Finance website. The prices (closing, opening etc) for different energy related Exchange Traded Funds (ETFs) which are similar to S&P500 or NASDAQ like [XLE](https://raw.githubusercontent.com/EDAV-CCFall21-Final-Project-Team-7/USCleanEnergyAnalysis/main/data/raw/XLE.csv), (overall energy sector fund), [CNRG](https://raw.githubusercontent.com/EDAV-CCFall21-Final-Project-Team-7/USCleanEnergyAnalysis/main/data/raw/CNRG.csv) (clean power ETF), and [ICLN](https://raw.githubusercontent.com/EDAV-CCFall21-Final-Project-Team-7/USCleanEnergyAnalysis/main/data/raw/ICLN.csv) (global clean energy ETF) were downloaded as a CSV file and added to the dataset folder. The date range for every ETF varies from the day the ETF went public to the day the data was downloaded (10th November 2021). However, the daily prices of crude oil were obtained from the West Texas Intermediate ([WTI](https://raw.githubusercontent.com/EDAV-CCFall21-Final-Project-Team-7/USCleanEnergyAnalysis/main/data/clean/clean_crushing_crude_oil.csv)) which was obtained from the following [website](https://www.macrotrends.net/1369/crude-oil-price-history-chart).
@@ -76,16 +90,3 @@ The columns in the crude oil dataset are listed below:
 
 * **day:** contains the date in the range from "01/02/1986" to "11/08/2021"
 * **cost per barrel:** contains the cost per barrel of oil based on West Texas Intermediate (WTI)
-
-## The World Bank (WB)
-The World Bank country data for the U.S. is downloaded from [Data Bank - World Development Indicators](https://databank.worldbank.org/country/USA/556d8fa6/Popular_countries#) in CSV File format. The dataset captured annual statistics for 48 macro socio-economic indicators (rows) from 1960 to 2020 (columns). The below table describes the short names we used for these development indicators in our data analysis for the ease of data visualization.   
-
-```{r, message = F, warning = F}
-library(tidyverse)
-library(kableExtra)
-wb_dat <- read.csv('data/clean/WorldBankDataDictionary.csv')
-wb_dat %>% kable(escape = F) %>% 
-  kable_styling("striped", font_size = 9, full_width = F) %>% 
-  scroll_box(width = "500px", height = "300px")
-
-```

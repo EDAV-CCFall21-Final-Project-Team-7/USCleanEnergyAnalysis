@@ -370,7 +370,7 @@ However, it should be kept in mind that the actual energy production is represen
 
 ## Correlation of Energy Consumption, CO2 Emission and Economic Indicators
 
-The WB data validates that the CO2 emission is correlated with the fossil-fuel based energy consumption in the U.S. As more of our growing energy demands are met from fossil fuel-based energy sources such as oil and coal – it leads to the rise of CO2 emission per capita. For example we observed about 30% increase in per capita C02 emission between 1960 -1980.  
+The WB data validates that the CO2 emission is correlated with the fossil-fuel based energy consumption in the U.S. As more of our growing energy demands are met from fossil fuel-based energy sources such as oil and coal – it leads to the rise of CO2 emission per capita. For example, we observed more than 30% increase in per capita C02 emission between 1960 -1980 with about 50% increase in fossil-fuel based energy consumption.  
 
 
 ```{r, echo=F, warning=F}
@@ -402,7 +402,7 @@ ggplot(my_us_wb_df_p, aes( my_us_wb_df_p$`Energy Use`, my_us_wb_df_p$`C02 Em`)) 
   theme(plot.title = element_text(hjust=.5))
 ```
 
-The parallel coordinate plot below shows correlation of per capita CO2 emission with the per capita fossil-fuel based power consumption, overall electricity consumption and gross national income (GNI) along with gross domestic product (GDP %) change.   
+The parallel coordinate plot below shows correlation of per capita CO2 emission with the per capita fossil-fuel based power consumption, overall electricity consumption and gross national income (GNI) along with gross domestic product (GDP %) change. The cross lines between CO2 emission and electricity consumption represent the negative correlation as more electricity production shifted to clean and renewable energy sources while the electricity consumption maintains a positive correlation with GNI.    
 
 ```{r, echo=F, warning=F}
 
@@ -421,7 +421,7 @@ ggparcoord(my_us_wb_df_p, columns = 23:27,  alphaLines = 0.3, scale = "uniminmax
 
 ```
 
-We observed the clear reduction of per capita CO2 emission by about 25% between 2000 - 2020 as more power demand are met from clean and renewable energy sources as well as shift to natural gas (cleaner fossil-fuel compared to oil and coal) .
+We observed the clear reduction in per capita CO2 emission by about 25% between 2000 - 2020 as more and more energy demands are met from clean and renewable energy sources such as wind and solar as well as natural gas, a significantly cleaner fossil-fuel compared to coal.
 
 ```{r, echo=F, warning=F}
 
