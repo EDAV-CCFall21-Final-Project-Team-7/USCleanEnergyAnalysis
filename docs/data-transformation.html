@@ -149,7 +149,7 @@
 <div id="correcting-date-format" class="section level3" number="3.1.1">
 <h3><span class="header-section-number">3.1.1</span> Correcting Date format</h3>
 <p>In the dataset for oil data there were different types of date formats such as ‘MM/DD/YY’ and ‘MM/DD/YYYY’ as shown below.</p>
-<pre><code>## # A tibble: 10 × 2
+<pre><code>## # A tibble: 10 x 2
 ##    Day        `Cost per barrel`
 ##    &lt;chr&gt;                  &lt;dbl&gt;
 ##  1 11/08/21                82.0
@@ -166,7 +166,7 @@
 <pre><code>##      [,1] [,2] [,3]
 ## [1,] &quot;11&quot; &quot;08&quot; &quot;21&quot;</code></pre>
 <p>We then checked if the date was already in the correct format by checking the number of characters in the year component of the split. If it was not correct then we added the missing components to the year format and joined the string again while updating that in the dataframe. If the year component in the was an integer less than 22 then we added “20” before the date making the year “20xx” but if the integer was greater than 22, it is obvious that it cannot be a date from the 21th century therefore we added “19” before the date making it “19xx”.</p>
-<pre><code>## # A tibble: 10 × 2
+<pre><code>## # A tibble: 10 x 2
 ##    Day        `Cost per barrel`
 ##    &lt;chr&gt;                  &lt;dbl&gt;
 ##  1 11/08/2021              82.0
@@ -10121,21 +10121,19 @@ NA
 <p>We updated this column by splitting on the “-” delimiter and only keeping the actual state name.</p>
 <pre><code>## [1] &quot;AL&quot; &quot;AK&quot; &quot;AZ&quot; &quot;AR&quot; &quot;CA&quot;</code></pre>
 <p>Other formatting issues existed with the fuel type. There was white space at the start and end of each fuel and some fuels had a space in the middle of it (i.e. natural gas ) which is shown below.</p>
-<pre><code>## [1] &quot; coal &quot;              &quot; petroleum liquids &quot; &quot; petroleum coke &quot;   
-## [4] &quot; natural gas &quot;       &quot; other gases &quot;</code></pre>
+<pre><code>## [1] &quot; coal &quot;              &quot; petroleum liquids &quot; &quot; petroleum coke &quot;    &quot; natural gas &quot;       &quot; other gases &quot;</code></pre>
 <p>To make these variables easier to work with, we trimmed the white space at the beginning and end of the fuels and added an underscore if there was a space in the middle of the fuel type. A sample of the updated fuels is shown below:</p>
-<pre><code>## [1] &quot;coal&quot;              &quot;petroleum_liquids&quot; &quot;petroleum_coke&quot;   
-## [4] &quot;natural_gas&quot;       &quot;other_gases&quot;</code></pre>
+<pre><code>## [1] &quot;coal&quot;              &quot;petroleum_liquids&quot; &quot;petroleum_coke&quot;    &quot;natural_gas&quot;       &quot;other_gases&quot;</code></pre>
 <p>The “date” column of the data was imported as a character column, so we updated it to be a date datatype.</p>
 <p>Lastly, there was an issue where the solar generation total was not aggregated correctly on the EIA website. This is detailed more in the <a href="https://edav-ccfall21-final-project-team-7.github.io/USCleanEnergyAnalysis/missing-values.html">missing values chapter</a>. To fix this, we performed a pivot on the data and recalculated the aggregation, ignoring N/a’s in the data. We also imputed zero for other values of the power generation so that aggregations were not affected in later code.</p>
 </div>
 <div id="create-interactive-data" class="section level3" number="3.3.2">
 <h3><span class="header-section-number">3.3.2</span> Create interactive data</h3>
 <p>The data needed to be transformed for the interactive component of this project. The data is wrangled to create <a href="https://github.com/EDAV-CCFall21-Final-Project-Team-7/USCleanEnergyAnalysis/tree/main/data/clean">dataframes</a> (listed as d2001.csv - d2021.csv) that contain the renewable percent of total generation for each state for each year as shown below. As mentioned in the data introduction, the total power generation is the aggregate of coal, petroleum_liquids, petroleum_coke, natural_gas, other_gases, nuclear, conventional_hydroelectric, other, and other_renewables_(total) fuel types. Additionally, the renewables value is the sum of the conventional_hydroelectric and other_renewables_(total) fuels. After performing these aggregations, the percent of renewables was found by dividing the aggregate renewables by the total power generation for each state on each date.</p>
-<pre><code>## # A tibble: 5 × 3
+<pre><code>## # A tibble: 5 x 3
 ## # Groups:   state, year [5]
 ##   state  year renewables
-##   &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt;
+##   &lt;chr&gt; &lt;int&gt;      &lt;dbl&gt;
 ## 1 AK     2001       20.0
 ## 2 AK     2002       21.4
 ## 3 AK     2003       25.1

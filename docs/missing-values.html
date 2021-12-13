@@ -149,7 +149,7 @@
 <div id="missing-statefuel-type-power-generation" class="section level3" number="4.1.1">
 <h3><span class="header-section-number">4.1.1</span> Missing State/Fuel Type Power Generation</h3>
 <p>The EIA.gov data set was one of the data set with missing values that we used in our analysis. Most of the missing values were absent because most states did not generate electricity for all fuel types. This missing data can show which fuel types are most widely adopted by all U.S. states and which fuel types are less common. For example, geothermal had the most missing values, so it was one of the least used fuels.
-<img src="state-fuel%20type%20missing%20patterns.png" width="2323" /></p>
+<img src="state-fuel%20type%20missing%20patterns.png" /><!-- --></p>
 From the table above, it is seen that all states use solar energy at some point. An interesting observation is that there are some states that did not use coal at any point during this time period. Taking a closer look, using the table below, it is seen that Vermont and Rhode Island are the two states that did not use coal as an energy generation source. This table also shows that California was the only state to use all fuel types.
 <div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:300px; overflow-x: scroll; width:800px; ">
 <table class="table table-striped" style="font-size: 9px; width: auto !important; margin-left: auto; margin-right: auto;">
@@ -3322,7 +3322,7 @@ TX
 </table>
 </div>
 <p>The plot below shows the time series of different types of solar energy production. From the plot it can be noticed that the total solar value, which is the aggregation of the utility scale solar and small scale photovoltaics fuels, is missing data for dates before 2014. It seems that the aggregation did not include the utility scale solar values before that time; perhaps the aggregation had an error because there were n/a’s in the data for small scale solar photovoltaic during this time period.</p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-32-1.png" width="960" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-35-1.png" width="960" /></p>
 </div>
 </div>
 <div id="the-world-bank-wb-data" class="section level2" number="4.2">
@@ -3330,12 +3330,10 @@ TX
 <div id="missing-values-analysis-of-the-wb-data" class="section level3" number="4.2.1">
 <h3><span class="header-section-number">4.2.1</span> Missing values analysis of the WB data</h3>
 <p>We examined missing data in the WB data set from two perspectives - by development indicators (row) and years (column). We observed that 4 indicators (Pov Rt, Ext Debt, Debt Sv %, and ODA) are completely missing in the dataset. Additionally the earlier years (1960 - 1969) have 29-36 missing indicators with the exception of the last year’s (2020) data. It is possible that 2020 data is not available because of a time lag in publishing data for such development indicators. The tables of top 15 missing values by rows/columns are listed below:</p>
-<pre><code>##     Pov Rt   Ext Debt  Debt Sv %        ODA  Prim Comp   Start up    Water P 
-##         59         59         59         59         56         52         51 
-##        HIV   Under Wt  Migration   HT Exp %   Contr Pr   Prim Sch     Agri % 
-##         49         48         47         45         40         36         36 
-## Industry % 
-##         36</code></pre>
+<pre><code>##     Pov Rt   Ext Debt  Debt Sv %        ODA  Prim Comp   Start up    Water P        HIV   Under Wt  Migration   HT Exp % 
+##         59         59         59         59         56         52         51         49         48         47         45 
+##   Contr Pr   Prim Sch     Agri % Industry % 
+##         40         36         36         36</code></pre>
 <pre><code>## 1960 1961 1963 1964 1966 1968 1969 2020 1962 1967 1965 1971 1970 1972 1974 
 ##   36   33   31   31   31   31   31   31   30   30   29   25   24   23   23</code></pre>
 <p>We further analyzed the missing value patterns in the development indicators using the mi:missing_data function which excluded the 4 indicators (listed above) that are completely missing from the WB data set. The heatmap of missing values analysis by data fields provided us with the missing value patterns for example GNI PPP and GNI PC PPP are both missing on same years (pre-1990). It also confirmed that the indicators that are required for our data analysis such as CO2 Emis PC, GNI PC, Energy Use PC, GDP %, and Power Cons PC are largely present in the historical data set to explore important trends for U.S. clean energy industry.</p>
@@ -3348,7 +3346,7 @@ TX
 ## [4,] &quot;Fertility Rt&quot; &quot;Ado Ft&quot;      
 ## [5,] &quot;Fertility Rt&quot; &quot;Mort Rt&quot;     
 ## [6,] &quot;Ado Ft&quot;       &quot;Mort Rt&quot;</code></pre>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-34-1.png" width="672" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-37-1.png" width="672" /></p>
 
 </div>
 </div>

@@ -156,15 +156,12 @@
 <li><strong>state:</strong> contains the state in which the power was generated. Unique values include all 50 USA states</li>
 <li><strong>fuel:</strong> contains the fuel type, with unique values listed below:</li>
 </ul>
-<pre><code>##  [1] &quot; coal &quot;                           &quot; petroleum liquids &quot;             
-##  [3] &quot; petroleum coke &quot;                 &quot; natural gas &quot;                   
-##  [5] &quot; other gases &quot;                    &quot; nuclear &quot;                       
-##  [7] &quot; conventional hydroelectric &quot;     &quot; other renewables (total) &quot;      
-##  [9] &quot; wind &quot;                           &quot; all utility-scale solar &quot;       
-## [11] &quot; utility-scale photovoltaic &quot;     &quot; utility-scale thermal &quot;         
-## [13] &quot; geothermal &quot;                     &quot; wood and wood-derived fuels &quot;   
-## [15] &quot; other biomass &quot;                  &quot; hydro-electric pumped storage &quot; 
-## [17] &quot; other &quot;                          &quot; all solar &quot;                     
+<pre><code>##  [1] &quot; coal &quot;                           &quot; petroleum liquids &quot;              &quot; petroleum coke &quot;                
+##  [4] &quot; natural gas &quot;                    &quot; other gases &quot;                    &quot; nuclear &quot;                       
+##  [7] &quot; conventional hydroelectric &quot;     &quot; other renewables (total) &quot;       &quot; wind &quot;                          
+## [10] &quot; all utility-scale solar &quot;        &quot; utility-scale photovoltaic &quot;     &quot; utility-scale thermal &quot;         
+## [13] &quot; geothermal &quot;                     &quot; wood and wood-derived fuels &quot;    &quot; other biomass &quot;                 
+## [16] &quot; hydro-electric pumped storage &quot;  &quot; other &quot;                          &quot; all solar &quot;                     
 ## [19] &quot; small-scale solar photovoltaic &quot;</code></pre>
 <p>The fuels are aggregated hierarchically as outlined below:</p>
 <ul>
@@ -174,22 +171,14 @@
 <li><strong>All solar:</strong> includes the aggregation of power generation for small-scale solar photovoltaic and all utility-scale solar.</li>
 </ul>
 <p>The column summaries of data types and statistics (for numeric columns) are shown below:</p>
-<pre><code>##  thousand_megawatthours     date              state          
-##  Min.   : -316.725      Length:145239      Length:145239     
-##  1st Qu.:    5.075      Class :character   Class :character  
-##  Median :   47.678      Mode  :character   Mode  :character  
-##  Mean   :  621.139                                           
-##  3rd Qu.:  313.681                                           
-##  Max.   :30948.398                                           
-##  NA&#39;s   :1065                                                
-##      fuel          
-##  Length:145239     
-##  Class :character  
-##  Mode  :character  
-##                    
-##                    
-##                    
-## </code></pre>
+<pre><code>##  thousand_megawatthours     date              state               fuel          
+##  Min.   : -316.725      Length:145239      Length:145239      Length:145239     
+##  1st Qu.:    5.075      Class :character   Class :character   Class :character  
+##  Median :   47.678      Mode  :character   Mode  :character   Mode  :character  
+##  Mean   :  621.139                                                              
+##  3rd Qu.:  313.681                                                              
+##  Max.   :30948.398                                                              
+##  NA&#39;s   :1065</code></pre>
 <p>The dataset has dimensions of:</p>
 <pre><code>## [1] 145239      4</code></pre>
 <p>or 145239 rows and 4 columns.</p>
@@ -205043,7 +205032,7 @@ Cost per barrel
 <thead>
 <tr>
 <th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
-Short.Row.Name
+ï..Short.Row.Name
 </th>
 <th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
 Long.Row.Name…Description.

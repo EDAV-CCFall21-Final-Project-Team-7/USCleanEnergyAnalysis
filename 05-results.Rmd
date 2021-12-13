@@ -370,12 +370,13 @@ However, it should be kept in mind that the actual energy production is represen
 
 ## Correlation of Energy Consumption, CO2 Emission and Economic Indicators
 
+The WB data validates that the CO2 emission is correlated with the fossil-fuel based energy consumption in the U.S. As more of our growing energy demands are met from fossil fuel-based energy sources such as oil and coal – it leads to the rise of CO2 emission per capita. For example we observed about 30% increase in per capita C02 emission between 1960 -1980.  
+
+
 ```{r, echo=F, warning=F}
 library(tidyverse)
 library (dplyr)
-library(GGally)
 library(ggpmisc)
-
 
 us_wb_df <- as.data.frame(read_csv('data/raw/clean_worldbank.csv'))
 row.names(us_wb_df)<-us_wb_df[,"Series"]
@@ -388,21 +389,6 @@ my_us_wb_df_p <- as.data.frame(t(us_wb_df))
 my_us_wb_df_p <- my_us_wb_df_p %>% relocate('GDP %', .before = 'GDP T')
 my_us_wb_df_p <- my_us_wb_df_p %>% relocate('GNI PC', .before = 'GDP %')
 
-ggparcoord(my_us_wb_df_p, columns = 23:27,  alphaLines = 0.3, scale = "uniminmax") + 
-  geom_vline(xintercept = 1:8, color = "lightblue") +
-  ggtitle("U.S. Macro Energy Consumption, \n CO2 Emission, & Economic Indicators ") + 
-  xlab("") + 
-  ylab("Standardize Scale") +
-  theme_classic(16) +
-  theme(plot.title = element_text(hjust=.5))
-
-# ggparcoord(my_us_wb_df_p, columns = 23:27, scale = "uniminmax", alphaLines = 0.3, splineFactor = 10) + 
-#   geom_vline(xintercept = 1:8, color = "lightblue") +
-#   ggtitle("US Macro Energy Consumption, CO2 Emission, & Economic Indicators ") + 
-#   xlab("") + 
-#   ylab("") +
-#   theme(plot.title = element_text(hjust=.5))
-
 # Annual CO2 emission trend plot
 
 ggplot(my_us_wb_df_p, aes( my_us_wb_df_p$`Energy Use`, my_us_wb_df_p$`C02 Em`)) +
@@ -414,6 +400,34 @@ ggplot(my_us_wb_df_p, aes( my_us_wb_df_p$`Energy Use`, my_us_wb_df_p$`C02 Em`)) 
   stat_poly_eq(formula = y~x) +
   theme_classic(16) +
   theme(plot.title = element_text(hjust=.5))
+```
+
+The parallel coordinate plot below shows correlation of per capita CO2 emission with the per capita fossil-fuel based power consumption, overall electricity consumption and gross national income (GNI) along with gross domestic product (GDP %) change.   
+
+```{r, echo=F, warning=F}
+
+library(GGally)
+
+
+ggparcoord(my_us_wb_df_p, columns = 23:27,  alphaLines = 0.3, scale = "uniminmax") + 
+  geom_vline(xintercept = 1:8, color = "lightblue") +
+  ggtitle("U.S. Macro Energy Consumption, \n CO2 Emission, & Economic Indicators ") + 
+  xlab("") + 
+  ylab("Standardize Scale") +
+  theme_classic(16) +
+  theme(plot.title = element_text(hjust=.5))
+
+
+
+```
+
+We observed the clear reduction of per capita CO2 emission by about 25% between 2000 - 2020 as more power demand are met from clean and renewable energy sources as well as shift to natural gas (cleaner fossil-fuel compared to oil and coal) .
+
+```{r, echo=F, warning=F}
+
+library(tidyverse)
+library (dplyr)
+library(ggpmisc)
 
 
 my_us_wb_df_p_yr <- my_us_wb_df_p
@@ -431,6 +445,7 @@ ggplot(my_us_wb_df_p_yr_2000, aes( my_us_wb_df_p_yr_2000$Year, my_us_wb_df_p_yr_
   theme(plot.title = element_text(hjust=.5))
 
 ```
+
 
 
 
